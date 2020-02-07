@@ -13,13 +13,9 @@ app.use(express.json())
 
 // Connect to Database
 const dbURL = process.env.DB_URL
-const db = mongoose.connect(dbURLL, {useNewUrlParser: true})
-db.on('error', () => {
-    console.log('An error occurred from the database')
-})
-db.once('open', () => {
-    console.log('Succesfully connected to the database')
-})
+mongoose.connect(dbURL, {useUnifiedTopology: true, useNewUrlParser: true, useCreateIndex: true})
+mongoose.connection.on('error', () => console.log('An error occurred from the database'))
+mongoose.connection.once('open', () => console.log('Succesfully connected to the database'))
 
 // Configure App Routes
 const loginRouter = require('./routes/login')

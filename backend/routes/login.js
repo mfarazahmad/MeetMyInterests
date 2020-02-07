@@ -1,17 +1,17 @@
 const router = require('express').Router()
 const User = require('../models/user-model')
 
-router.route.get('/', (req, res) => {
+router.route('/').get((req, res) => {
     User.find()
     .then(users => res.json({'msg':'List of users', 'data': users}))
     .catch(err => res.status(400).json({'msg':'Error: ' + err}))
 })
 
-router.route.post('/login', (req, res) => {
-   const username = req.data.username
-   const password = req.data.password
+router.route('/login').post((req, res) => {
+   const username = req.body.username
+   const password = req.body.password
 
-   User.findOne({username}).select()
+   User.findOne({username})
    .then(user => {
         if (user.password != password ) {
             res.json({'msg':`Invalid password!`})
@@ -22,10 +22,10 @@ router.route.post('/login', (req, res) => {
    .catch(() => res.status(400).json({'msg':`Username ${username} does not exist!`}))
 })
 
-router.route.post('/addUser', (res, req) => {
-    const username = req.data.username
-    const password = req.data.password
-    const email = req.data.email
+router.route('/addUser').post( (req, res) => {
+    const username = req.body.username
+    const password = req.body.password
+    const email = req.body.email
 
     newUser = new User({
         username,
