@@ -2,7 +2,7 @@
 // Validates contact data
 function validContact(data) {
     validData = {'status':true, 'errors': []}
-    const name, contact, contact_type, inquery, avail, desc = {...data}
+    const {name, contact, contact_type, inquery, avail, desc} = {...data}
     
     if (contact_type === 'phone') {
         if (contact.length !== 10) {

@@ -1,11 +1,11 @@
 const router = require('express').Router()
 const Contact = require('../models/contact_model')
-const validContact = require('../validators/validContact')
+const validContact = require('../utils/validators/validContact')
 const gotMail = require('../utils/email/gotMail')
 
 router.route('/save').post((req, res) => {
     const data = req.body.payload
-    const name, contact, contact_type, inquery, avail, desc = {...data}
+    const {name, contact, contact_type, inquery, avail, desc} = {...data}
     
     // Validate contact data
     validData = validContact(data)
