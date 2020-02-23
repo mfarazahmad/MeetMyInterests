@@ -9,7 +9,7 @@ router.route('/save').post((req, res) => {
     // Validate contact data
     validData = validContact(data)
 
-    if (validData) {
+    if (validData['status']) {
         
         // Save Contact Info in Database
         newContact = new Contact({
@@ -20,10 +20,12 @@ router.route('/save').post((req, res) => {
             avail,
             desc
         })
-        
+
         newContact.save()
         .then(() => res.json({'status':'SUCCESS', 'msg': 'Saved Contact Data'}))
-        .catch(err => res.status(400).json({'status':'FAILED', 'msg':'Failed to add contact' + err}))
+        .catch(err => res.status(400).json({'status':'FAILED', 'msg':'Failed to save contact!' + err}))
+    } else {
+        res.status(400).res.json({'status':'FAILED', 'msg':'Invalid form data!','errors':validData['errors'] })
     }
 })
 
