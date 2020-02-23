@@ -22,7 +22,7 @@ class LeftNavi extends Component {
 
         axios.get('www.google.com')
         .then((resp) => {   
-                conmsole.log(resp.data);
+                console.log(resp.data);
                 weatherData = resp.data;
             })
         .catch((err) => {
