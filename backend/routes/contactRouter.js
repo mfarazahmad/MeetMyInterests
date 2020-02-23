@@ -1,6 +1,7 @@
 const router = require('express').Router()
 const Contact = require('../models/contact_model')
 const validContact = require('../validators/validContact')
+//const gotMail = require('../utils/email/gotMail')
 
 router.route('/save').post((req, res) => {
     const data = req.body.payload
@@ -22,7 +23,12 @@ router.route('/save').post((req, res) => {
         })
 
         newContact.save()
-        .then(() => res.json({'status':'SUCCESS', 'msg': 'Saved Contact Data'}))
+        .then(
+            () => {
+                // Email me the contact info
+                // gotMail('contact_template', data)
+                res.json({'status':'SUCCESS', 'msg': 'Saved Contact Data'})
+            })
         .catch(err => res.status(400).json({'status':'FAILED', 'msg':'Failed to save contact!' + err}))
     } else {
         res.status(400).res.json({'status':'FAILED', 'msg':'Invalid form data!','errors':validData['errors'] })
