@@ -1,5 +1,6 @@
 
 import React, {Component} from 'react';
+import WeatherImg from './Weather/WeatherImg'
 
 class LargeWeather {
 
