@@ -1,8 +1,7 @@
 import React, {Component} from 'react';
 import axios from 'axios';
 import Logo from '../Widgets/Logo'
-import MiniWeather from '../Widgets/MiniWeather'
-import Axios from 'axios';
+import MiniWeather from '../Widgets/Weather/MiniWeather'
 
 class LeftNavi extends Component {
     constructor(props) {
@@ -20,7 +19,7 @@ class LeftNavi extends Component {
 
     getWeatherData() {
         let weatherData = [];
-        
+
         axios.get('www.google.com')
         .then((resp) => {   
                 conmsole.log(resp.data);
