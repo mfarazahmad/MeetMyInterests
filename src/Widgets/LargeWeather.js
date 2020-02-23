@@ -21,7 +21,7 @@ class LargeWeather {
         return (
             <div className="LgWeatherContainer">
                 <ul>
-                    {props.weather.map((data, index) => {
+                    {this.state.weatherData && this.state.weatherData.map((data, index) => {
                         <li key={index}>{data['temperature']}</li>
                     })}
                 </ul>
