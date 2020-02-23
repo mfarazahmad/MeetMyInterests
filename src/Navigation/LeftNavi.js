@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
+import axios from 'axios';
 import Logo from '../Widgets/Logo'
 import MiniWeather from '../Widgets/MiniWeather'
+import Axios from 'axios';
 
 class LeftNavi extends Component {
     constructor(props) {
@@ -9,17 +11,24 @@ class LeftNavi extends Component {
         this.state ={};
         
         this.handleChange = this.handleChange.bind(this);
+        this.getWeatherData = this.getWeatherData.bind(this);
     }
 
     handleChange(e) {
         console.log(e);
     }
 
+    getWeatherData() {
+        axios.get('www.google.com');
+        .then(() => conmsole.log(data));
+        .catch((err) => console.log(err));
+    }
+
     render() {
         return (
             <div>
                 <Logo />
-                <MiniWeather />
+                <MiniWeather weather={this.getWeatherData}/>
                 <div className="NaviLinks">
                     <div>Home</div>
                     <div>Portfolio</div>
