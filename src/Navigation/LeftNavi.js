@@ -19,9 +19,18 @@ class LeftNavi extends Component {
     }
 
     getWeatherData() {
-        axios.get('www.google.com');
-        .then(() => conmsole.log(data));
-        .catch((err) => console.log(err));
+        let weatherData = [];
+        
+        axios.get('www.google.com')
+        .then((resp) => {   
+                conmsole.log(resp.data);
+                weatherData = resp.data;
+            })
+        .catch((err) => {
+                console.log(err);
+        });
+
+        return weatherData;
     }
 
     render() {
