@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
-
+import Logo from '../Widgets/Logo'
+import MiniWeather from '../Widgets/MiniWeather'
 
 class LeftNavi extends Component {
     constructor(props) {
@@ -18,7 +19,7 @@ class LeftNavi extends Component {
         return (
             <div>
                 <Logo />
-                <Weather />
+                <MiniWeather />
                 <div className="NaviLinks">
                     <div>Home</div>
                     <div>Portfolio</div>
