@@ -18,12 +18,13 @@ class LeftNavi extends Component {
     }
 
     getWeatherData() {
-        let weatherData = [];
+        let weatherData = {'week':[], 'today':{} };
 
         axios.get('www.google.com')
         .then((resp) => {   
                 console.log(resp.data);
-                weatherData = resp.data;
+                weatherData['week'] = resp.data[0];
+                weatherData['today'] = resp.data[1];
             })
         .catch((err) => {
                 console.log(err);
