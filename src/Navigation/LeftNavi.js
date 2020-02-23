@@ -16,7 +16,16 @@ class LeftNavi extends Component {
 
     render() {
         return (
-            <div onClick={this.handleChange}>Heyyyy</div>
+            <div>
+                <Logo />
+                <Weather />
+                <div className="NaviLinks">
+                    <div>Home</div>
+                    <div>Portfolio</div>
+                    <div>Contact</div>
+                    <div>Dashboard</div>
+                </div>
+            </div>
         );
     }
 }
