@@ -1,5 +1,5 @@
 
-import WeatherImg from './Weather/WeatherImg'
+import WeatherImg from './WeatherImg'
 
 
 function MiniWeather(props) {

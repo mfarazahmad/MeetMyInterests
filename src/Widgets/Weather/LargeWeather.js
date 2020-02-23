@@ -1,6 +1,6 @@
 
 import React, {Component} from 'react';
-import WeatherImg from './Weather/WeatherImg'
+import WeatherImg from './WeatherImg'
 
 class LargeWeather {
 
@@ -22,7 +22,7 @@ class LargeWeather {
         return (
             <div className="LgWeatherContainer">
                 <div className="Today">
-                    <WeatherImg condition={data['condition']}/>
+                    <WeatherImg condition={this.state.weatherData['today']['condition']}/>
                     <div className="CurrentDay" key={index}>{this.state.weatherData['today']['day']}</div>
                     <div className="CurrentTemp" key={index}>{this.state.weatherData['today']['temperature']}</div>
                     <div className="CurrentCondition" key={index}>{this.state.weatherData['today']['condition']}</div>
