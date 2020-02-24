@@ -19,16 +19,23 @@ class LeftNavi extends Component {
 
     getWeatherData() {
         let weatherData = {'week':[], 'today':{} };
+        
+        let detailedUrl = '';
+        let url = 'https://api.weather.gov/points/33.76,-84.43';
+        axios.get(url)
+            .then((resp) => {   
+                    console.log(resp.data['properties']['forecast']);
+                    detailedUrl = resp.data['properties']['forecast'];
 
-        axios.get('www.google.com')
-        .then((resp) => {   
-                console.log(resp.data);
-                weatherData['week'] = resp.data[0];
-                weatherData['today'] = resp.data[1];
-            })
-        .catch((err) => {
-                console.log(err);
-        });
+                    axios.get(detailedUrl)
+                        .then((resp) => {   
+                            console.log(resp.data);
+                            let weekData = resp.data['properties']['periods'];
+                            weatherData['week'] = weekData;
+                            weatherData['today'] = weekData[0];
+                        });
+                })
+            .catch((err) => {console.log(err); });
 
         return weatherData;
     }
