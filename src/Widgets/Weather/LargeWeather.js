@@ -46,4 +46,4 @@ class LargeWeather {
     }
 }
 
-export default LgWeather;LargeWeather
+export default LargeWeather;
