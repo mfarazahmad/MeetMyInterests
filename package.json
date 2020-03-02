@@ -4,7 +4,10 @@
   "description": "Personal Portfolio",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
   },
   "repository": {
     "type": "git",
@@ -15,5 +18,19 @@
   "bugs": {
     "url": "https://github.com/mfarazahmad/FarazPortfolio/issues"
   },
-  "homepage": "https://github.com/mfarazahmad/FarazPortfolio#readme"
+  "homepage": "https://github.com/mfarazahmad/FarazPortfolio#readme",
+  "dependencies": {
+    "axios": "^0.19.2",
+    "dotenv": "^8.2.0",
+    "enzyme": "^3.11.0",
+    "jest": "^25.1.0",
+    "node-sass": "^4.13.1",
+    "react": "^16.13.0",
+    "react-dom": "^16.13.0",
+    "react-router": "^5.1.2",
+    "react-scripts": "^3.4.0"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  }
 }
