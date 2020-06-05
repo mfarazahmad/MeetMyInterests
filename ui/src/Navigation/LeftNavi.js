@@ -24,6 +24,7 @@ class LeftNavi extends Component {
         let url = 'https://api.weather.gov/points/33.76,-84.43';
         axios.get(url)
             .then((resp) => {   
+                    console.log(resp);
                     console.log(resp.data['properties']['forecast']);
                     detailedUrl = resp.data['properties']['forecast'];
 
@@ -44,7 +45,7 @@ class LeftNavi extends Component {
         return (
             <div>
                 <Logo />
-                <MiniWeather weather={this.getWeatherData}/>
+                <MiniWeather weather={this.getWeatherData()}/>
                 <div className="NaviLinks">
                     <div>Home</div>
                     <div>Portfolio</div>

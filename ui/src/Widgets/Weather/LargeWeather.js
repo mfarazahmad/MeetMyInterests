@@ -2,7 +2,7 @@
 import React, {Component} from 'react';
 import WeatherImg from './WeatherImg'
 
-class LargeWeather {
+class LargeWeather extends Component{
 
     constructor(props) {
 
