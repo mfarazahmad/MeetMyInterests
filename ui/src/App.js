@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
-import LeftNavi from './Navigation/LeftNavi'
-import Home from './Main/Home';
+import LeftNavi from './Components/Navigation/LeftNavi'
+import Home from './Components/Main/Home';
 
 function App() {
   return (
