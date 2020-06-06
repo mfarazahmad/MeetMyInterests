@@ -6,6 +6,8 @@
 
 - Responsive, Interactive UI Components to Showcase Professional Experience
 - ChatBot for Limited Assistance
+
+### Coming Soon!
 - Full Blog with Technical Tutorial Posts
 - Photography Gallery
 - Singing Videos
