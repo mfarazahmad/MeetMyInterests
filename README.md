@@ -1,9 +1,11 @@
 # Welcome to MeetMyInterests!
 
-## This application serves as a portal into my professional background, as well as a handful of other
+## This application serves as a portal into my professional background and interests.
 
 ### Features
 
+- Responsive, Interactive UI Components to Showcase Professional Experience
+- ChatBot for Limited Assistance
 - Full Blog with Technical Tutorial Posts
 - Photography Gallery
 - Singing Videos
