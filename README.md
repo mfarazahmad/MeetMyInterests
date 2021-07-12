@@ -12,3 +12,4 @@
 - Photography Gallery
 - Singing Videos
 - Fitness Tracker (For Weightlifting, Full Body | Upper-Lower | PPL)
+- Guitar Tracker
