@@ -1,0 +1,35 @@
+.newBlogPost {
+    position: absolute;
+    top:300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    width: 300px;
+
+    border:1px solid black;
+    border-radius: 10px;
+    box-shadow: 2px 3px black;
+    padding: 20px;
+}
+
+.topMenuBlog {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+
+}
+
+.mainNewBlog {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.postCard {
+    
+}

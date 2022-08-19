@@ -1,121 +1,146 @@
-.container {
-  min-height: 100vh;
-  padding: 0 0.5rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
+.pingpong {
+  position:absolute;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  z-index:-1;
+  background: #002651;
+  cursor: pointer;
 }
 
 .main {
-  padding: 5rem 0;
-  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  padding-top:30px;
+  padding-left:200px;
+  cursor: pointer;
+}
+
+
+.header {
+  color: #ff304f;
+  font-size: 3em;
+  font-family: 'Arima Madurai', cursive;
+  margin-bottom: 0px;
+  text-shadow: 3px 2px;
+}
+
+.header3 {
+  margin-top: 0px;
+  color: #28c7fa;
+  font-size: 2em;
+  font-family: 'Nunito Sans', sans-serif;
+}
+
+.button {
+  box-shadow: 2px 3px black;
+  background: #775ada;
+  height: 50px;
+  width: 200px;
+  border-radius: 25px;
+  color: white;
+}
+
+.button:hover {
+  background: white;
+  color: black;
+}
+
+.intro {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
 
-.footer {
+.pitch {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  height: 100%;
   width: 100%;
-  height: 100px;
-  border-top: 1px solid #eaeaea;
+  margin-bottom: 50px;
+}
+
+.pitchLeft:hover,.pitchRight:hover {
+  border: 5px solid #775ada;
+}
+
+.pitchLeft,.pitchRight {
+  width: 20%;
+  height: 300px;
+  max-width: 200px;
+  max-height: 300px;
+  border: 3px solid black;
+  border-radius: 40px;
+  background: #ff304f;
+  color:white;
+  opacity: .8;
+  text-align: center;
+
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
 }
 
-.footer a {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-grow: 1;
-}
-
-.title a {
-  color: #0070f3;
-  text-decoration: none;
-}
-
-.title a:hover,
-.title a:focus,
-.title a:active {
-  text-decoration: underline;
+.pitchRight {
+  height: 100%;
+  width: 30%;
+  max-width: 200px;
+  max-height: 450px;
+  color: #ff304f;
+  background: white;
 }
 
 .title {
-  margin: 0;
-  line-height: 1.15;
-  font-size: 4rem;
+  font-size: 1.7em;
+  padding: 10px;
+  font-weight: bold;
 }
 
-.title,
-.description {
-  text-align: center;
+.companyLogos img {
+  width: 100px;
+  margin-bottom: 10px;
 }
 
-.description {
-  line-height: 1.5;
-  font-size: 1.5rem;
+.companyLogos img:hover {
+  width: 120px;
 }
 
-.code {
-  background: #fafafa;
-  border-radius: 5px;
-  padding: 0.75rem;
-  font-size: 1.1rem;
-  font-family: Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono,
-    Bitstream Vera Sans Mono, Courier New, monospace;
+.technologyLogos img {
+  width: 70px;
+  margin-right: 15px;
 }
 
-.grid {
+.technologyLogos img:hover {
+  width: 90px;
+}
+
+.techStream {
   display: flex;
-  align-items: center;
+  flex-direction: row;
   justify-content: center;
-  flex-wrap: wrap;
-  max-width: 800px;
-  margin-top: 3rem;
+  align-items: center;
+
+  border: 5px solid black;
+  border-radius: 40px;
+  background: #775ada;
+  color:white;
+  opacity: .9;
+  z-index: -1;
+
 }
 
-.card {
-  margin: 1rem;
-  padding: 1.5rem;
-  text-align: left;
-  color: inherit;
-  text-decoration: none;
-  border: 1px solid #eaeaea;
-  border-radius: 10px;
-  transition: color 0.15s ease, border-color 0.15s ease;
-  width: 45%;
-}
-
-.card:hover,
-.card:focus,
-.card:active {
-  color: #0070f3;
-  border-color: #0070f3;
-}
-
-.card h2 {
-  margin: 0 0 1rem 0;
-  font-size: 1.5rem;
-}
-
-.card p {
-  margin: 0;
-  font-size: 1.25rem;
-  line-height: 1.5;
-}
-
-.logo {
-  height: 1em;
-  margin-left: 0.5rem;
-}
-
-@media (max-width: 600px) {
-  .grid {
-    width: 100%;
-    flex-direction: column;
-  }
+.techStream img {
+  width: 50px;
+  margin-right: 5px;
 }
