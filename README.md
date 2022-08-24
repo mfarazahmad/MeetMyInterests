@@ -75,12 +75,12 @@ docker run -p 9100:9100 service-portfolio
 ### Swagger
 
 ### Linter
-golangci-lint is used as the primary linter for the go services as it has many different types of linters avaiable to maintan a coding standard. 
+Linting is utilized to maintain a safe, readable, and consistent coding standard throughout the services.
+
+- golangci-lint is used as the primary linter for the go services as it has many different types of linters avaiable.
 
 ```
-go install github.com/golangci/golangci-lint/cmd/golangci-lint@latest
-
-golangci-lint run ./...
+make testcoverage && make lint
 ```
 ## Coming Soon!
 - Full Blog with Technical Tutorial Posts & Journey | Gifs, Images, Charts
