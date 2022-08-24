@@ -4,6 +4,8 @@ import {Col, Row, Tabs}  from 'antd';
 import {Card, Descriptions, Tag} from 'antd';
 import {Button, Select} from 'antd';
 
+const {TabPane} = Tabs;
+
 import {anatomyOptions, excerciseOptions, excerciseTypeOptions, programOptions} from '../../utils/constants';
 
 
@@ -45,7 +47,7 @@ const ProgramDisplay = (props) => {
 
                                         <li> <em>Anatomy</em>: {item.anatomy && item.anatomy.length > 0 ? 
                                             item.anatomy.map( (anatomyItems, key) => (
-                                                <Tag color="green">{anatomyOptions[anatomyItems]['label']} </Tag>
+                                                <Tag key={key} color="green">{anatomyOptions[anatomyItems]['label']} </Tag>
                                             ))   : 'N/A' } 
                                         </li>
                                         <li> <em>Recommended Volume</em>: {item.volume} | <em>Recommended Sets</em> {item.recommendedSets} |  <em>Recommended Reps</em>{item.recommendedReps} </li>
@@ -53,7 +55,7 @@ const ProgramDisplay = (props) => {
                                         
                                         <li> <em>Equipment</em>: {item.equipment && item.equipment.length > 0 ? 
                                             item.equipment.map( (equipmentItems, key) => (
-                                                <Tag color="blue">{equipmentItems} </Tag>
+                                                <Tag key={key} color="blue">{equipmentItems} </Tag>
                                             ))   : 'N/A' } 
                                         </li>
                                     </Card>

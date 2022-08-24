@@ -51,7 +51,7 @@ const ProgramForm = (props) => {
                 </Col>
                 <Col span={12}>
                     {props.newProgramExcercises.map((item, key) => (
-                        <Card label={`Workout ${key}`}>
+                        <Card key={key} label={`Workout ${key}`}>
                             <li><strong>Excercise:</strong> {item['excercise']}</li>
                             <li><strong>Sets:</strong> {item['recommendedSets']}</li>
                             <li><strong>Reps:</strong> {item['recommendedReps']}</li>

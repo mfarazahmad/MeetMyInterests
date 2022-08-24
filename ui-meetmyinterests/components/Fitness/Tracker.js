@@ -17,7 +17,7 @@ const Tracker = (props) => {
 
     return (
         <div className='tracker'>
-            <h3 style={{fontWeight: 'bold'}}>Log Today's Activities</h3>
+            <h3 style={{fontWeight:"bold"}}>Log Today&apos;s Activities</h3>
             <Row gutter={16}>
                 <Col span={8}>
                     <Divider orientation="left">Measurements</Divider>

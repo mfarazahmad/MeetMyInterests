@@ -5,7 +5,7 @@
 ![](MeetMyInterests.png)
 
 ## Services
-- Responsive, Interactive UI to Showcase Professional Experience
+- Responsive, Interactive UI to Showcase Professional Experience (ui-meetmyinterests)
     - React/ Next.js (SSR)
     - HTML5 Canvas
     - Media Queries
@@ -23,7 +23,7 @@
 - Containerization via Docker & Managed by Kubernetes & Helm Charts
 - Isitio leveraged as API Gateway for Load Balancing
 - Isitio used as Service Mesh for service discovery
-- Deloyed on AWS EKS via Terraform
+- Deloyed on Azure AKS via Terraform
 - Utilizing Redis for Cacheing of User Sessiom
 - MongoDB Cluster Sharding w/ 3 nodes
 - Logging using Datadog
@@ -32,7 +32,7 @@
 
 - Pipeline Orchestrator coming soon! (Harness)
 
-## Running on Machine Locally
+## Local Setup
 
 ### Languages
 ```
@@ -60,16 +60,19 @@ npm run dev
 
 ### Infrastructure
 ```
-choco install awscli
+choco install azure-cli
 choco install docker
 choco install terraform
 choco install kubernetes-cli
 choco install kubernetes-helm
 choco install minikube
+```
 
-
-docker build --tag service-portfolio .
+## Running Containers Locally
+```
 docker run -p 9100:9100 service-portfolio
+docker run -p 9101:9101 service-blog
+docker run -p 3000:3000 meetmyinterests
 ```
 
 ### Swagger
@@ -78,6 +81,7 @@ docker run -p 9100:9100 service-portfolio
 Linting is utilized to maintain a safe, readable, and consistent coding standard throughout the services.
 
 - golangci-lint is used as the primary linter for the go services as it has many different types of linters avaiable.
+- eslinter is used as the linter for the node/next.js project
 
 ```
 make testcoverage && make lint

@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import React, {useEffect, useRef} from 'react'
 import styles from '../styles/Home.module.css'
 
@@ -370,9 +371,9 @@ const Home = (props) => {
                             Engineer @
                         </div>
                         <div className={styles.companyLogos}>
-                            <img src={"/images/tmobile_logo.webp"} />
-                            <img src={"/images/thd_logo.webp"} />
-                            <img src={"/images/pluto_logo.webp"} />
+                            <img src={"/images/tmobile_logo.webp"}  alt="t-mobile" />
+                            <img src={"/images/thd_logo.webp"}  alt="home depot" />
+                            <img src={"/images/pluto_logo.webp"}  alt="pluto" />
                         </div>
                     </div>
                     

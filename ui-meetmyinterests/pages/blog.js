@@ -36,7 +36,7 @@ const Blog = () => {
     useEffect(() => {
         console.log('Retrieving the latest Posts')
         getPosts()
-    }, [])
+    })
 
     const [posts, setPosts] = useState([])
     const [viewNewBlog, setViewNewBlog] = useState(false)
@@ -55,10 +55,11 @@ const Blog = () => {
                     <NewBlogPost handleNewBlogView={handleNewBlogView} />
                 )}
 
-                {posts && posts.map((post) => {
+                {posts && posts.map((post, i) => {
                     return (
                         <div 
                             className='postCard'
+                            key={i}
                         >
                             <h1>{post.Title}</h1>
                             <h2>{post.Subtitle}</h2>
