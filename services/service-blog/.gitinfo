@@ -1,0 +1,4 @@
+GIT_REPO=${git config --get remote.origin.url}
+GIT_BRANCH=$(git branch â€“show-current)
+GIT_COMMIT=$(git log -1 --format=format:"%H")
+GIT_MESSAGE=$(git log -1 --pretty=%B)
