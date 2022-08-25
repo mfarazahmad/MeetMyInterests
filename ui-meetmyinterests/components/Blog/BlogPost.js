@@ -27,7 +27,7 @@ const BlogPost = (props) => {
     useEffect(() => {
         console.log(`Retreiving Post ${props.postID} Details`)
         getPostDetails(props.postID)
-    }, [])
+    })
 
     const [postDetails, setPostDetails] = useState({})
 

@@ -13,7 +13,7 @@ const Navbar = () => {
                 </div>
                 <div>
                     <Badge count={1}>
-                    <Link href="/dash">
+                    <Link href="/dash" passHref>
                         <Avatar style={{ backgroundColor: 'red', verticalAlign: 'middle' }}  shape="square" size="large" gap={5}>
                             Dash
                         </Avatar>

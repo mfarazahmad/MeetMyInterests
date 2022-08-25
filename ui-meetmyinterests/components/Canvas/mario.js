@@ -252,7 +252,7 @@ const Mario = (props) => {
             init();
         });
 
-    }, []);
+    });
 
     return (
 

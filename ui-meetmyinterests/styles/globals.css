@@ -29,7 +29,9 @@ a {
     width: 100%;
 }
 
+@import '../node_modules/antd/dist/antd.css';
 @import '../styles/components/outline.css';
 @import '../styles/components/mario.css';
 @import '../styles/components/fitness.css';
+@import '../styles/components/blog.css';
 @import '../styles/components/blog.css';
