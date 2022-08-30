@@ -1,0 +1,46 @@
+syntax = "proto3";
+
+package blog;
+
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/empty.proto";
+
+option go_package = "./pb";
+
+service BloggerService {
+	// CRUD Operations on Blog
+	rpc GetBlog (BlogID) returns (BlogPost) {}
+	rpc GetBlogs (google.protobuf.Empty) returns (BlogPosts) {}
+	rpc SaveBlog (BlogSave) returns (BlogMessage) {}
+	rpc UpdateBlog (BlogPost) returns (BlogMessage) {}
+	rpc DeleteBlog (BlogID) returns (BlogMessage) {}
+}
+
+message BlogID {
+	string blogId = 1;
+}
+
+message BlogPost {
+	int32 blogId = 1;
+    string title = 2;
+	string subTitle = 3;
+    string category = 4;
+	string date = 5;
+	string post = 6;
+}
+
+message BlogPosts {
+	repeated BlogPost blogs = 1;
+}
+
+message BlogSave {
+    string title = 1;
+	string subTitle = 2;
+    string category = 3;
+	google.protobuf.Timestamp date = 4;
+	string post = 5;
+}
+
+message BlogMessage {
+    string message = 1;
+}
