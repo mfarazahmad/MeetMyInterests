@@ -1,5 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
-import React, {useEffect, useRef} from 'react'
+import React, { useEffect, useRef } from 'react'
+import Link from 'next/link'
 import styles from '../styles/Home.module.css'
 
 import Outline from '../components/Layout/Outline'
@@ -41,12 +42,12 @@ const Home = (props) => {
         }
 
         const randomSize = () => {
-            let size = Math.floor(Math.random() * windowHeight/20);
+            let size = Math.floor(Math.random() * windowHeight / 20);
             return size;
         }
 
         const randomRadius = () => {
-            let r = Math.floor(Math.random() * windowHeight/20);
+            let r = Math.floor(Math.random() * windowHeight / 20);
             return r;
         }
 
@@ -67,7 +68,7 @@ const Home = (props) => {
                 this.minRadius = r;
                 this.color = color;
             }
-            
+
             draw = () => {
                 // Coordinates begin at center of circle
                 c.beginPath();
@@ -79,7 +80,7 @@ const Home = (props) => {
             }
 
             update = () => {
-                if (this.x + this.radius >windowWidth || this.x - this.radius < 0)
+                if (this.x + this.radius > windowWidth || this.x - this.radius < 0)
                     this.dx = -this.dx;
                 if (this.y + this.radius > windowHeight || this.y - this.radius < 0)
                     this.dy = -this.dy;
@@ -88,9 +89,9 @@ const Home = (props) => {
                 this.y += this.dy;
 
                 // Interactivity
-                if  (   mouse.x - this.x < 50 && mouse.x - this.x > -50
-                    &&  mouse.y - this.y < 50 && mouse.y - this.y > -50 ) {
-                    
+                if (mouse.x - this.x < 50 && mouse.x - this.x > -50
+                    && mouse.y - this.y < 50 && mouse.y - this.y > -50) {
+
                     if (this.radius < maxContainerSize) this.radius += 1;
 
                 } else if (this.radius > this.minRadius) {
@@ -121,7 +122,7 @@ const Home = (props) => {
             }
 
             update = () => {
-                if (this.x + this.height >windowWidth || this.x < 0)
+                if (this.x + this.height > windowWidth || this.x < 0)
                     this.dx = -this.dx;
                 if (this.y + this.height > windowHeight || this.y < 0)
                     this.dy = -this.dy;
@@ -131,9 +132,9 @@ const Home = (props) => {
 
 
                 // Interactivity
-                if  (   mouse.x - this.x < 50 && mouse.x - this.x > -50
-                    &&  mouse.y - this.y < 50 && mouse.y - this.y > -50 ) {
-                    
+                if (mouse.x - this.x < 50 && mouse.x - this.x > -50
+                    && mouse.y - this.y < 50 && mouse.y - this.y > -50) {
+
                     if (this.height < maxContainerSize) {
                         this.height += 1;
                         this.width += 1;
@@ -169,7 +170,7 @@ const Home = (props) => {
             }
 
             update = () => {
-                if (this.x + this.radius >windowWidth || this.x - this.radius < 0)
+                if (this.x + this.radius > windowWidth || this.x - this.radius < 0)
                     this.dx = -this.dx;
                 if (this.y + this.radius > windowHeight || this.y - this.radius < 0)
                     this.dy = -this.dy;
@@ -178,38 +179,38 @@ const Home = (props) => {
                 this.y += this.dy;
 
                 // Top Left
-                if ((barPos.x - this.x < 50 &&  barPos.x - this.x  > 0) && (barPos.y - this.y < 25 &&  barPos.y - this.y > 0)) {
-                    if (keys.y === keys.v || keys.y === -keys.v ) {
+                if ((barPos.x - this.x < 50 && barPos.x - this.x > 0) && (barPos.y - this.y < 25 && barPos.y - this.y > 0)) {
+                    if (keys.y === keys.v || keys.y === -keys.v) {
                         this.dy = -this.dy;
-                    } else if (keys.x === keys.v || keys.x === -keys.v ) {
+                    } else if (keys.x === keys.v || keys.x === -keys.v) {
                         this.dx = -this.dx;
                     }
 
                 }
                 // Top Right
-                else if ((barPos.x - this.x < -50 &&  barPos.x - this.x  < 0) && (barPos.y - this.y < 25 &&  barPos.y - this.y > 0)) {
-                    if (keys.y === keys.v || keys.y === -keys.v ) {
+                else if ((barPos.x - this.x < -50 && barPos.x - this.x < 0) && (barPos.y - this.y < 25 && barPos.y - this.y > 0)) {
+                    if (keys.y === keys.v || keys.y === -keys.v) {
                         this.dy = -this.dy;
-                    } else if (keys.x === keys.v || keys.x === -keys.v ) {
+                    } else if (keys.x === keys.v || keys.x === -keys.v) {
                         this.dx = -this.dx;
                     }
 
-                }           
+                }
                 // Bottom Right
-                else if ((barPos.x - this.x < -50 &&  barPos.x - this.x  < 0) && (barPos.y - this.y < -25 &&  barPos.y - this.y < 0)) {
-                    if (keys.y === keys.v || keys.y === -keys.v ) {
+                else if ((barPos.x - this.x < -50 && barPos.x - this.x < 0) && (barPos.y - this.y < -25 && barPos.y - this.y < 0)) {
+                    if (keys.y === keys.v || keys.y === -keys.v) {
                         this.dy = -this.dy;
-                    } else if (keys.x === keys.v || keys.x === -keys.v ) {
+                    } else if (keys.x === keys.v || keys.x === -keys.v) {
                         this.dx = -this.dx;
                     }
 
-            
+
                 }
                 // Bottom Left
-                else if ((barPos.x - this.x < 50 &&  barPos.x - this.x  > 0) && (barPos.y - this.y < -25 &&  barPos.y - this.y < 0)) {
-                    if (keys.y === keys.v || keys.y === -keys.v ) {
+                else if ((barPos.x - this.x < 50 && barPos.x - this.x > 0) && (barPos.y - this.y < -25 && barPos.y - this.y < 0)) {
+                    if (keys.y === keys.v || keys.y === -keys.v) {
                         this.dy = -this.dy;
-                    } else if (keys.x === keys.v || keys.x === -keys.v ) {
+                    } else if (keys.x === keys.v || keys.x === -keys.v) {
                         this.dx = -this.dx;
                     }
                 }
@@ -235,11 +236,11 @@ const Home = (props) => {
 
             update = () => {
 
-                if (this.x + this.width >windowWidth || this.x < 0)
+                if (this.x + this.width > windowWidth || this.x < 0)
                     keys.x = -keys.x;
                 if (this.y + this.height > windowHeight || this.y < 0)
                     keys.y = -keys.y;
-                
+
                 this.x += keys.x;
                 this.y += keys.y;
 
@@ -266,7 +267,7 @@ const Home = (props) => {
             x: undefined,
             y: undefined,
         }
-    
+
         var circles = [];
         var rectangles = [];
         var pingpong = [];
@@ -278,24 +279,24 @@ const Home = (props) => {
             pingpong = [];
 
             // Create Background Circles | Rectangles
-            for (var i=0; i < 300; i++) {
+            for (var i = 0; i < 300; i++) {
 
                 let size = randomSize();
                 let r = randomRadius();
                 let color = randomColor();
                 let [x, y] = randomPos();
                 let [dx, dy] = randomVelocity()
-            
+
                 var circle = new Circle(color, x, y, dx, dy, r);
                 circles.push(circle);
-            
+
                 var rectangle = new Rectangle(color, x, y, dx, dy, size, size);
                 rectangles.push(rectangle);
             }
 
             // Create Ping Pong Game
-            var pongball = new PingPong('white',windowWidth/2, 100, 2, 2, 15);
-            var bar = new Bar(`rgba(247, 255, 0, 0.8)`,windowWidth/2, windowHeight-200, 100, 50);
+            var pongball = new PingPong('white', windowWidth / 2, 100, 2, 2, 15);
+            var bar = new Bar(`rgba(247, 255, 0, 0.8)`, windowWidth / 2, windowHeight - 200, 100, 50);
 
             pingpong.push(pongball);
             pingpong.push(bar);
@@ -304,14 +305,14 @@ const Home = (props) => {
         // Core Animation
         const animate = () => {
             requestAnimationFrame(animate);
-            c.clearRect(0, 0,windowWidth, windowHeight);
+            c.clearRect(0, 0, windowWidth, windowHeight);
 
-            for (var i=0; i < circles.length; i++) {
+            for (var i = 0; i < circles.length; i++) {
                 //circles[i].update();
                 rectangles[i].update();
             }
 
-            for (var i=0; i < pingpong.length; i++) {
+            for (var i = 0; i < pingpong.length; i++) {
                 pingpong[i].update();
             }
         }
@@ -320,29 +321,29 @@ const Home = (props) => {
         animate();
 
         // Event Listeners
-        addEventListener('mousemove', function(event) {
+        addEventListener('mousemove', function (event) {
             mouse.x = event.x;
             mouse.y = event.y;
         });
 
-        addEventListener('keydown', function(event) {
+        addEventListener('keydown', function (event) {
             switch (event.key) {
                 case 'ArrowLeft':
-                keys.x = -keys.v;
-                break;
+                    keys.x = -keys.v;
+                    break;
                 case 'ArrowUp':
-                keys.y = -keys.v;
-                break;
+                    keys.y = -keys.v;
+                    break;
                 case 'ArrowRight':
-                keys.x = keys.v;
-                break;
+                    keys.x = keys.v;
+                    break;
                 case 'ArrowDown':
-                keys.y = keys.v;
-                break;
+                    keys.y = keys.v;
+                    break;
             }
         });
 
-        addEventListener('resize', function() {
+        addEventListener('resize', function () {
 
             windowWidth = window.innerWidth;
             windowHeight = window.innerHeight;
@@ -358,12 +359,14 @@ const Home = (props) => {
     return (
         <Outline>
             <div className={styles.main}>
-                <canvas ref={canvasRef} className={styles.pingpong} {...props}/>
+                <canvas ref={canvasRef} className={styles.pingpong} {...props} />
                 <div className={styles.intro}>
                     <h1 className={styles.header}>Hello, my name is Faraz!</h1>
                     <h3 className={styles.header3}>Pleased to meet you.</h3>
 
-                    <button className={styles.button}>Click Here to Learn More!</button>
+                    <Link href="/projects" passHref>
+                        <button className={styles.button}>Click Here to Learn More!</button>
+                    </Link>
                 </div>
                 <div className={styles.pitch}>
                     <div className={styles.pitchLeft}>
@@ -371,12 +374,12 @@ const Home = (props) => {
                             Engineer @
                         </div>
                         <div className={styles.companyLogos}>
-                            <img src={"/images/tmobile_logo.webp"}  alt="t-mobile" />
-                            <img src={"/images/thd_logo.webp"}  alt="home depot" />
-                            <img src={"/images/pluto_logo.webp"}  alt="pluto" />
+                            <img src={"/images/tmobile_logo.webp"} alt="t-mobile" />
+                            <img src={"/images/thd_logo.webp"} alt="home depot" />
+                            <img src={"/images/pluto_logo.webp"} alt="pluto" />
                         </div>
                     </div>
-                    
+
                     <div className={styles.pitchRight}>
                         <div className={styles.title}>
                             Skills

@@ -26,7 +26,7 @@
 }
 
 .welcomeMsg div {
-  margin:10px;
+  margin: 10px;
 }
 
 .linkTags {
@@ -42,4 +42,14 @@
 
 .linkTags a:hover {
   color: #ff304f;
+}
+
+.social img {
+  cursor: pointer;
+  height: 50px;
+  width: 50px;
+}
+
+.social img:hover {
+  opacity: .8;
 }

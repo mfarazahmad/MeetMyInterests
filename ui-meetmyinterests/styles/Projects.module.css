@@ -1,0 +1,22 @@
+.main {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    padding-left: 200px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    background: linear-gradient(#775ada, #28c7fa);
+    overflow: scroll;
+}
+
+.header {
+    margin-top: 50px;
+    font-weight: 900;
+    font-size: 3em;
+    color: white;
+    font-family: 'Arima Madurai', cursive;
+}
