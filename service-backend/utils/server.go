@@ -15,7 +15,7 @@ func CreateRESTServer() {
 	router := createRouting()
 
 	credentials := handlers.AllowCredentials()
-	methods := handlers.AllowedMethods([]string{"GET", "POST"})
+	methods := handlers.AllowedMethods([]string{"GET", "POST", "PUT", "DELETE"})
 	origins := handlers.AllowedOrigins(c.CFG.WHITELIST)
 
 	app := http.Server{Addr: ":9100", Handler: handlers.CORS(credentials, methods, origins)(router)}

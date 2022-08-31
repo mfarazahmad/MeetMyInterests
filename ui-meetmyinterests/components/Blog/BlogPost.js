@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useRouter } from 'next/router'
 import axios from 'axios'
 
 import { Button } from 'antd';
@@ -19,7 +20,8 @@ const BlogPost = (props) => {
                 console.log(data.err)
             } else {
                 console.log(data.msg)
-                let updatedDetails = { ...postDetails, ...data.post }
+                console.log(data.posts)
+                let updatedDetails = { ...postDetails, ...data.posts[0] }
                 setPostDetails(updatedDetails)
             }
 
@@ -28,28 +30,50 @@ const BlogPost = (props) => {
         }
     }
 
-
     useEffect(() => {
         console.log(`Retreiving Post ${props.blogId} Details`)
         getPostDetails(props.blogId)
-    })
+    }, [])
 
     const [postDetails, setPostDetails] = useState({})
     const [isEditMode, setEditMode] = useState(false)
 
+    const router = useRouter()
+
     const handleEditMode = () => { setEditMode(true) }
+
+    const handleDeleteMode = async () => {
+        try {
+            let endpoint = `${process.env.NEXT_PUBLIC_HOSTNAME}/api/v1/post`
+            let resp = await axios.delete(`${endpoint}/${postDetails.blogId}`)
+            let data = resp.data;
+
+            if (data.err) {
+                console.log(data.err)
+            } else {
+                console.log(data.msg)
+                router.reload()
+            }
+
+        } catch (error) {
+            console.log(error)
+        }
+    }
 
     return (
         <div className='blogFullPage'>
-            <PostCard postDetails={postDetails} />
-            <div>{postDetails.subTitle}</div>
+            <PostCard handleFullPage={props.handleFullPage} postDetails={postDetails} blogId={postDetails.blogId} />
+            <div className='blogSubTitle'>{postDetails.subTitle}</div>
 
-            {isEditMode && <EditBlog blogId={postDetails.blogId} />}
+            {isEditMode && <EditBlog postDetails={postDetails} post={postDetails.post} blogId={postDetails.blogId} />}
 
             {!isEditMode && (
-                <div>
-                    <Button onClick={handleEditMode}>Edit</Button>
-                    <div dangerouslySetInnerHTML={{ __html: postDetails.post }} />
+                <div className='blogEditContainer'>
+                    <div className='blogEditContainerTopRow'>
+                        <Button className='blogEditBtn' onClick={handleEditMode}>Edit</Button>
+                        <Button className='blogEditBtn blogDeleteBtn' onClick={handleDeleteMode}>Delete</Button>
+                    </div>
+                    <div className='blogContent' dangerouslySetInnerHTML={{ __html: postDetails.post }} />
                 </div>
             )}
         </div>

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useRouter } from 'next/router'
 import axios from 'axios'
 import { stateToHTML } from "draft-js-export-html";
 
@@ -8,9 +9,10 @@ import BlogEditor from './Editor'
 
 const { Option } = Select;
 
-
 // POST /api/v1/post/new
 const NewBlogPost = (props) => {
+
+    const router = useRouter()
 
     const [title, setTitle] = useState('')
     const [subTitle, setSubtitle] = useState('')
@@ -67,13 +69,15 @@ const NewBlogPost = (props) => {
 
             if (isValid) {
                 let endpoint = `${process.env.NEXT_PUBLIC_HOSTNAME}/api/v1/post/new`
-                let resp = await axios.post(`${endpoint}`, payload)
+                let resp = await axios.post(`${endpoint}`, JSON.stringify(payload))
                 let data = resp.data;
 
                 if (data.err) {
                     console.log(data.err)
                 } else {
                     console.log(data.msg)
+                    alert(data.msg)
+                    router.reload()
                 }
 
             } else {
@@ -117,8 +121,8 @@ const NewBlogPost = (props) => {
                         type="text"
                         placeholder="Category"
                     >
-                        <Option value="jack">CS</Option>
-                        <Option value="lucy">Musings</Option>
+                        <Option value="cs">CS</Option>
+                        <Option value="musings">Musings</Option>
                     </Select>
 
                     <BlogEditor handleEditor={handleEditor} post={post} />

@@ -108,3 +108,52 @@
     font-family: 'Nunito Sans', sans-serif;
     font-weight: 600;
 }
+
+.blogSubTitle {
+    color: yellow;
+    font-size: 1.4em;
+    font-style: italic;
+    text-align: center;
+    padding: 10px;
+    margin-bottom: 20px;
+    background: #002651;
+    border-top-right-radius: 30px;
+    border-bottom-right-radius: 30px;
+    border: 1px solid white;
+    min-width: 300px;
+    max-width: 500px;
+}
+
+.blogEditContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+}
+
+.blogEditContainerTopRow {
+    display: flex;
+    flex-direction: row;
+}
+
+.blogEditBtn {
+    margin-bottom: 20px;
+    border-bottom: 1px solid black;
+    background: yellow;
+}
+
+.blogDeleteBtn {
+    background: red;
+    color: white;
+}
+
+.blogFullPage {
+    width: 100%;
+    height: 100%;
+}
+
+.blogContent {
+    width: 100%;
+    height: 100%;
+    padding-left: 20px;
+}

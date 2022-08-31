@@ -12,13 +12,20 @@ import (
 	"service-portfolio/config"
 	"service-portfolio/pb/blog"
 
+	emptypb "google.golang.org/protobuf/types/known/emptypb"
+
 	"github.com/gorilla/mux"
 )
 
-type PostResponseObject struct {
+type GetResponseObject struct {
 	POSTS []*blog.BlogPost `json:"posts"`
 	MSG   string           `json:"msg"`
 	ERR   string           `json:"err"`
+}
+
+type ModifyReponseObject struct {
+	MSG string `json:"msg"`
+	ERR string `json:"err"`
 }
 
 func GetPosts(resp http.ResponseWriter, req *http.Request) {
@@ -29,7 +36,29 @@ func GetPosts(resp http.ResponseWriter, req *http.Request) {
 		limit, _ := strconv.Atoi(limit_param)
 		log.Printf("Limit is: %d \n", limit)
 	}
-	resp.WriteHeader(http.StatusOK)
+
+	serviceInfo := config.CFG.CLIENTS["blog"]
+	service := blog.NewBloggerServiceClient(serviceInfo.CONNECTION)
+
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	defer cancel()
+
+	posts, err := service.GetBlogs(ctx, &emptypb.Empty{})
+	if err != nil {
+		log.Print("Service GetAll Posts Failed: %v", err)
+	}
+	log.Print(posts)
+
+	respData := &GetResponseObject{
+		POSTS: posts.Blogs,
+		MSG:   "",
+		ERR:   "",
+	}
+
+	jsonData, _ := json.MarshalIndent(respData, "", "    ")
+	//defer serviceInfo.CONNECTION.Close()
+
+	resp.Write(jsonData)
 }
 
 func GetPost(resp http.ResponseWriter, req *http.Request) {
@@ -54,7 +83,7 @@ func GetPost(resp http.ResponseWriter, req *http.Request) {
 	}
 	log.Print(post)
 
-	respData := &PostResponseObject{
+	respData := &GetResponseObject{
 		POSTS: []*blog.BlogPost{post},
 		MSG:   "",
 		ERR:   "",
@@ -69,11 +98,53 @@ func GetPost(resp http.ResponseWriter, req *http.Request) {
 func SavePost(resp http.ResponseWriter, req *http.Request) {
 	log.Print("Triggering POST /post/new")
 
-	resp.WriteHeader(http.StatusOK)
+	newBlog := blog.BlogPost{}
+
+	decoder := json.NewDecoder(req.Body)
+	decoder.DisallowUnknownFields()
+	err := decoder.Decode(&newBlog)
+	if err != nil {
+		log.Print(err.Error())
+	}
+
+	log.Print(&newBlog)
+
+	serviceInfo := config.CFG.CLIENTS["blog"]
+	service := blog.NewBloggerServiceClient(serviceInfo.CONNECTION)
+
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	defer cancel()
+
+	msg, err := service.SaveBlog(ctx, &newBlog)
+	if err != nil {
+		log.Print("Service SavePost Failed: %v", err)
+	}
+	log.Print(msg)
+
+	respData := &ModifyReponseObject{
+		MSG: msg.Message,
+		ERR: "",
+	}
+
+	jsonData, _ := json.MarshalIndent(respData, "", "    ")
+	//defer serviceInfo.CONNECTION.Close()
+
+	resp.Write(jsonData)
 }
 
 func UpdatePost(resp http.ResponseWriter, req *http.Request) {
 	log.Print("Triggering PUT /post/[postID]")
+
+	newBlog := blog.BlogPost{}
+
+	decoder := json.NewDecoder(req.Body)
+	decoder.DisallowUnknownFields()
+	err := decoder.Decode(&newBlog)
+	if err != nil {
+		log.Print(err.Error())
+	}
+
+	log.Print(&newBlog)
 
 	vars := mux.Vars(req)
 	postID := vars["postID"]
@@ -82,7 +153,27 @@ func UpdatePost(resp http.ResponseWriter, req *http.Request) {
 	}
 	log.Printf("PostID is: %s", postID)
 
-	resp.WriteHeader(http.StatusOK)
+	serviceInfo := config.CFG.CLIENTS["blog"]
+	service := blog.NewBloggerServiceClient(serviceInfo.CONNECTION)
+
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	defer cancel()
+
+	msg, err := service.UpdateBlog(ctx, &newBlog)
+	if err != nil {
+		log.Print("Service UpdatePost Failed: %v", err)
+	}
+	log.Print(msg)
+
+	respData := &ModifyReponseObject{
+		MSG: msg.Message,
+		ERR: "",
+	}
+
+	jsonData, _ := json.MarshalIndent(respData, "", "    ")
+	//defer serviceInfo.CONNECTION.Close()
+
+	resp.Write(jsonData)
 }
 
 func DeletePost(resp http.ResponseWriter, req *http.Request) {
@@ -94,6 +185,27 @@ func DeletePost(resp http.ResponseWriter, req *http.Request) {
 		log.Print("Do something")
 	}
 	log.Printf("PostID is: %s", postID)
+	blogId := blog.BlogID{BlogId: postID}
 
-	resp.WriteHeader(http.StatusOK)
+	serviceInfo := config.CFG.CLIENTS["blog"]
+	service := blog.NewBloggerServiceClient(serviceInfo.CONNECTION)
+
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	defer cancel()
+
+	msg, err := service.DeleteBlog(ctx, &blogId)
+	if err != nil {
+		log.Print("Service DeletePost Failed: %v", err)
+	}
+	log.Print(msg)
+
+	respData := &ModifyReponseObject{
+		MSG: msg.Message,
+		ERR: "",
+	}
+
+	jsonData, _ := json.MarshalIndent(respData, "", "    ")
+	//defer serviceInfo.CONNECTION.Close()
+
+	resp.Write(jsonData)
 }

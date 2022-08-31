@@ -26,7 +26,7 @@ type BloggerServiceClient interface {
 	// CRUD Operations on Blog
 	GetBlog(ctx context.Context, in *BlogID, opts ...grpc.CallOption) (*BlogPost, error)
 	GetBlogs(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*BlogPosts, error)
-	SaveBlog(ctx context.Context, in *BlogSave, opts ...grpc.CallOption) (*BlogMessage, error)
+	SaveBlog(ctx context.Context, in *BlogPost, opts ...grpc.CallOption) (*BlogMessage, error)
 	UpdateBlog(ctx context.Context, in *BlogPost, opts ...grpc.CallOption) (*BlogMessage, error)
 	DeleteBlog(ctx context.Context, in *BlogID, opts ...grpc.CallOption) (*BlogMessage, error)
 }
@@ -57,7 +57,7 @@ func (c *bloggerServiceClient) GetBlogs(ctx context.Context, in *emptypb.Empty, 
 	return out, nil
 }
 
-func (c *bloggerServiceClient) SaveBlog(ctx context.Context, in *BlogSave, opts ...grpc.CallOption) (*BlogMessage, error) {
+func (c *bloggerServiceClient) SaveBlog(ctx context.Context, in *BlogPost, opts ...grpc.CallOption) (*BlogMessage, error) {
 	out := new(BlogMessage)
 	err := c.cc.Invoke(ctx, "/blog.BloggerService/SaveBlog", in, out, opts...)
 	if err != nil {
@@ -91,7 +91,7 @@ type BloggerServiceServer interface {
 	// CRUD Operations on Blog
 	GetBlog(context.Context, *BlogID) (*BlogPost, error)
 	GetBlogs(context.Context, *emptypb.Empty) (*BlogPosts, error)
-	SaveBlog(context.Context, *BlogSave) (*BlogMessage, error)
+	SaveBlog(context.Context, *BlogPost) (*BlogMessage, error)
 	UpdateBlog(context.Context, *BlogPost) (*BlogMessage, error)
 	DeleteBlog(context.Context, *BlogID) (*BlogMessage, error)
 	mustEmbedUnimplementedBloggerServiceServer()
@@ -107,7 +107,7 @@ func (UnimplementedBloggerServiceServer) GetBlog(context.Context, *BlogID) (*Blo
 func (UnimplementedBloggerServiceServer) GetBlogs(context.Context, *emptypb.Empty) (*BlogPosts, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetBlogs not implemented")
 }
-func (UnimplementedBloggerServiceServer) SaveBlog(context.Context, *BlogSave) (*BlogMessage, error) {
+func (UnimplementedBloggerServiceServer) SaveBlog(context.Context, *BlogPost) (*BlogMessage, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SaveBlog not implemented")
 }
 func (UnimplementedBloggerServiceServer) UpdateBlog(context.Context, *BlogPost) (*BlogMessage, error) {
@@ -166,7 +166,7 @@ func _BloggerService_GetBlogs_Handler(srv interface{}, ctx context.Context, dec 
 }
 
 func _BloggerService_SaveBlog_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(BlogSave)
+	in := new(BlogPost)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -178,7 +178,7 @@ func _BloggerService_SaveBlog_Handler(srv interface{}, ctx context.Context, dec 
 		FullMethod: "/blog.BloggerService/SaveBlog",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(BloggerServiceServer).SaveBlog(ctx, req.(*BlogSave))
+		return srv.(BloggerServiceServer).SaveBlog(ctx, req.(*BlogPost))
 	}
 	return interceptor(ctx, in, info, handler)
 }

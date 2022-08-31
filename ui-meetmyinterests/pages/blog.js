@@ -62,7 +62,7 @@ const Blog = () => {
                     <NewBlogPost handleNewBlogView={handleNewBlogView} />
                 )}
 
-                {viewBlogFullPage && <BlogPost blogId={currentBlogID} />}
+                {viewBlogFullPage && <BlogPost handleFullPage={handleFullPage} blogId={currentBlogID} />}
 
                 {!viewBlogFullPage && posts && posts.map((post, i) => {
                     return (

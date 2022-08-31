@@ -2,7 +2,6 @@ syntax = "proto3";
 
 package blog;
 
-import "google/protobuf/timestamp.proto";
 import "google/protobuf/empty.proto";
 
 option go_package = "./pb";
@@ -11,7 +10,7 @@ service BloggerService {
 	// CRUD Operations on Blog
 	rpc GetBlog (BlogID) returns (BlogPost) {}
 	rpc GetBlogs (google.protobuf.Empty) returns (BlogPosts) {}
-	rpc SaveBlog (BlogSave) returns (BlogMessage) {}
+	rpc SaveBlog (BlogPost) returns (BlogMessage) {}
 	rpc UpdateBlog (BlogPost) returns (BlogMessage) {}
 	rpc DeleteBlog (BlogID) returns (BlogMessage) {}
 }
@@ -31,14 +30,6 @@ message BlogPost {
 
 message BlogPosts {
 	repeated BlogPost blogs = 1;
-}
-
-message BlogSave {
-    string title = 1;
-	string subTitle = 2;
-    string category = 3;
-	google.protobuf.Timestamp date = 4;
-	string post = 5;
 }
 
 message BlogMessage {
