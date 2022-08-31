@@ -1,12 +1,17 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios'
+
+import { Button } from 'antd';
+
+import PostCard from './PostCard'
+import EditBlog from './EditBlog'
 
 // GET /api/v1/post/[postID]
 const BlogPost = (props) => {
 
-    const getPostDetails = async (postID) =>  {
+    const getPostDetails = async (postID) => {
         try {
-            let endpoint = `${process.env.NEXT_PUBLIC_HOSTNAME}/api/v1/post/`
+            let endpoint = `${process.env.NEXT_PUBLIC_HOSTNAME}/api/v1/post`
             let resp = await axios.get(`${endpoint}/${postID}`)
             let data = resp.data;
 
@@ -14,10 +19,10 @@ const BlogPost = (props) => {
                 console.log(data.err)
             } else {
                 console.log(data.msg)
-                let updatedDetails = {...postDetails, ...data.post}
+                let updatedDetails = { ...postDetails, ...data.post }
                 setPostDetails(updatedDetails)
             }
-            
+
         } catch (error) {
             console.log(error)
         }
@@ -25,22 +30,28 @@ const BlogPost = (props) => {
 
 
     useEffect(() => {
-        console.log(`Retreiving Post ${props.postID} Details`)
-        getPostDetails(props.postID)
+        console.log(`Retreiving Post ${props.blogId} Details`)
+        getPostDetails(props.blogId)
     })
 
     const [postDetails, setPostDetails] = useState({})
+    const [isEditMode, setEditMode] = useState(false)
+
+    const handleEditMode = () => { setEditMode(true) }
 
     return (
-        <div>
-            <div className='postCard'>
-                <h1>{postDetails.Title}</h1>
-                <h2>{postDetails.Subtitle}</h2>
-                <h4>{postDetails.Category}</h4>
-                <h4>{postDetails.Date}</h4>
-            </div>
+        <div className='blogFullPage'>
+            <PostCard postDetails={postDetails} />
+            <div>{postDetails.subTitle}</div>
 
-            <div>{postDetails.Post}</div>
+            {isEditMode && <EditBlog blogId={postDetails.blogId} />}
+
+            {!isEditMode && (
+                <div>
+                    <Button onClick={handleEditMode}>Edit</Button>
+                    <div dangerouslySetInnerHTML={{ __html: postDetails.post }} />
+                </div>
+            )}
         </div>
     )
 }

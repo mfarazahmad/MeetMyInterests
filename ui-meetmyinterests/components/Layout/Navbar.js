@@ -29,10 +29,10 @@ const Navbar = () => {
                 <Link href="/fitness"><a>Fitness</a></Link>
             </div>
             <div className='social'>
-                <a href="https://github.com/mfarazahmad">
+                <a href="https://www.linkedin.com/in/mfarazahmad/">
                     <img src={"/images/linkedin_logo.webp"} alt="linkedin" />
                 </a>
-                <a href="https://www.linkedin.com/in/mfarazahmad/">
+                <a href="https://github.com/mfarazahmad">
                     <img src={"/images/github_logo.webp"} alt="github" />
                 </a>
             </div>

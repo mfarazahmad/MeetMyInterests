@@ -1,6 +1,7 @@
 package config
 
 import (
+	"fmt"
 	"service-portfolio/pb"
 
 	"google.golang.org/grpc"
@@ -27,13 +28,13 @@ type GRPC_INIT_CONN struct {
 
 func connectToGRPCBackend() map[string]GRPC_SERVERS {
 	serviceMap := []GRPC_INIT_CONN{
-		{HOST: "http://localhost", PORT: "8001", NAME: "blog"},
+		{HOST: "localhost", PORT: "8001", NAME: "blog"},
 	}
 
 	newClient := map[string]GRPC_SERVERS{}
 
 	for _, service := range serviceMap {
-		hostname := service.HOST + ":" + service.PORT
+		hostname := fmt.Sprintf("%s:%s", service.HOST, service.PORT)
 		conn := pb.CreateGrpcConnnection(hostname)
 
 		clientConnection := GRPC_SERVERS{CONNECTION: conn}

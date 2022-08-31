@@ -2,6 +2,7 @@ package pb
 
 import (
 	context "context"
+	"time"
 
 	"github.com/rs/zerolog/log"
 
@@ -16,12 +17,15 @@ type BloggerServer struct {
 
 func (s *BloggerServer) GetBlog(ctx context.Context, blogid *BlogID) (*BlogPost, error) {
 	log.Print(blogid)
+
+	currentTime := time.Now()
 	newPost := &BlogPost{
 		BlogId:   522,
 		Title:    "Test",
 		SubTitle: "SubLife",
 		Category: "CS",
 		Post:     "Testing this paragraph",
+		Date:     currentTime.Format("2006-01-02"),
 	}
 	return newPost, nil
 }

@@ -3,7 +3,7 @@
     width: 100%;
     margin: 0;
     padding: 0;
-    padding-left:200px;
+    padding-left: 200px;
 
     display: flex;
     flex-direction: column;
@@ -11,6 +11,27 @@
     align-items: center;
 }
 
-.postCard {
-    
+.header {
+    margin-top: 50px;
+    font-weight: 900;
+    font-size: 3em;
+    color: #002651;
+    font-family: 'Arima Madurai', cursive;
+}
+
+.newPostBtn {
+    padding: 20px;
+    padding-top: 5px;
+    border-bottom-left-radius: 50px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    font-size: 2em;
+    color: white;
+    background: #002651;
+    cursor: pointer;
+}
+
+.newPostBtn:hover {
+    opacity: .9;
 }

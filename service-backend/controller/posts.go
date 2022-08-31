@@ -2,6 +2,7 @@ package controller
 
 import (
 	"context"
+	"encoding/json"
 	"net/http"
 	"strconv"
 	"time"
@@ -13,6 +14,12 @@ import (
 
 	"github.com/gorilla/mux"
 )
+
+type PostResponseObject struct {
+	POSTS []*blog.BlogPost `json:"posts"`
+	MSG   string           `json:"msg"`
+	ERR   string           `json:"err"`
+}
 
 func GetPosts(resp http.ResponseWriter, req *http.Request) {
 	log.Print("Triggering GET /post")
@@ -46,9 +53,17 @@ func GetPost(resp http.ResponseWriter, req *http.Request) {
 		log.Print("Service GetPost Failed: %v", err)
 	}
 	log.Print(post)
-	defer serviceInfo.CONNECTION.Close()
 
-	resp.WriteHeader(http.StatusOK)
+	respData := &PostResponseObject{
+		POSTS: []*blog.BlogPost{post},
+		MSG:   "",
+		ERR:   "",
+	}
+
+	jsonData, _ := json.MarshalIndent(respData, "", "    ")
+	//defer serviceInfo.CONNECTION.Close()
+
+	resp.Write(jsonData)
 }
 
 func SavePost(resp http.ResponseWriter, req *http.Request) {

@@ -30,6 +30,7 @@ a {
 }
 
 @import '../node_modules/antd/dist/antd.css';
+@import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 @import '../styles/components/outline.css';
 @import '../styles/components/mario.css';
 @import '../styles/components/fitness.css';

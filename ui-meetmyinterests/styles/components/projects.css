@@ -66,6 +66,49 @@
     justify-items: stretch;
 }
 
+.aboutMeBanner {
+    width: 100%;
+    height: 100%;
+    background: #002651ed;
+    border-radius: 20px;
+    text-align: center;
+    margin-bottom: 0px;
+}
+
+.aboutMe {
+    display: flex;
+    flex-direction: row;
+    width: 80%;
+    max-width: 750px;
+    height: 500px;
+    border: 1px solid white;
+    background-color: #002651ed;
+    border-radius: 10px;
+    margin: 10px;
+    margin-top: 0px;
+    padding: 5px;
+}
+
+.aboutMe:hover {
+    opacity: .9;
+}
+
+.profileImg {
+    width: 40%;
+    object-fit: cover;
+    object-position: 50% 0;
+    border-radius: 10px;
+}
+
+.aboutMeText {
+    font-size: 1.3em;
+    font-weight: 300;
+    margin-left: 20px;
+    height: 100%;
+    width: 60%;
+    color: white;
+}
+
 @media (min-width: 1200px) {
     .projectShowCase {
         grid-template-columns: 1fr 1fr;
