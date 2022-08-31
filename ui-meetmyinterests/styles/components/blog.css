@@ -25,6 +25,7 @@
     box-shadow: 2px 3px black;
     padding: 20px;
     background: #002651;
+    opacity: .9;
 }
 
 .topMenuBlog {
@@ -35,12 +36,36 @@
 
 }
 
+.newPostTitle {
+    font-family: 'Nunito Sans', sans-serif;
+    color: white;
+    font-weight: bolder;
+    text-align: center;
+}
+
+.newBlogPost input {
+    border: 1px solid black;
+    border-radius: 5px;
+    width: 50%;
+    margin-bottom: 5px;
+}
+
+.newBlogPost .ant-select {
+    border: 1px solid black;
+    width: 30%;
+    margin-bottom: 5px;
+}
+
 .mainNewBlog {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
 
+}
+
+.wrapperClassName {
+    margin: 20px 0px;
 }
 
 .editorClassName {

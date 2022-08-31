@@ -17,7 +17,7 @@ const Blog = () => {
 
     const getPosts = async () => {
         try {
-            let endpoint = `${process.env.NEXT_PUBLIC_HOSTNAME}/api/v1/post/5` //?limit=5
+            let endpoint = `${process.env.NEXT_PUBLIC_HOSTNAME}/api/v1/post?limit=5`
             let resp = await axios.get(`${endpoint}`)
             let data = resp.data;
             console.log(data)

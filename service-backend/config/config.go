@@ -8,12 +8,14 @@ import (
 )
 
 var (
-	CFG APP
+	CFG           APP
+	NEW_WHITELIST = []string{"http://localhost:3000"}
 )
 
 type APP struct {
-	CLIENTS  map[string]GRPC_SERVERS
-	APP_PORT string
+	CLIENTS   map[string]GRPC_SERVERS
+	APP_PORT  string
+	WHITELIST []string
 }
 
 type GRPC_SERVERS struct {
@@ -49,7 +51,8 @@ func Bootstrap() {
 	GRPC_SERVERS := connectToGRPCBackend()
 
 	CFG = APP{
-		CLIENTS:  GRPC_SERVERS,
-		APP_PORT: "9001",
+		WHITELIST: NEW_WHITELIST,
+		CLIENTS:   GRPC_SERVERS,
+		APP_PORT:  "9001",
 	}
 }

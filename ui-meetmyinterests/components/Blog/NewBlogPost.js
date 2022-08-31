@@ -6,7 +6,8 @@ import { Input, Button, Select } from 'antd';
 
 import BlogEditor from './Editor'
 
-const { TextArea } = Input
+const { Option } = Select;
+
 
 // POST /api/v1/post/new
 const NewBlogPost = (props) => {
@@ -14,7 +15,6 @@ const NewBlogPost = (props) => {
     const [title, setTitle] = useState('')
     const [subTitle, setSubtitle] = useState('')
     const [category, setCategory] = useState('')
-    const [date, SetDate] = useState('')
     const [post, setPost] = useState('')
 
     const handleInputs = (e, inputName) => {
@@ -28,16 +28,11 @@ const NewBlogPost = (props) => {
             case 'subTitle':
                 setSubtitle(value)
                 break;
-            case 'category':
-                setCategory(value)
-                break;
-            case 'date':
-                SetDate(value)
-                break;
-            case 'post':
-                setPost(value)
-                break;
         }
+    }
+
+    const handleSelect = (value) => {
+        setCategory(value)
     }
 
     const handleEditor = (e) => {
@@ -51,10 +46,21 @@ const NewBlogPost = (props) => {
         return true
     }
 
+    const getCurrentDate = () => {
+        let today = new Date();
+        var dd = String(today.getDate()).padStart(2, '0');
+        var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+        var yyyy = today.getFullYear();
+
+        return mm + '/' + dd + '/' + yyyy;
+    }
+
     const handleSubmit = async () => {
 
         try {
             let htmlPost = stateToHTML(post.getCurrentContent())
+            let date = getCurrentDate();
+
             let payload = { title, subTitle, category, date, post: htmlPost };
             console.log(payload)
             let isValid = validateBlog(payload)
@@ -91,7 +97,7 @@ const NewBlogPost = (props) => {
                     </Button>
                 </div>
                 <div className='mainNewBlog'>
-                    <h2>New POST</h2>
+                    <h2 className='newPostTitle'>CREATE POST</h2>
 
                     <Input
                         value={title}
@@ -105,18 +111,15 @@ const NewBlogPost = (props) => {
                         type="text"
                         placeholder="Subtitle"
                     />
-                    <Input
+                    <Select
                         value={category}
-                        onChange={e => handleInputs(e, 'category')}
+                        onChange={handleSelect}
                         type="text"
                         placeholder="Category"
-                    />
-                    <Input
-                        value={date}
-                        onChange={e => handleInputs(e, 'date')}
-                        type="text"
-                        placeholder="Date"
-                    />
+                    >
+                        <Option value="jack">CS</Option>
+                        <Option value="lucy">Musings</Option>
+                    </Select>
 
                     <BlogEditor handleEditor={handleEditor} post={post} />
 
