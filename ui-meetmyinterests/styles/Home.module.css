@@ -1,10 +1,10 @@
 .pingpong {
-  position:absolute;
-  top:0;
-  left:0;
-  width:100%;
-  height:100%;
-  z-index:-1;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
   background: #002651;
   cursor: pointer;
 }
@@ -18,8 +18,8 @@
   width: 100%;
   margin: 0;
   padding: 0;
-  padding-top:30px;
-  padding-left:200px;
+  padding-top: 30px;
+  padding-left: 200px;
   cursor: pointer;
 }
 
@@ -46,6 +46,7 @@
   width: 200px;
   border-radius: 25px;
   color: white;
+  cursor: pointer;
 }
 
 .button:hover {
@@ -70,11 +71,13 @@
   margin-bottom: 50px;
 }
 
-.pitchLeft:hover,.pitchRight:hover {
+.pitchLeft:hover,
+.pitchRight:hover {
   border: 5px solid #775ada;
 }
 
-.pitchLeft,.pitchRight {
+.pitchLeft,
+.pitchRight {
   width: 20%;
   height: 300px;
   max-width: 200px;
@@ -82,7 +85,7 @@
   border: 3px solid black;
   border-radius: 40px;
   background: #ff304f;
-  color:white;
+  color: white;
   opacity: .8;
   text-align: center;
 
@@ -134,7 +137,7 @@
   border: 5px solid black;
   border-radius: 40px;
   background: #775ada;
-  color:white;
+  color: white;
   opacity: .9;
   z-index: -1;
 

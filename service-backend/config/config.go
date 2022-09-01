@@ -4,6 +4,8 @@ import (
 	"fmt"
 	"service-portfolio/pb"
 
+	"github.com/rs/zerolog/log"
+
 	"google.golang.org/grpc"
 )
 
@@ -47,6 +49,7 @@ func connectToGRPCBackend() map[string]GRPC_SERVERS {
 }
 
 func Bootstrap() {
+	log.Print("Creating config!")
 
 	GRPC_SERVERS := connectToGRPCBackend()
 

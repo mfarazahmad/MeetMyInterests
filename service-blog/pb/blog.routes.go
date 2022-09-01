@@ -5,9 +5,13 @@ import (
 	"fmt"
 	"math/rand"
 	"strconv"
-	"time"
+
+	"service-blog/repository"
 
 	"github.com/rs/zerolog/log"
+	"go.mongodb.org/mongo-driver/bson"
+	"go.mongodb.org/mongo-driver/mongo"
+	"go.mongodb.org/mongo-driver/mongo/options"
 
 	emptypb "google.golang.org/protobuf/types/known/emptypb"
 )
@@ -16,40 +20,70 @@ type BloggerServer struct {
 	UnimplementedBloggerServiceServer
 }
 
-var newPost = &BlogPost{
-	BlogId:   555,
-	Title:    "Test",
-	SubTitle: "SubLife",
-	Category: "CS",
-	Post:     "Testing this paragraph",
-	Date:     time.Now().Format("2006-01-02"),
-}
-
-var postStorage = []*BlogPost{newPost, newPost, newPost}
-
 func (s *BloggerServer) GetBlog(ctx context.Context, blogid *BlogID) (*BlogPost, error) {
-	log.Printf("Getting Blog %v", blogid)
+	log.Printf("Getting Blog %d", blogid)
 	blogID, _ := strconv.Atoi(blogid.BlogId)
+	newPost := BlogPost{}
 
-	for _, post := range postStorage {
-		if int32(blogID) == post.BlogId {
-			return post, nil
-		}
+	repo := repository.ConnectToDB()
+	err := repo.COLLECTION.FindOne(ctx, bson.D{{Key: "blogid", Value: blogID}}).Decode(&newPost)
+
+	if err == mongo.ErrNoDocuments || err != nil {
+		log.Print(err.Error())
+		return nil, fmt.Errorf("could not find blog with id: %d", blogID)
 	}
-	return nil, fmt.Errorf("could not find blog with id: %d", blogID)
+
+	return &newPost, nil
 }
 
 func (s *BloggerServer) GetBlogs(ctx context.Context, _ *emptypb.Empty) (*BlogPosts, error) {
 	log.Printf("Getting All Blogs ")
-	postObj := &BlogPosts{Blogs: postStorage}
-	return postObj, nil
+	posts := []*BlogPost{}
+
+	findOptions := options.Find()
+	repo := repository.ConnectToDB()
+	cur, err := repo.COLLECTION.Find(ctx, bson.D{{}}, findOptions)
+	if err != nil {
+		log.Print(err.Error())
+		return nil, fmt.Errorf("could not find any blogs")
+	}
+
+	for cur.Next(ctx) {
+		newPost := BlogPost{}
+		err := cur.Decode(&newPost)
+		if err != nil {
+			log.Print(err.Error())
+			return nil, fmt.Errorf("could not find any blogs")
+		}
+
+		posts = append(posts, &newPost)
+	}
+
+	if err := cur.Err(); err != nil {
+		log.Print(err.Error())
+		return nil, fmt.Errorf("could not find any blogs")
+	}
+
+	//Close the cursor once finished
+	cur.Close(ctx)
+
+	return &BlogPosts{Blogs: posts}, nil
 }
 
 func (s *BloggerServer) SaveBlog(ctx context.Context, post *BlogPost) (*BlogMessage, error) {
 	log.Printf("Saving Blog ")
 	log.Print(post)
-	post.BlogId = int32(rand.Intn(1000))
-	postStorage = append(postStorage, post)
+
+	post.BlogId = int32(rand.Intn(100521230))
+
+	repo := repository.ConnectToDB()
+	result, err := repo.COLLECTION.InsertOne(ctx, post)
+	if err != nil {
+		log.Print(err.Error())
+		return nil, fmt.Errorf("failed to save blog")
+	}
+	log.Print(result)
+
 	newMessage := &BlogMessage{Message: "New Blog saved sucessfully!"}
 	return newMessage, nil
 }
@@ -58,14 +92,17 @@ func (s *BloggerServer) UpdateBlog(ctx context.Context, post *BlogPost) (*BlogMe
 	log.Printf("Updating Blog %d", post.BlogId)
 	log.Print(post)
 
-	for i, currentPost := range postStorage {
-		if int32(post.BlogId) == currentPost.BlogId {
-			postStorage[i] = postStorage[len(postStorage)-1]
-			postStorage = postStorage[:len(postStorage)-1]
-		}
+	repo := repository.ConnectToDB()
+	filter := bson.D{{Key: "blogid", Value: post.BlogId}}
+	update := bson.D{{Key: "$set", Value: post}}
+	result, err := repo.COLLECTION.UpdateOne(ctx, filter, update)
+	if err != nil {
+		log.Print(err.Error())
+		return nil, fmt.Errorf("failed to update blog")
 	}
 
-	postStorage = append(postStorage, post)
+	log.Print(result)
+
 	newMessage := &BlogMessage{Message: "Blog updated sucessfully!"}
 	return newMessage, nil
 }
@@ -75,14 +112,15 @@ func (s *BloggerServer) DeleteBlog(ctx context.Context, blogid *BlogID) (*BlogMe
 	log.Print(blogid)
 	blogID, _ := strconv.Atoi(blogid.BlogId)
 
-	for i, post := range postStorage {
-		if int32(blogID) == post.BlogId {
-			postStorage[i] = postStorage[len(postStorage)-1]
-			postStorage = postStorage[:len(postStorage)-1]
-
-			newMessage := &BlogMessage{Message: "Blog sucessfully deleted!"}
-			return newMessage, nil
-		}
+	repo := repository.ConnectToDB()
+	result, err := repo.COLLECTION.DeleteOne(ctx, bson.D{{Key: "blogid", Value: blogID}})
+	if err != nil {
+		log.Print(err.Error())
+		return nil, fmt.Errorf("failed to update blog")
 	}
-	return nil, fmt.Errorf("could not find blog with id: %d", blogID)
+
+	log.Print(result)
+
+	newMessage := &BlogMessage{Message: "Blog sucessfully deleted!"}
+	return newMessage, nil
 }

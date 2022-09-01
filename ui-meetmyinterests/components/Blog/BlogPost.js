@@ -60,6 +60,10 @@ const BlogPost = (props) => {
         }
     }
 
+    const handleBackBtn = () => {
+        router.reload()
+    }
+
     return (
         <div className='blogFullPage'>
             <PostCard handleFullPage={props.handleFullPage} postDetails={postDetails} blogId={postDetails.blogId} />
@@ -70,6 +74,7 @@ const BlogPost = (props) => {
             {!isEditMode && (
                 <div className='blogEditContainer'>
                     <div className='blogEditContainerTopRow'>
+                        <Button onClick={handleBackBtn}>Back</Button>
                         <Button className='blogEditBtn' onClick={handleEditMode}>Edit</Button>
                         <Button className='blogEditBtn blogDeleteBtn' onClick={handleDeleteMode}>Delete</Button>
                     </div>

@@ -31,6 +31,8 @@ type ModifyReponseObject struct {
 func GetPosts(resp http.ResponseWriter, req *http.Request) {
 	log.Print("Triggering GET /post")
 
+	jsonData := []byte{}
+
 	limit_param := req.URL.Query().Get("limit")
 	if limit_param != "" {
 		limit, _ := strconv.Atoi(limit_param)
@@ -46,16 +48,21 @@ func GetPosts(resp http.ResponseWriter, req *http.Request) {
 	posts, err := service.GetBlogs(ctx, &emptypb.Empty{})
 	if err != nil {
 		log.Print("Service GetAll Posts Failed: %v", err)
+		respData := &ModifyReponseObject{
+			MSG: "",
+			ERR: err.Error(),
+		}
+		jsonData, _ = json.MarshalIndent(respData, "", "    ")
+	} else {
+		respData := &GetResponseObject{
+			POSTS: posts.Blogs,
+			MSG:   "",
+			ERR:   "",
+		}
+		jsonData, _ = json.MarshalIndent(respData, "", "    ")
 	}
 	log.Print(posts)
 
-	respData := &GetResponseObject{
-		POSTS: posts.Blogs,
-		MSG:   "",
-		ERR:   "",
-	}
-
-	jsonData, _ := json.MarshalIndent(respData, "", "    ")
 	//defer serviceInfo.CONNECTION.Close()
 
 	resp.Write(jsonData)
@@ -63,6 +70,8 @@ func GetPosts(resp http.ResponseWriter, req *http.Request) {
 
 func GetPost(resp http.ResponseWriter, req *http.Request) {
 	log.Print("Triggering GET /post/[postID]")
+
+	jsonData := []byte{}
 
 	vars := mux.Vars(req)
 	postID := vars["postID"]
@@ -80,16 +89,21 @@ func GetPost(resp http.ResponseWriter, req *http.Request) {
 	post, err := service.GetBlog(ctx, &blog.BlogID{BlogId: postID})
 	if err != nil {
 		log.Print("Service GetPost Failed: %v", err)
+		respData := &ModifyReponseObject{
+			MSG: "",
+			ERR: err.Error(),
+		}
+		jsonData, _ = json.MarshalIndent(respData, "", "    ")
+	} else {
+		respData := &GetResponseObject{
+			POSTS: []*blog.BlogPost{post},
+			MSG:   "",
+			ERR:   "",
+		}
+		jsonData, _ = json.MarshalIndent(respData, "", "    ")
 	}
 	log.Print(post)
 
-	respData := &GetResponseObject{
-		POSTS: []*blog.BlogPost{post},
-		MSG:   "",
-		ERR:   "",
-	}
-
-	jsonData, _ := json.MarshalIndent(respData, "", "    ")
 	//defer serviceInfo.CONNECTION.Close()
 
 	resp.Write(jsonData)
@@ -116,15 +130,20 @@ func SavePost(resp http.ResponseWriter, req *http.Request) {
 	defer cancel()
 
 	msg, err := service.SaveBlog(ctx, &newBlog)
+	respData := ModifyReponseObject{}
 	if err != nil {
 		log.Print("Service SavePost Failed: %v", err)
+		respData = ModifyReponseObject{
+			MSG: "",
+			ERR: err.Error(),
+		}
+	} else {
+		respData = ModifyReponseObject{
+			MSG: msg.Message,
+			ERR: "",
+		}
 	}
 	log.Print(msg)
-
-	respData := &ModifyReponseObject{
-		MSG: msg.Message,
-		ERR: "",
-	}
 
 	jsonData, _ := json.MarshalIndent(respData, "", "    ")
 	//defer serviceInfo.CONNECTION.Close()
@@ -140,8 +159,14 @@ func UpdatePost(resp http.ResponseWriter, req *http.Request) {
 	decoder := json.NewDecoder(req.Body)
 	decoder.DisallowUnknownFields()
 	err := decoder.Decode(&newBlog)
+
+	respData := ModifyReponseObject{}
 	if err != nil {
 		log.Print(err.Error())
+		respData = ModifyReponseObject{
+			MSG: "",
+			ERR: err.Error(),
+		}
 	}
 
 	log.Print(&newBlog)
@@ -162,13 +187,17 @@ func UpdatePost(resp http.ResponseWriter, req *http.Request) {
 	msg, err := service.UpdateBlog(ctx, &newBlog)
 	if err != nil {
 		log.Print("Service UpdatePost Failed: %v", err)
+		respData = ModifyReponseObject{
+			MSG: "",
+			ERR: err.Error(),
+		}
+	} else {
+		respData = ModifyReponseObject{
+			MSG: msg.Message,
+			ERR: "",
+		}
 	}
 	log.Print(msg)
-
-	respData := &ModifyReponseObject{
-		MSG: msg.Message,
-		ERR: "",
-	}
 
 	jsonData, _ := json.MarshalIndent(respData, "", "    ")
 	//defer serviceInfo.CONNECTION.Close()
@@ -194,15 +223,20 @@ func DeletePost(resp http.ResponseWriter, req *http.Request) {
 	defer cancel()
 
 	msg, err := service.DeleteBlog(ctx, &blogId)
+	respData := ModifyReponseObject{}
 	if err != nil {
 		log.Print("Service DeletePost Failed: %v", err)
+		respData = ModifyReponseObject{
+			MSG: "",
+			ERR: err.Error(),
+		}
+	} else {
+		respData = ModifyReponseObject{
+			MSG: msg.Message,
+			ERR: "",
+		}
 	}
 	log.Print(msg)
-
-	respData := &ModifyReponseObject{
-		MSG: msg.Message,
-		ERR: "",
-	}
 
 	jsonData, _ := json.MarshalIndent(respData, "", "    ")
 	//defer serviceInfo.CONNECTION.Close()

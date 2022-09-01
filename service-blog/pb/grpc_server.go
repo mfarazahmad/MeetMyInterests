@@ -2,15 +2,16 @@ package pb
 
 import (
 	"net"
+	c "service-blog/config"
 
 	"github.com/rs/zerolog/log"
 	grpc "google.golang.org/grpc"
 )
 
 func CreateTCPListener() net.Listener {
-	log.Print("Listen to TCP on port 8001")
+	log.Printf("Listen to TCP on port %s", c.CFG.APP_PORT)
 
-	lis, err := net.Listen("tcp", ":8001")
+	lis, err := net.Listen("tcp", c.CFG.APP_PORT)
 	if err != nil {
 		log.Print("Failed to listen: %v", err)
 	}
