@@ -81,7 +81,3 @@ func SaveCredentials(creds *pb.Credentials) bool {
 
 	return false
 }
-
-func updateCredentials() {
-
-}

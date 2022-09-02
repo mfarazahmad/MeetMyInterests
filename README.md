@@ -73,7 +73,8 @@ choco install minikube
 ## Running Containers Locally
 ```
 docker run -p 9100:9100 service-portfolio
-docker run -p 9101:9101 service-blog
+docker run -p 8001:8001 service-blog
+docker run -p 8001:8001 service-auth
 docker run -p 3000:3000 meetmyinterests
 ```
 

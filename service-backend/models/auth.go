@@ -16,6 +16,8 @@ type UserClaims struct {
 }
 
 type AuthReponseObject struct {
-	MSG string `json:"msg"`
-	ERR string `json:"err"`
+	MSG        string `json:"msg"`
+	TOKEN      string `json:"token"`
+	ISLOGGEDIN bool   `json:"isloggedin"`
+	ERR        string `json:"err"`
 }

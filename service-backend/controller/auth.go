@@ -27,8 +27,10 @@ func Login(resp http.ResponseWriter, req *http.Request) {
 	if err != nil {
 		log.Print(err.Error())
 		respData = m.AuthReponseObject{
-			MSG: "",
-			ERR: err.Error(),
+			MSG:        "",
+			ISLOGGEDIN: false,
+			TOKEN:      "",
+			ERR:        err.Error(),
 		}
 	}
 	log.Print(&newCreds)
@@ -43,13 +45,17 @@ func Login(resp http.ResponseWriter, req *http.Request) {
 	if err != nil {
 		log.Print("Service Authentication Failed: %v", err)
 		respData = m.AuthReponseObject{
-			MSG: "",
-			ERR: err.Error(),
+			MSG:        "",
+			ISLOGGEDIN: false,
+			TOKEN:      "",
+			ERR:        err.Error(),
 		}
 	} else {
 		respData = m.AuthReponseObject{
-			MSG: status.Jwt.EncodedJWT,
-			ERR: "",
+			MSG:        "Successfully logged in user!",
+			ISLOGGEDIN: status.IsLoggedIn,
+			TOKEN:      status.Jwt.EncodedJWT,
+			ERR:        "",
 		}
 	}
 	log.Print(status)
@@ -73,8 +79,10 @@ func SaveCredentials(resp http.ResponseWriter, req *http.Request) {
 	if err != nil {
 		log.Print(err.Error())
 		respData = m.AuthReponseObject{
-			MSG: "",
-			ERR: err.Error(),
+			MSG:        "",
+			ISLOGGEDIN: false,
+			TOKEN:      "",
+			ERR:        err.Error(),
 		}
 	}
 	log.Print(&newCreds)
@@ -89,13 +97,17 @@ func SaveCredentials(resp http.ResponseWriter, req *http.Request) {
 	if err != nil {
 		log.Print("Service Create New User Failed: %v", err)
 		respData = m.AuthReponseObject{
-			MSG: "",
-			ERR: err.Error(),
+			MSG:        "",
+			ISLOGGEDIN: false,
+			TOKEN:      "",
+			ERR:        err.Error(),
 		}
 	} else {
 		respData = m.AuthReponseObject{
-			MSG: status.Jwt.EncodedJWT,
-			ERR: "",
+			MSG:        "Successfully saved user!",
+			ISLOGGEDIN: status.IsLoggedIn,
+			TOKEN:      status.Jwt.EncodedJWT,
+			ERR:        "",
 		}
 	}
 	log.Print(status)

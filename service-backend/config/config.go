@@ -59,7 +59,7 @@ func connectToGRPCBackend() map[string]GRPC_SERVERS {
 
 	for _, service := range serviceMap {
 		hostname := fmt.Sprintf("%s:%s", service.HOST, service.PORT)
-		conn := pb.CreateGrpcConnnection(hostname)
+		conn := pb.CreateGrpcConnnection(hostname, service.NAME)
 
 		clientConnection := GRPC_SERVERS{CONNECTION: conn}
 		newClient[service.NAME] = clientConnection

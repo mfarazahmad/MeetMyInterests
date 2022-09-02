@@ -1,6 +1,8 @@
 package utils
 
-import "github.com/rs/zerolog/log"
+import (
+	"github.com/rs/zerolog/log"
+)
 
 func errorWrapper(err error) {
 	if err != nil {
