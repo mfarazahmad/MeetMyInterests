@@ -18,6 +18,7 @@
     - service-blog 
     - service-fitness-tracker
     - service-analytics
+    - service-auth
 
 ## Technologies
 - Containerization via Docker & Managed by Kubernetes & Helm Charts
@@ -29,7 +30,7 @@
 - Logging using Datadog
 - 100% Code Coverage
 - Linters used: 
-
+- Password for Admin Mode is hashed using a Argon2id hash function using Blake2.
 - Pipeline Orchestrator coming soon! (Harness)
 
 ## Local Setup
@@ -52,6 +53,11 @@ protoc \
 --go_out=. --go_opt=paths=source_relative \
 --go-grpc_out=. --go-grpc_opt=paths=source_relative \
 blog.proto
+
+protoc \
+--go_out=. --go_opt=paths=source_relative \
+--go-grpc_out=. --go-grpc_opt=paths=source_relative \
+auth.proto
 ```
 
 ### Infrastructure

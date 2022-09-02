@@ -13,6 +13,8 @@ import (
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 
+	codes "google.golang.org/grpc/codes"
+	status "google.golang.org/grpc/status"
 	emptypb "google.golang.org/protobuf/types/known/emptypb"
 )
 
@@ -30,7 +32,7 @@ func (s *BloggerServer) GetBlog(ctx context.Context, blogid *BlogID) (*BlogPost,
 
 	if err == mongo.ErrNoDocuments || err != nil {
 		log.Print(err.Error())
-		return nil, fmt.Errorf("could not find blog with id: %d", blogID)
+		return nil, status.Errorf(codes.NotFound, fmt.Sprintf("could not find blog with id: %d", blogID))
 	}
 
 	return &newPost, nil
@@ -45,7 +47,7 @@ func (s *BloggerServer) GetBlogs(ctx context.Context, _ *emptypb.Empty) (*BlogPo
 	cur, err := repo.COLLECTION.Find(ctx, bson.D{{}}, findOptions)
 	if err != nil {
 		log.Print(err.Error())
-		return nil, fmt.Errorf("could not find any blogs")
+		return nil, status.Errorf(codes.NotFound, "could not find any blogs")
 	}
 
 	for cur.Next(ctx) {
@@ -53,7 +55,7 @@ func (s *BloggerServer) GetBlogs(ctx context.Context, _ *emptypb.Empty) (*BlogPo
 		err := cur.Decode(&newPost)
 		if err != nil {
 			log.Print(err.Error())
-			return nil, fmt.Errorf("could not find any blogs")
+			return nil, status.Errorf(codes.NotFound, "could not find any blogs")
 		}
 
 		posts = append(posts, &newPost)
@@ -61,7 +63,7 @@ func (s *BloggerServer) GetBlogs(ctx context.Context, _ *emptypb.Empty) (*BlogPo
 
 	if err := cur.Err(); err != nil {
 		log.Print(err.Error())
-		return nil, fmt.Errorf("could not find any blogs")
+		return nil, status.Errorf(codes.NotFound, "could not find any blogs")
 	}
 
 	//Close the cursor once finished
@@ -80,7 +82,7 @@ func (s *BloggerServer) SaveBlog(ctx context.Context, post *BlogPost) (*BlogMess
 	result, err := repo.COLLECTION.InsertOne(ctx, post)
 	if err != nil {
 		log.Print(err.Error())
-		return nil, fmt.Errorf("failed to save blog")
+		return nil, status.Errorf(codes.Aborted, "failed to save blog")
 	}
 	log.Print(result)
 
@@ -98,7 +100,7 @@ func (s *BloggerServer) UpdateBlog(ctx context.Context, post *BlogPost) (*BlogMe
 	result, err := repo.COLLECTION.UpdateOne(ctx, filter, update)
 	if err != nil {
 		log.Print(err.Error())
-		return nil, fmt.Errorf("failed to update blog")
+		return nil, status.Errorf(codes.NotFound, "failed to update blog")
 	}
 
 	log.Print(result)
@@ -116,7 +118,7 @@ func (s *BloggerServer) DeleteBlog(ctx context.Context, blogid *BlogID) (*BlogMe
 	result, err := repo.COLLECTION.DeleteOne(ctx, bson.D{{Key: "blogid", Value: blogID}})
 	if err != nil {
 		log.Print(err.Error())
-		return nil, fmt.Errorf("failed to update blog")
+		return nil, status.Errorf(codes.NotFound, "failed to delete blog")
 	}
 
 	log.Print(result)
