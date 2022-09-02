@@ -25,7 +25,8 @@ func ConnectToDB() DB_CONNECTION {
 
 	client, err := mongo.Connect(ctx, options.Client().ApplyURI(c.CFG.DATABASE.HOST))
 	if err != nil {
-		log.Print(err.Error())
+		log.Print("Failed to connect to DB")
+		return DB_CONNECTION{}
 	}
 
 	db := client.Database(c.CFG.DATABASE.CLIENT)

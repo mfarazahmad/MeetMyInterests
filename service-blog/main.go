@@ -2,13 +2,13 @@ package main
 
 import (
 	"service-blog/config"
-	"service-blog/pb"
+	"service-blog/grpc"
 )
 
 func main() {
 	config.Bootstrap()
 
-	lis := pb.CreateTCPListener()
-	grpcServer := pb.CreateGrpcServer()
-	pb.RegisterRoutesToGRPC(lis, grpcServer)
+	lis := grpc.CreateTCPListener()
+	grpcServer := grpc.CreateGrpcServer()
+	grpc.RegisterRoutesToGRPC(lis, grpcServer)
 }

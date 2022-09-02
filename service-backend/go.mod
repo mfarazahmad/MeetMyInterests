@@ -1,4 +1,4 @@
-module service-portfolio
+module service-backend
 
 go 1.19
 
@@ -17,6 +17,7 @@ require (
 )
 
 require (
+	github.com/golang-jwt/jwt/v4 v4.4.2
 	github.com/gorilla/handlers v1.5.1
 	github.com/mattn/go-colorable v0.1.13 // indirect
 	github.com/mattn/go-isatty v0.0.16 // indirect

@@ -1,7 +1,7 @@
 package utils
 
 import (
-	a "service-portfolio/api"
+	a "service-backend/api"
 
 	"github.com/gorilla/mux"
 )

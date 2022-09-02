@@ -1,8 +1,9 @@
-package pb
+package grpc
 
 import (
 	"net"
 	c "service-blog/config"
+	"service-blog/grpc/pb"
 
 	"github.com/rs/zerolog/log"
 	grpc "google.golang.org/grpc"
@@ -31,7 +32,7 @@ func CreateGrpcServer() *grpc.Server {
 func RegisterRoutesToGRPC(lis net.Listener, grpcServer *grpc.Server) {
 	log.Print("Registering Routes on GRPC Server")
 
-	RegisterBloggerServiceServer(grpcServer, &BloggerServer{})
+	pb.RegisterBloggerServiceServer(grpcServer, &BloggerServer{})
 	log.Print("GRPC Server Listening at %v", lis.Addr())
 
 	err := grpcServer.Serve(lis)

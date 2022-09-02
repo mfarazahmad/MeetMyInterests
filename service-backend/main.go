@@ -1,8 +1,8 @@
 package main
 
 import (
-	"service-portfolio/config"
-	"service-portfolio/utils"
+	"service-backend/config"
+	"service-backend/utils"
 )
 
 func main() {

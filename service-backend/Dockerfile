@@ -21,8 +21,8 @@ ENV GIT_BRANCH=$BRANCH
 ENV GIT_COMMIT=$COMMIT
 ENV GIT_MESSAGE=$MESSAGE
 
-RUN go build -o /service-portfolio
+RUN go build -o /service-backend
 
 EXPOSE 9100
 
-CMD ["/service-portfolio"]
+CMD ["/service-backend"]

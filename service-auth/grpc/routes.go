@@ -30,8 +30,12 @@ func (s *AuthServiceServer) Login(ctx context.Context, creds *pb.Credentials) (*
 	}
 
 	if isMatch {
+		tokenString, tokenErr := service.GenerateAdminToken(creds.Username)
+		if tokenErr != nil {
+			return currentStatus, status.Errorf(codes.Unauthenticated, tokenErr.Error())
+		}
+
 		currentStatus.IsLoggedIn = isMatch
-		tokenString := service.GenerateToken()
 		currentStatus.Jwt.EncodedJWT = tokenString
 		return currentStatus, nil
 	} else {
@@ -43,10 +47,7 @@ func (s *AuthServiceServer) Logout(v context.Context, token *pb.Token) (*pb.Auth
 	log.Printf("Logging out user")
 	return nil, status.Errorf(codes.Unauthenticated, "failed to logout")
 }
-func (s *AuthServiceServer) CheckAuth(ctx context.Context, token *pb.Token) (*pb.AuthStatus, error) {
-	log.Printf("Verifyinguser")
-	return nil, status.Errorf(codes.PermissionDenied, "failed to verify user")
-}
+
 func (s *AuthServiceServer) CreateUser(ctx context.Context, creds *pb.Credentials) (*pb.AuthStatus, error) {
 	log.Printf("Creating user %s", creds.Username)
 	token := &pb.Token{EncodedJWT: ""}
@@ -56,10 +57,14 @@ func (s *AuthServiceServer) CreateUser(ctx context.Context, creds *pb.Credential
 		Jwt:          token,
 	}
 
-	saveStatus := service.SaveUser(creds)
+	saveStatus := service.SaveCredentials(creds)
 	if saveStatus {
+		tokenString, tokenErr := service.GenerateAdminToken(creds.Username)
+		if tokenErr != nil {
+			return currentStatus, status.Errorf(codes.Unauthenticated, tokenErr.Error())
+		}
+
 		currentStatus.IsLoggedIn = true
-		tokenString := service.GenerateToken()
 		currentStatus.Jwt.EncodedJWT = tokenString
 		return currentStatus, nil
 	} else {

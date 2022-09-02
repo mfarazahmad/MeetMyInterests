@@ -3,7 +3,7 @@ package utils
 import (
 	"net/http"
 
-	c "service-portfolio/config"
+	c "service-backend/config"
 
 	"github.com/gorilla/handlers"
 

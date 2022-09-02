@@ -1,4 +1,4 @@
-package pb
+package grpc
 
 import (
 	"github.com/rs/zerolog/log"

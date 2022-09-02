@@ -1,12 +1,12 @@
-package pb
+package grpc
 
 import (
 	context "context"
 	"fmt"
-	"math/rand"
-	"strconv"
 
+	"service-blog/grpc/pb"
 	"service-blog/repository"
+	"service-blog/utils"
 
 	"github.com/rs/zerolog/log"
 	"go.mongodb.org/mongo-driver/bson"
@@ -19,28 +19,26 @@ import (
 )
 
 type BloggerServer struct {
-	UnimplementedBloggerServiceServer
+	pb.UnimplementedBloggerServiceServer
 }
 
-func (s *BloggerServer) GetBlog(ctx context.Context, blogid *BlogID) (*BlogPost, error) {
+func (s *BloggerServer) GetBlog(ctx context.Context, blogid *pb.BlogID) (*pb.BlogPost, error) {
 	log.Printf("Getting Blog %d", blogid)
-	blogID, _ := strconv.Atoi(blogid.BlogId)
-	newPost := BlogPost{}
+	newPost := pb.BlogPost{}
 
 	repo := repository.ConnectToDB()
-	err := repo.COLLECTION.FindOne(ctx, bson.D{{Key: "blogid", Value: blogID}}).Decode(&newPost)
-
+	err := repo.COLLECTION.FindOne(ctx, bson.D{{Key: "blogid", Value: blogid.BlogId}}).Decode(&newPost)
 	if err == mongo.ErrNoDocuments || err != nil {
 		log.Print(err.Error())
-		return nil, status.Errorf(codes.NotFound, fmt.Sprintf("could not find blog with id: %d", blogID))
+		return nil, status.Errorf(codes.NotFound, fmt.Sprintf("could not find blog with id: %s", blogid.BlogId))
 	}
 
 	return &newPost, nil
 }
 
-func (s *BloggerServer) GetBlogs(ctx context.Context, _ *emptypb.Empty) (*BlogPosts, error) {
+func (s *BloggerServer) GetBlogs(ctx context.Context, _ *emptypb.Empty) (*pb.BlogPosts, error) {
 	log.Printf("Getting All Blogs ")
-	posts := []*BlogPost{}
+	posts := []*pb.BlogPost{}
 
 	findOptions := options.Find()
 	repo := repository.ConnectToDB()
@@ -51,7 +49,7 @@ func (s *BloggerServer) GetBlogs(ctx context.Context, _ *emptypb.Empty) (*BlogPo
 	}
 
 	for cur.Next(ctx) {
-		newPost := BlogPost{}
+		newPost := pb.BlogPost{}
 		err := cur.Decode(&newPost)
 		if err != nil {
 			log.Print(err.Error())
@@ -69,14 +67,14 @@ func (s *BloggerServer) GetBlogs(ctx context.Context, _ *emptypb.Empty) (*BlogPo
 	//Close the cursor once finished
 	cur.Close(ctx)
 
-	return &BlogPosts{Blogs: posts}, nil
+	return &pb.BlogPosts{Blogs: posts}, nil
 }
 
-func (s *BloggerServer) SaveBlog(ctx context.Context, post *BlogPost) (*BlogMessage, error) {
+func (s *BloggerServer) SaveBlog(ctx context.Context, post *pb.BlogPost) (*pb.BlogMessage, error) {
 	log.Printf("Saving Blog ")
 	log.Print(post)
 
-	post.BlogId = int32(rand.Intn(100521230))
+	post.BlogId = utils.GenerateRandomString(32)
 
 	repo := repository.ConnectToDB()
 	result, err := repo.COLLECTION.InsertOne(ctx, post)
@@ -86,11 +84,11 @@ func (s *BloggerServer) SaveBlog(ctx context.Context, post *BlogPost) (*BlogMess
 	}
 	log.Print(result)
 
-	newMessage := &BlogMessage{Message: "New Blog saved sucessfully!"}
+	newMessage := &pb.BlogMessage{Message: "New Blog saved sucessfully!"}
 	return newMessage, nil
 }
 
-func (s *BloggerServer) UpdateBlog(ctx context.Context, post *BlogPost) (*BlogMessage, error) {
+func (s *BloggerServer) UpdateBlog(ctx context.Context, post *pb.BlogPost) (*pb.BlogMessage, error) {
 	log.Printf("Updating Blog %d", post.BlogId)
 	log.Print(post)
 
@@ -105,17 +103,15 @@ func (s *BloggerServer) UpdateBlog(ctx context.Context, post *BlogPost) (*BlogMe
 
 	log.Print(result)
 
-	newMessage := &BlogMessage{Message: "Blog updated sucessfully!"}
+	newMessage := &pb.BlogMessage{Message: "Blog updated sucessfully!"}
 	return newMessage, nil
 }
 
-func (s *BloggerServer) DeleteBlog(ctx context.Context, blogid *BlogID) (*BlogMessage, error) {
-	log.Printf("Deleting Blog %s", blogid)
-	log.Print(blogid)
-	blogID, _ := strconv.Atoi(blogid.BlogId)
+func (s *BloggerServer) DeleteBlog(ctx context.Context, blogid *pb.BlogID) (*pb.BlogMessage, error) {
+	log.Printf("Deleting Blog %s", blogid.BlogId)
 
 	repo := repository.ConnectToDB()
-	result, err := repo.COLLECTION.DeleteOne(ctx, bson.D{{Key: "blogid", Value: blogID}})
+	result, err := repo.COLLECTION.DeleteOne(ctx, bson.D{{Key: "blogid", Value: blogid.BlogId}})
 	if err != nil {
 		log.Print(err.Error())
 		return nil, status.Errorf(codes.NotFound, "failed to delete blog")
@@ -123,6 +119,6 @@ func (s *BloggerServer) DeleteBlog(ctx context.Context, blogid *BlogID) (*BlogMe
 
 	log.Print(result)
 
-	newMessage := &BlogMessage{Message: "Blog sucessfully deleted!"}
+	newMessage := &pb.BlogMessage{Message: "Blog sucessfully deleted!"}
 	return newMessage, nil
 }

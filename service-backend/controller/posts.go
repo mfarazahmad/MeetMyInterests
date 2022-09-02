@@ -9,29 +9,22 @@ import (
 
 	"github.com/rs/zerolog/log"
 
-	"service-portfolio/config"
-	"service-portfolio/pb/blog"
+	"service-backend/config"
+	"service-backend/grpc/auth"
+	"service-backend/grpc/blog"
+	m "service-backend/models"
 
 	emptypb "google.golang.org/protobuf/types/known/emptypb"
 
 	"github.com/gorilla/mux"
 )
 
-type GetResponseObject struct {
-	POSTS []*blog.BlogPost `json:"posts"`
-	MSG   string           `json:"msg"`
-	ERR   string           `json:"err"`
-}
-
-type ModifyReponseObject struct {
-	MSG string `json:"msg"`
-	ERR string `json:"err"`
-}
-
 func GetPosts(resp http.ResponseWriter, req *http.Request) {
 	log.Print("Triggering GET /post")
 
-	jsonData := []byte{}
+	log.Print(auth.VerifyToken(req))
+
+	var jsonData []byte
 
 	limit_param := req.URL.Query().Get("limit")
 	if limit_param != "" {
@@ -48,13 +41,13 @@ func GetPosts(resp http.ResponseWriter, req *http.Request) {
 	posts, err := service.GetBlogs(ctx, &emptypb.Empty{})
 	if err != nil {
 		log.Print("Service GetAll Posts Failed: %v", err)
-		respData := &ModifyReponseObject{
+		respData := &m.ModifyReponseObject{
 			MSG: "",
 			ERR: err.Error(),
 		}
 		jsonData, _ = json.MarshalIndent(respData, "", "    ")
 	} else {
-		respData := &GetResponseObject{
+		respData := &m.GetResponseObject{
 			POSTS: posts.Blogs,
 			MSG:   "",
 			ERR:   "",
@@ -71,7 +64,7 @@ func GetPosts(resp http.ResponseWriter, req *http.Request) {
 func GetPost(resp http.ResponseWriter, req *http.Request) {
 	log.Print("Triggering GET /post/[postID]")
 
-	jsonData := []byte{}
+	var jsonData []byte
 
 	vars := mux.Vars(req)
 	postID := vars["postID"]
@@ -89,13 +82,13 @@ func GetPost(resp http.ResponseWriter, req *http.Request) {
 	post, err := service.GetBlog(ctx, &blog.BlogID{BlogId: postID})
 	if err != nil {
 		log.Print("Service GetPost Failed: %v", err)
-		respData := &ModifyReponseObject{
+		respData := &m.ModifyReponseObject{
 			MSG: "",
 			ERR: err.Error(),
 		}
 		jsonData, _ = json.MarshalIndent(respData, "", "    ")
 	} else {
-		respData := &GetResponseObject{
+		respData := &m.GetResponseObject{
 			POSTS: []*blog.BlogPost{post},
 			MSG:   "",
 			ERR:   "",
@@ -130,15 +123,15 @@ func SavePost(resp http.ResponseWriter, req *http.Request) {
 	defer cancel()
 
 	msg, err := service.SaveBlog(ctx, &newBlog)
-	respData := ModifyReponseObject{}
+	respData := m.ModifyReponseObject{}
 	if err != nil {
 		log.Print("Service SavePost Failed: %v", err)
-		respData = ModifyReponseObject{
+		respData = m.ModifyReponseObject{
 			MSG: "",
 			ERR: err.Error(),
 		}
 	} else {
-		respData = ModifyReponseObject{
+		respData = m.ModifyReponseObject{
 			MSG: msg.Message,
 			ERR: "",
 		}
@@ -160,10 +153,10 @@ func UpdatePost(resp http.ResponseWriter, req *http.Request) {
 	decoder.DisallowUnknownFields()
 	err := decoder.Decode(&newBlog)
 
-	respData := ModifyReponseObject{}
+	respData := m.ModifyReponseObject{}
 	if err != nil {
 		log.Print(err.Error())
-		respData = ModifyReponseObject{
+		respData = m.ModifyReponseObject{
 			MSG: "",
 			ERR: err.Error(),
 		}
@@ -187,12 +180,12 @@ func UpdatePost(resp http.ResponseWriter, req *http.Request) {
 	msg, err := service.UpdateBlog(ctx, &newBlog)
 	if err != nil {
 		log.Print("Service UpdatePost Failed: %v", err)
-		respData = ModifyReponseObject{
+		respData = m.ModifyReponseObject{
 			MSG: "",
 			ERR: err.Error(),
 		}
 	} else {
-		respData = ModifyReponseObject{
+		respData = m.ModifyReponseObject{
 			MSG: msg.Message,
 			ERR: "",
 		}
@@ -223,15 +216,15 @@ func DeletePost(resp http.ResponseWriter, req *http.Request) {
 	defer cancel()
 
 	msg, err := service.DeleteBlog(ctx, &blogId)
-	respData := ModifyReponseObject{}
+	respData := m.ModifyReponseObject{}
 	if err != nil {
 		log.Print("Service DeletePost Failed: %v", err)
-		respData = ModifyReponseObject{
+		respData = m.ModifyReponseObject{
 			MSG: "",
 			ERR: err.Error(),
 		}
 	} else {
-		respData = ModifyReponseObject{
+		respData = m.ModifyReponseObject{
 			MSG: msg.Message,
 			ERR: "",
 		}

@@ -20,7 +20,6 @@ func lookupUser(username string) (*pb.Credentials, error) {
 
 	db, err := repo.ConnectToDB()
 	if err != nil {
-		log.Print("Failed to connect to the database!")
 		return lookupCreds, fmt.Errorf("failed to connect to the database")
 	}
 
@@ -52,7 +51,7 @@ func CompareCredentials(creds *pb.Credentials) (bool, error) {
 
 }
 
-func SaveUser(creds *pb.Credentials) bool {
+func SaveCredentials(creds *pb.Credentials) bool {
 	isValidPass := validatePassword(creds.Password)
 	isValidUserName := validateUsername(creds.Username)
 
@@ -83,6 +82,6 @@ func SaveUser(creds *pb.Credentials) bool {
 	return false
 }
 
-func updatePassword() {
+func updateCredentials() {
 
 }

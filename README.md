@@ -30,7 +30,7 @@
 - Logging using Datadog
 - 100% Code Coverage
 - Linters used: 
-- Password for Admin Mode is hashed using a Argon2id hash function using Blake2.
+- Passwords are hashed using a Argon2id hash function using Blake2.
 - Pipeline Orchestrator coming soon! (Harness)
 
 ## Local Setup
