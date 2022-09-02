@@ -71,7 +71,7 @@ func (s *BloggerServer) GetBlogs(ctx context.Context, _ *emptypb.Empty) (*pb.Blo
 }
 
 func (s *BloggerServer) SaveBlog(ctx context.Context, post *pb.BlogPost) (*pb.BlogMessage, error) {
-	log.Printf("Saving Blog ")
+	log.Printf("Saving Blog %s", post.Title)
 	log.Print(post)
 
 	post.BlogId = utils.GenerateRandomString(32)
@@ -89,7 +89,7 @@ func (s *BloggerServer) SaveBlog(ctx context.Context, post *pb.BlogPost) (*pb.Bl
 }
 
 func (s *BloggerServer) UpdateBlog(ctx context.Context, post *pb.BlogPost) (*pb.BlogMessage, error) {
-	log.Printf("Updating Blog %d", post.BlogId)
+	log.Printf("Updating Blog %s", post.BlogId)
 	log.Print(post)
 
 	repo := repository.ConnectToDB()
@@ -101,7 +101,10 @@ func (s *BloggerServer) UpdateBlog(ctx context.Context, post *pb.BlogPost) (*pb.
 		return nil, status.Errorf(codes.NotFound, "failed to update blog")
 	}
 
-	log.Print(result)
+	if result.ModifiedCount == 0 {
+		log.Printf("%d results found", result.MatchedCount)
+		return nil, status.Errorf(codes.NotFound, "failed to update blog")
+	}
 
 	newMessage := &pb.BlogMessage{Message: "Blog updated sucessfully!"}
 	return newMessage, nil
@@ -117,7 +120,10 @@ func (s *BloggerServer) DeleteBlog(ctx context.Context, blogid *pb.BlogID) (*pb.
 		return nil, status.Errorf(codes.NotFound, "failed to delete blog")
 	}
 
-	log.Print(result)
+	if result.DeletedCount == 0 {
+		log.Printf("%d results found", result.DeletedCount)
+		return nil, status.Errorf(codes.NotFound, "failed to update blog")
+	}
 
 	newMessage := &pb.BlogMessage{Message: "Blog sucessfully deleted!"}
 	return newMessage, nil

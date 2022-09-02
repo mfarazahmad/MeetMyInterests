@@ -33,7 +33,7 @@ func VerifyClaims(claims m.UserClaims) bool {
 func getAdminClaims(username string) m.UserClaims {
 	claims := m.UserClaims{
 		RegisteredClaims: &jwt.RegisteredClaims{
-			ExpiresAt: jwt.NewNumericDate(time.Now().Add(time.Minute * 1)),
+			ExpiresAt: jwt.NewNumericDate(time.Now().Add(time.Minute * 60)),
 		},
 		TokenType: "level2",
 		User:      m.User{Name: username, Kind: "Admin"},

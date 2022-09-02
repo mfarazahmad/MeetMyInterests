@@ -16,22 +16,21 @@ import (
 func Login(resp http.ResponseWriter, req *http.Request) {
 	log.Print("Triggering POST /user/login")
 
-	var jsonData []byte
-	var respData m.AuthReponseObject
-
 	newCreds := auth.Credentials{}
 
 	decoder := json.NewDecoder(req.Body)
 	decoder.DisallowUnknownFields()
 	err := decoder.Decode(&newCreds)
 	if err != nil {
-		log.Print(err.Error())
-		respData = m.AuthReponseObject{
+		log.Print(err.Error() + "| Incorrect user credentials")
+		respData := m.AuthReponseObject{
 			MSG:        "",
 			ISLOGGEDIN: false,
 			TOKEN:      "",
-			ERR:        err.Error(),
+			ERR:        err.Error() + "| Incorrect user credentials!",
 		}
+		responder(resp, respData)
+		return
 	}
 	log.Print(&newCreds)
 
@@ -44,32 +43,29 @@ func Login(resp http.ResponseWriter, req *http.Request) {
 	status, err := service.Login(ctx, &newCreds)
 	if err != nil {
 		log.Print("Service Authentication Failed: %v", err)
-		respData = m.AuthReponseObject{
+		respData := m.AuthReponseObject{
 			MSG:        "",
 			ISLOGGEDIN: false,
 			TOKEN:      "",
 			ERR:        err.Error(),
 		}
-	} else {
-		respData = m.AuthReponseObject{
-			MSG:        "Successfully logged in user!",
-			ISLOGGEDIN: status.IsLoggedIn,
-			TOKEN:      status.Jwt.EncodedJWT,
-			ERR:        "",
-		}
+		responder(resp, respData)
+		return
 	}
-	log.Print(status)
 
+	log.Print(status)
+	respData := m.AuthReponseObject{
+		MSG:        "Successfully logged in user!",
+		ISLOGGEDIN: status.IsLoggedIn,
+		TOKEN:      status.Jwt.EncodedJWT,
+		ERR:        "",
+	}
+	responder(resp, respData)
 	//defer serviceInfo.CONNECTION.Close()
-	jsonData, _ = json.MarshalIndent(respData, "", "    ")
-	resp.Write(jsonData)
 }
 
 func SaveCredentials(resp http.ResponseWriter, req *http.Request) {
 	log.Print("Triggering POST /user/new")
-
-	var jsonData []byte
-	var respData m.AuthReponseObject
 
 	newCreds := auth.Credentials{}
 
@@ -77,13 +73,15 @@ func SaveCredentials(resp http.ResponseWriter, req *http.Request) {
 	decoder.DisallowUnknownFields()
 	err := decoder.Decode(&newCreds)
 	if err != nil {
-		log.Print(err.Error())
-		respData = m.AuthReponseObject{
+		log.Print(err.Error() + "| Incorrect user credentials")
+		respData := m.AuthReponseObject{
 			MSG:        "",
 			ISLOGGEDIN: false,
 			TOKEN:      "",
-			ERR:        err.Error(),
+			ERR:        err.Error() + "| Incorrect user credentials",
 		}
+		responder(resp, respData)
+		return
 	}
 	log.Print(&newCreds)
 
@@ -96,23 +94,25 @@ func SaveCredentials(resp http.ResponseWriter, req *http.Request) {
 	status, err := service.CreateUser(ctx, &newCreds)
 	if err != nil {
 		log.Print("Service Create New User Failed: %v", err)
-		respData = m.AuthReponseObject{
+		respData := m.AuthReponseObject{
 			MSG:        "",
 			ISLOGGEDIN: false,
 			TOKEN:      "",
 			ERR:        err.Error(),
 		}
-	} else {
-		respData = m.AuthReponseObject{
-			MSG:        "Successfully saved user!",
-			ISLOGGEDIN: status.IsLoggedIn,
-			TOKEN:      status.Jwt.EncodedJWT,
-			ERR:        "",
-		}
+		responder(resp, respData)
+		return
 	}
-	log.Print(status)
 
+	respData := m.AuthReponseObject{
+		MSG:        "Successfully saved user!",
+		ISLOGGEDIN: status.IsLoggedIn,
+		TOKEN:      status.Jwt.EncodedJWT,
+		ERR:        "",
+	}
+
+	log.Print(status)
+	responder(resp, respData)
 	//defer serviceInfo.CONNECTION.Close()
-	jsonData, _ = json.MarshalIndent(respData, "", "    ")
-	resp.Write(jsonData)
+
 }

@@ -2,7 +2,6 @@ package auth
 
 import (
 	"net/http"
-	"time"
 
 	"github.com/rs/zerolog/log"
 
@@ -14,13 +13,23 @@ import (
 )
 
 func VerifyToken(r *http.Request) bool {
+	log.Print("Verifying token!")
 	token, err := parseToken(r)
 	if err != nil {
 		log.Print(err)
 		return false
 	}
-	claims := token.Claims.(m.UserClaims)
-	return claims == getAdminClaims(claims.User.Name)
+	claims := token.Claims.(*m.UserClaims)
+	adminClaims := getAdminClaims(claims.User.Name)
+
+	verification1 := claims.TokenType == adminClaims.TokenType
+	verification2 := claims.User.Kind == adminClaims.User.Kind
+	verification3 := claims.User.Name == adminClaims.User.Name
+
+	if verification1 && verification2 && verification3 {
+		return true
+	}
+	return false
 }
 
 func parseToken(r *http.Request) (*jwt.Token, error) {
@@ -30,13 +39,11 @@ func parseToken(r *http.Request) (*jwt.Token, error) {
 	return token, err
 }
 
-func getAdminClaims(username string) m.UserClaims {
-	claims := m.UserClaims{
-		RegisteredClaims: &jwt.RegisteredClaims{
-			ExpiresAt: jwt.NewNumericDate(time.Now().Add(time.Minute * 1)),
-		},
-		TokenType: "level2",
-		User:      m.User{Name: username, Kind: "Admin"},
+func getAdminClaims(username string) *m.UserClaims {
+	claims := &m.UserClaims{
+		RegisteredClaims: &jwt.RegisteredClaims{},
+		TokenType:        "level2",
+		User:             m.User{Name: username, Kind: "Admin"},
 	}
 	return claims
 }

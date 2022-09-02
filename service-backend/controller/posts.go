@@ -39,6 +39,7 @@ func GetPosts(resp http.ResponseWriter, req *http.Request) {
 		log.Print("Service GetAll Posts Failed: %v", err)
 		respData := &m.ModifyReponseObject{MSG: "", ERR: err.Error()}
 		responder(resp, respData)
+		return
 	}
 	log.Print(posts)
 	respData := &m.GetResponseObject{
@@ -59,6 +60,7 @@ func GetPost(resp http.ResponseWriter, req *http.Request) {
 		log.Print("Do something")
 		respData := m.ModifyReponseObject{MSG: "", ERR: "Incorrect POST ID"}
 		responder(resp, respData)
+		return
 	}
 	log.Printf("PostID is: %s", postID)
 
@@ -73,6 +75,7 @@ func GetPost(resp http.ResponseWriter, req *http.Request) {
 		log.Print("Service GetPost Failed: %v", err)
 		respData := &m.ModifyReponseObject{MSG: "", ERR: err.Error()}
 		responder(resp, respData)
+		return
 	}
 
 	log.Print(post)
@@ -88,14 +91,10 @@ func GetPost(resp http.ResponseWriter, req *http.Request) {
 func SavePost(resp http.ResponseWriter, req *http.Request) {
 	log.Print("Triggering POST /post/new")
 
-	var respData m.ModifyReponseObject
 	if !auth.VerifyToken(req) {
-		respData = m.ModifyReponseObject{
-			MSG: "",
-			ERR: "Failed to verify user!",
-		}
-		jsonData, _ := json.MarshalIndent(respData, "", "    ")
-		resp.Write(jsonData)
+		respData := m.ModifyReponseObject{MSG: "", ERR: "Failed to verify user!"}
+		responder(resp, respData)
+		return
 	}
 
 	newBlog := blog.BlogPost{}
@@ -104,13 +103,10 @@ func SavePost(resp http.ResponseWriter, req *http.Request) {
 	decoder.DisallowUnknownFields()
 	err := decoder.Decode(&newBlog)
 	if err != nil {
-		log.Print(err.Error())
-		respData = m.ModifyReponseObject{
-			MSG: "",
-			ERR: err.Error(),
-		}
-		jsonData, _ := json.MarshalIndent(respData, "", "    ")
-		resp.Write(jsonData)
+		log.Print(err.Error() + " Cant parse blog")
+		respData := m.ModifyReponseObject{MSG: "", ERR: err.Error() + "Cant parse blog"}
+		responder(resp, respData)
+		return
 	}
 
 	log.Print(&newBlog)
@@ -124,33 +120,23 @@ func SavePost(resp http.ResponseWriter, req *http.Request) {
 	msg, err := service.SaveBlog(ctx, &newBlog)
 	if err != nil {
 		log.Print("Service SavePost Failed: %v", err)
-		respData = m.ModifyReponseObject{
-			MSG: "",
-			ERR: err.Error(),
-		}
-		jsonData, _ := json.MarshalIndent(respData, "", "    ")
-		resp.Write(jsonData)
+		respData := m.ModifyReponseObject{MSG: "", ERR: err.Error()}
+		responder(resp, respData)
+		return
 	}
-
-	respData = m.ModifyReponseObject{
-		MSG: msg.Message,
-		ERR: "",
-	}
-
 	log.Print(msg)
-
-	jsonData, _ := json.MarshalIndent(respData, "", "    ")
-	resp.Write(jsonData)
+	respData := m.ModifyReponseObject{MSG: msg.Message, ERR: ""}
+	responder(resp, respData)
 	//defer serviceInfo.CONNECTION.Close()
 }
 
 func UpdatePost(resp http.ResponseWriter, req *http.Request) {
 	log.Print("Triggering PUT /post/[postID]")
 
-	var respData m.ModifyReponseObject
 	if !auth.VerifyToken(req) {
-		respData = m.ModifyReponseObject{MSG: "", ERR: "Failed to verify user!"}
+		respData := m.ModifyReponseObject{MSG: "", ERR: "Failed to verify user!"}
 		responder(resp, respData)
+		return
 	}
 
 	newBlog := blog.BlogPost{}
@@ -160,9 +146,10 @@ func UpdatePost(resp http.ResponseWriter, req *http.Request) {
 	err := decoder.Decode(&newBlog)
 
 	if err != nil {
-		log.Print(err.Error())
-		respData = m.ModifyReponseObject{MSG: "", ERR: err.Error()}
+		log.Print(err.Error() + "Cant parse blog")
+		respData := m.ModifyReponseObject{MSG: "", ERR: err.Error() + "Cant parse blog"}
 		responder(resp, respData)
+		return
 	}
 
 	log.Print(&newBlog)
@@ -170,8 +157,9 @@ func UpdatePost(resp http.ResponseWriter, req *http.Request) {
 	vars := mux.Vars(req)
 	postID := vars["postID"]
 	if postID == "" {
-		respData = m.ModifyReponseObject{MSG: "", ERR: "Invalid PostID"}
+		respData := m.ModifyReponseObject{MSG: "", ERR: "Invalid PostID"}
 		responder(resp, respData)
+		return
 	}
 	log.Printf("PostID is: %s", postID)
 
@@ -184,12 +172,13 @@ func UpdatePost(resp http.ResponseWriter, req *http.Request) {
 	msg, err := service.UpdateBlog(ctx, &newBlog)
 	if err != nil {
 		log.Print("Service UpdatePost Failed: %v", err)
-		respData = m.ModifyReponseObject{MSG: "", ERR: err.Error()}
+		respData := m.ModifyReponseObject{MSG: "", ERR: err.Error()}
 		responder(resp, respData)
+		return
 	}
 
 	log.Print(msg)
-	respData = m.ModifyReponseObject{MSG: msg.Message, ERR: ""}
+	respData := m.ModifyReponseObject{MSG: msg.Message, ERR: ""}
 	responder(resp, respData)
 	//defer serviceInfo.CONNECTION.Close()
 }
@@ -197,17 +186,18 @@ func UpdatePost(resp http.ResponseWriter, req *http.Request) {
 func DeletePost(resp http.ResponseWriter, req *http.Request) {
 	log.Print("Triggering DEL /post/[postID]")
 
-	var respData m.ModifyReponseObject
 	if !auth.VerifyToken(req) {
-		respData = m.ModifyReponseObject{MSG: "", ERR: "Failed to verify user!"}
+		respData := m.ModifyReponseObject{MSG: "", ERR: "Failed to verify user!"}
 		responder(resp, respData)
+		return
 	}
 
 	vars := mux.Vars(req)
 	postID := vars["postID"]
 	if postID == "" {
-		respData = m.ModifyReponseObject{MSG: "", ERR: "Incorrect POST ID"}
+		respData := m.ModifyReponseObject{MSG: "", ERR: "Incorrect POST ID"}
 		responder(resp, respData)
+		return
 	}
 	log.Printf("PostID is: %s", postID)
 	blogId := blog.BlogID{BlogId: postID}
@@ -221,11 +211,12 @@ func DeletePost(resp http.ResponseWriter, req *http.Request) {
 	msg, err := service.DeleteBlog(ctx, &blogId)
 	if err != nil {
 		log.Print("Service DeletePost Failed: %v", err)
-		respData = m.ModifyReponseObject{MSG: "", ERR: err.Error()}
+		respData := m.ModifyReponseObject{MSG: "", ERR: err.Error()}
 		responder(resp, respData)
+		return
 	}
 	log.Print(msg)
-	respData = m.ModifyReponseObject{MSG: msg.Message, ERR: ""}
+	respData := m.ModifyReponseObject{MSG: msg.Message, ERR: ""}
 	responder(resp, respData)
 	//defer serviceInfo.CONNECTION.Close()
 }
