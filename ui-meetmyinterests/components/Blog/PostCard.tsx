@@ -1,8 +1,15 @@
 import React from 'react';
-
+import { PostDetails } from '../../types/blog';
 import { Tag } from 'antd';
 
-const PostCard = (props) => {
+
+type Props = {
+    blogId: string,
+    handleFullPage: Function,
+    postDetails: PostDetails
+}
+
+const PostCard = (props: Props) => {
 
     return (
         <div className='postCard' onClick={() => props.handleFullPage(props.blogId)} >

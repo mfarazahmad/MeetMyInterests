@@ -1,8 +1,12 @@
-import React, {useEffect, useRef} from 'react'
+import React, { useEffect, useRef } from 'react'
 
 import Navbar from './Navbar'
 
-const Outline = (props) => {
+type Props = {
+    children: JSX.Element
+}
+
+const Outline = (props: Props) => {
 
     return (
         <div className="outline">

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
+import { PostDetails } from '../types/blog'
 
 import styles from '../styles/Blog.module.css'
 import Outline from '../components/Layout/Outline'
@@ -10,10 +11,10 @@ import PostCard from '../components/Blog/PostCard'
 // GET /api/v1/post
 const Blog = () => {
 
-    const [posts, setPosts] = useState([])
-    const [viewNewBlog, setViewNewBlog] = useState(false)
-    const [viewBlogFullPage, setBlogFullPage] = useState(false)
-    const [currentBlogID, setBlogId] = useState(0)
+    const [posts, setPosts] = useState<PostDetails[]>([])
+    const [viewNewBlog, setViewNewBlog] = useState<Boolean>(false)
+    const [viewBlogFullPage, setBlogFullPage] = useState<Boolean>(false)
+    const [currentBlogID, setBlogId] = useState<string>("0")
 
     const getPosts = async () => {
         try {

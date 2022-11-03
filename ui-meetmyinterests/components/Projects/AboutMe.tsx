@@ -1,12 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 
 const AboutMe = () => {
-
-    useEffect(() => {
-
-    })
-
 
     return (
         <div className='aboutMe'>

@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, MouseEventHandler } from 'react';
 import { useRouter } from 'next/router'
 import axios from 'axios'
 import { stateToHTML } from "draft-js-export-html";
+import { EditorState } from 'draft-js';
 
 import { Input, Button, Select } from 'antd';
 
@@ -9,15 +10,19 @@ import BlogEditor from './Editor'
 
 const { Option } = Select;
 
+type Props = {
+    handleNewBlogView: MouseEventHandler<HTMLElement>,
+}
+
 // POST /api/v1/post/new
-const NewBlogPost = (props) => {
+const NewBlogPost = (props: Props) => {
 
     const router = useRouter()
 
     const [title, setTitle] = useState('')
     const [subTitle, setSubtitle] = useState('')
     const [category, setCategory] = useState('')
-    const [post, setPost] = useState('')
+    const [post, setPost] = useState<EditorState>('')
 
     const handleInputs = (e, inputName) => {
         let value = e.target.value;
@@ -118,7 +123,6 @@ const NewBlogPost = (props) => {
                     <Select
                         value={category}
                         onChange={handleSelect}
-                        type="text"
                         placeholder="Category"
                     >
                         <Option value="cs">CS</Option>

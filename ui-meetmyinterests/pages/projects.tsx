@@ -5,7 +5,7 @@ import Outline from '../components/Layout/Outline'
 import AboutMe from '../components/Projects/AboutMe'
 import ProjectShowCase from '../components/Projects/ProjectShowCase'
 
-const Projects = (props) => {
+const Projects = () => {
 
     return (
         <Outline>

@@ -1,14 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router'
 import axios from 'axios'
+import { PostDetails } from '../../types/blog';
 
 import { Button } from 'antd';
 
 import PostCard from './PostCard'
 import EditBlog from './EditBlog'
 
+type Props = {
+    blogId: string,
+    handleFullPage: Function,
+}
 // GET /api/v1/post/[postID]
-const BlogPost = (props) => {
+const BlogPost = (props: Props) => {
 
     const getPostDetails = async (postID) => {
         try {
@@ -35,7 +40,7 @@ const BlogPost = (props) => {
         getPostDetails(props.blogId)
     }, [])
 
-    const [postDetails, setPostDetails] = useState({})
+    const [postDetails, setPostDetails] = useState<PostDetails>({ blogId: "", subTitle: "", post: "", category: "", date: "", title: "", })
     const [isEditMode, setEditMode] = useState(false)
 
     const router = useRouter()

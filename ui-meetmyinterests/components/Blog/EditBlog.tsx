@@ -13,7 +13,7 @@ const EditBlog = (props) => {
 
     const router = useRouter()
 
-    const [post, setPost] = useState(EditorState.createWithContent(stateFromHTML(props.post)))
+    const [post, setPost] = useState<EditorState>(EditorState.createWithContent(stateFromHTML(props.post)))
 
     const handleEditor = (e) => {
         console.log(e);
