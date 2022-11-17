@@ -25,4 +25,4 @@ RUN go build -o /service-backend
 
 EXPOSE 9100
 
-CMD ["/service-backend"]
+CMD ["/service-interests"]

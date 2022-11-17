@@ -1,5 +1,5 @@
 # VARIABLES
-IMAGEFULLNAME := service-backend
+IMAGEFULLNAME := service-interests
 GIT_REPO := '$(shell git config --get remote.origin.url)'
 GIT_BRANCH := '$(shell git rev-parse --abbrev-ref HEAD)'
 GIT_COMMIT := '$(shell git log -1 --format=format:"%H")'

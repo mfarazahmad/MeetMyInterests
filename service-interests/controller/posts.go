@@ -92,6 +92,7 @@ func SavePost(resp http.ResponseWriter, req *http.Request) {
 	log.Print("Triggering POST /post/new")
 
 	if !auth.VerifyToken(req) {
+		log.Print("Failed to verify user! User must be logged in!")
 		respData := m.ModifyReponseObject{MSG: "", ERR: "Failed to verify user!"}
 		responder(resp, respData)
 		return
@@ -134,6 +135,7 @@ func UpdatePost(resp http.ResponseWriter, req *http.Request) {
 	log.Print("Triggering PUT /post/[postID]")
 
 	if !auth.VerifyToken(req) {
+		log.Print("Failed to verify user! User must be logged in!")
 		respData := m.ModifyReponseObject{MSG: "", ERR: "Failed to verify user!"}
 		responder(resp, respData)
 		return
@@ -187,6 +189,7 @@ func DeletePost(resp http.ResponseWriter, req *http.Request) {
 	log.Print("Triggering DEL /post/[postID]")
 
 	if !auth.VerifyToken(req) {
+		log.Print("Failed to verify user! User must be logged in!")
 		respData := m.ModifyReponseObject{MSG: "", ERR: "Failed to verify user!"}
 		responder(resp, respData)
 		return

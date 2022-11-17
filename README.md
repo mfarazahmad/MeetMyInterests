@@ -12,26 +12,34 @@
     - Grid/Flexbox
     - Antd Design
     - Webp Image Formats
-- Services Broken into a Domain Driven Microservices Architecture (golang)
-    - service-portfolio 
-    - service-media
-    - service-blog 
-    - service-fitness-tracker
-    - service-analytics
-    - service-auth
+- Services Broken into a Domain Driven Microservices Architecture 
+    - **golang**
+        - service-interests 
+        - service-blog 
+        - service-fitness-tracker
+        - service-auth
+    - **python**
+        - service-analytics
+    - **node/typescript**
+        - service-notifcation
+        - service-email
+        - service-media-stream
+
+Service-Blog has a CQRS (Command-Query Responsbility Segregation) Architecture to Seperate Read & Writes operations for better scalability. An event bus via RabbitMQ is used for sync across the write to read database.
 
 ## Technologies
 - Containerization via Docker & Managed by Kubernetes & Helm Charts
 - Isitio leveraged as API Gateway for Load Balancing
 - Isitio used as Service Mesh for service discovery
-- Deloyed on Azure AKS via Terraform
-- Utilizing Redis for Cacheing of User Sessiom
+- Deployed on Amazon EKS via Terraform
+- Pipeline Orchestrator via Harness w/ Sonarcube Integration
+- Utilizing Redis for Cacheing of Media for Streaming
+- Sensitive Configuration stored/ retrieved in Hasicorp Vault
 - MongoDB Cluster Sharding w/ 3 nodes
 - Logging using Datadog
 - 100% Code Coverage
 - Linters used: 
 - Passwords are hashed using a Argon2id hash function using Blake2.
-- Pipeline Orchestrator coming soon! (Harness)
 
 ## Local Setup
 
@@ -39,6 +47,7 @@
 ```
 choco install golang
 choco install nodejs
+choco install python
 choco install protoc
 
 ```
@@ -62,7 +71,7 @@ auth.proto
 
 ### Infrastructure
 ```
-choco install azure-cli
+choco install aws-cli
 choco install docker
 choco install terraform
 choco install kubernetes-cli
@@ -72,7 +81,7 @@ choco install minikube
 
 ## Running Containers Locally
 ```
-docker run -p 9100:9100 service-portfolio
+docker run -p 9100:9100 service-interests
 docker run -p 8001:8001 service-blog
 docker run -p 8001:8001 service-auth
 docker run -p 3000:3000 meetmyinterests
