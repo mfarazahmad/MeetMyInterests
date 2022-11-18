@@ -19,7 +19,7 @@ const BlogPost = (props: Props) => {
         try {
             let endpoint = `${process.env.NEXT_PUBLIC_HOSTNAME}/api/v1/post`
             let resp = await axios.get(`${endpoint}/${postID}`)
-            let data = resp.data;
+            let data = resp.data
 
             if (data.err) {
                 console.log(data.err)

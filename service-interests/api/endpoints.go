@@ -12,6 +12,6 @@ var API_CONFIG = []m.API_DEFINITION{
 	{Verb: "PUT", Endpoint: "/api/v1/post/{postID}", Controller: c.UpdatePost},
 	{Verb: "DELETE", Endpoint: "/api/v1/post/{postID}", Controller: c.DeletePost},
 	{Verb: "POST", Endpoint: "/api/v1/user/login", Controller: c.Login},
-	//{Verb: "POST", Endpoint: "/api/v1/user/logout", Controller: c.Logout},
+	{Verb: "POST", Endpoint: "/api/v1/user/logout", Controller: c.Logout},
 	{Verb: "POST", Endpoint: "/api/v1/user/new", Controller: c.SaveCredentials},
 }

@@ -49,9 +49,16 @@ func Login(resp http.ResponseWriter, req *http.Request) {
 			TOKEN:      "",
 			ERR:        err.Error(),
 		}
+
 		responder(resp, respData)
 		return
 	}
+
+	// Update Session with JWT
+	session, _ := config.CFG.SESSION.Get(req, "session")
+	session.Values["authenticated"] = status.IsLoggedIn
+	session.Values["token"] = status.Jwt.EncodedJWT
+	session.Save(req, resp)
 
 	log.Print(status)
 	respData := m.AuthReponseObject{
@@ -62,6 +69,21 @@ func Login(resp http.ResponseWriter, req *http.Request) {
 	}
 	responder(resp, respData)
 	//defer serviceInfo.CONNECTION.Close()
+}
+
+func Logout(resp http.ResponseWriter, req *http.Request) {
+	session, _ := config.CFG.SESSION.Get(req, "session")
+	session.Options.MaxAge = -1
+	session.Save(req, resp)
+
+	respData := m.AuthReponseObject{
+		MSG:        "Logged Out",
+		ISLOGGEDIN: false,
+		TOKEN:      "",
+		ERR:        "",
+	}
+
+	responder(resp, respData)
 }
 
 func SaveCredentials(resp http.ResponseWriter, req *http.Request) {
@@ -103,6 +125,12 @@ func SaveCredentials(resp http.ResponseWriter, req *http.Request) {
 		responder(resp, respData)
 		return
 	}
+
+	// Update Session with JWT
+	session, _ := config.CFG.SESSION.Get(req, "session")
+	session.Values["authenticated"] = status.IsLoggedIn
+	session.Values["token"] = status.Jwt.EncodedJWT
+	session.Save(req, resp)
 
 	respData := m.AuthReponseObject{
 		MSG:        "Successfully saved user!",

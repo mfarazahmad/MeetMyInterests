@@ -1,10 +1,25 @@
 /* eslint-disable @next/next/no-img-element */
-import React from 'react';
+import React, { MouseEventHandler, useState } from 'react'
 import Link from 'next/link'
 
-import { Avatar, Badge } from 'antd';
+import { Avatar, Badge, Button } from 'antd'
 
-const Navbar = () => {
+import Login from '../Auth/Login'
+import Logout from '../Auth/Logout'
+
+type Props = {
+    isLoggedIn: boolean,
+    handleLogin: MouseEventHandler<HTMLElement>,
+    handleLogout: MouseEventHandler<HTMLElement>,
+}
+
+const Navbar = (props: Props) => {
+
+    const [showLoginBox, setLoginDisplay] = useState(false)
+
+    const handleLoginDisplay = () => {
+        setLoginDisplay((showLoginBox) => !showLoginBox)
+    }
 
     return (
         <div className="navbar">
@@ -22,6 +37,22 @@ const Navbar = () => {
                     </Badge>
                 </div>
             </div>
+
+            {showLoginBox && <Login handleLoginDisplay={handleLoginDisplay} handleLogin={props.handleLogin} />}
+
+            {!props.isLoggedIn ?
+                (
+                    <div>
+                        <Button className='loginBtn' onClick={handleLoginDisplay}>Login</Button>
+                    </div>
+                ) :
+                (
+                    <div>
+                        <Logout handleLogout={props.handleLogout} />
+                    </div>
+                )
+            }
+
             <div className='linkTags'>
                 <Link href="/"><a>Home</a></Link>
                 <Link href="/projects"><a>Projects</a></Link>
@@ -40,4 +71,4 @@ const Navbar = () => {
     )
 }
 
-export default Navbar;
+export default Navbar

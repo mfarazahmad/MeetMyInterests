@@ -53,3 +53,71 @@
 .social img:hover {
   opacity: .8;
 }
+
+.closeBtn {
+  border-radius: 10px;
+  padding: 5px;
+  background: black;
+  color: white;
+  cursor: pointer;
+  text-align: center;
+}
+
+.closeBtn:hover {
+  background: white;
+  color: black;
+  cursor: pointer;
+}
+
+.loginSurrounding {
+  position: absolute;
+  z-index: 100;
+
+  height: 100%;
+  width: 100%;
+}
+
+.loginBox:hover {
+  border: 1px solid black;
+}
+
+.loginBox {
+  width: 350px;
+  padding: 10px;
+
+  border-radius: 10px;
+  box-shadow: 2px 3px black;
+  background: black;
+  color: white;
+
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-direction: column;
+}
+
+.loginBox .topRow {
+  display: flex;
+  justify-content: center;
+  align-items: space-between;
+  flex-direction: row;
+  margin: 10px;
+}
+
+.loginBtn {
+  background: green;
+  color: white;
+}
+
+.loginForm {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  color: white;
+}
+
+.loginForm .ant-form-item-label>label {
+  color: white;
+}

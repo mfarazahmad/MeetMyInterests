@@ -9,7 +9,7 @@ import BlogPost from '../components/Blog/BlogPost'
 import PostCard from '../components/Blog/PostCard'
 
 // GET /api/v1/post
-const Blog = () => {
+const Blog = (props) => {
 
     const [posts, setPosts] = useState<PostDetails[]>([])
     const [viewNewBlog, setViewNewBlog] = useState<Boolean>(false)
@@ -40,6 +40,7 @@ const Blog = () => {
 
     useEffect(() => {
         console.log('Retrieving the latest Posts')
+        console.log(props.isLoggedIn);
         getPosts()
     }, [])
 
@@ -57,6 +58,7 @@ const Blog = () => {
                 <button
                     className={styles.newPostBtn}
                     onClick={handleNewBlogView}
+                    disabled={!props.isLoggedIn}
                 >+</button>
 
                 {viewNewBlog && (

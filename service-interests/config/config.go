@@ -9,13 +9,18 @@ import (
 	"github.com/golang-jwt/jwt/v4"
 	"github.com/rs/zerolog/log"
 
+	"github.com/gorilla/sessions"
 	"google.golang.org/grpc"
+
+	"crypto/rand"
+	"encoding/base32"
 )
 
 var (
 	CFG             APP
 	NEW_WHITELIST   = []string{"http://localhost:3000"}
 	PUBLIC_KEY_PATH = "keys/app.rsa.pub"
+	STORE           = sessions.NewCookieStore([]byte(createSessionSecret(10)))
 )
 
 type APP struct {
@@ -23,6 +28,7 @@ type APP struct {
 	APP_PORT   string
 	WHITELIST  []string
 	PUBLIC_KEY *rsa.PublicKey
+	SESSION    *sessions.CookieStore
 }
 
 type GRPC_SERVERS struct {
@@ -68,6 +74,15 @@ func connectToGRPCBackend() map[string]GRPC_SERVERS {
 	return newClient
 }
 
+func createSessionSecret(length int) string {
+	randomBytes := make([]byte, 32)
+	_, err := rand.Read(randomBytes)
+	if err != nil {
+		return "fun_times_shared_by_all"
+	}
+	return base32.StdEncoding.EncodeToString(randomBytes)[:length]
+}
+
 func Bootstrap() {
 	log.Print("Creating config!")
 
@@ -78,5 +93,6 @@ func Bootstrap() {
 		CLIENTS:    GRPC_SERVERS,
 		APP_PORT:   "9001",
 		PUBLIC_KEY: getPublicKey(),
+		SESSION:    STORE,
 	}
 }
