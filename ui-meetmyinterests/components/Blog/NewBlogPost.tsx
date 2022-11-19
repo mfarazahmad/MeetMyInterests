@@ -4,9 +4,10 @@ import axios from 'axios'
 import { stateToHTML } from "draft-js-export-html";
 import { EditorState } from 'draft-js';
 
-import { Input, Button, Select } from 'antd';
+import { Alert, Input, Button, Select, AlertProps } from 'antd';
 
 import BlogEditor from './Editor'
+import { time } from 'console';
 
 const { Option } = Select;
 
@@ -14,15 +15,22 @@ type Props = {
     handleNewBlogView: MouseEventHandler<HTMLElement>,
 }
 
+type PostMessage = {
+    msg: string,
+    type: AlertProps["type"]
+}
+
 // POST /api/v1/post/new
 const NewBlogPost = (props: Props) => {
 
     const router = useRouter()
 
-    const [title, setTitle] = useState('')
-    const [subTitle, setSubtitle] = useState('')
-    const [category, setCategory] = useState('')
+    const [title, setTitle] = useState<string>('')
+    const [subTitle, setSubtitle] = useState<string>('')
+    const [category, setCategory] = useState<string>('')
     const [post, setPost] = useState<EditorState>('')
+    const [newPostStatus, setPostStatus] = useState<boolean>(false)
+    const [postMsg, setPostMessage] = useState<PostMessage>()
 
     const handleInputs = (e, inputName) => {
         let value = e.target.value;
@@ -47,6 +55,10 @@ const NewBlogPost = (props: Props) => {
         setPost(e);
     }
 
+    const handlePostStatus = () => {
+        setPostStatus((newPostStatus => !newPostStatus))
+    }
+
     //TODO 
     const validateBlog = (payload) => {
 
@@ -63,6 +75,8 @@ const NewBlogPost = (props: Props) => {
     }
 
     const handleSubmit = async () => {
+
+        let newPostMsg: PostMessage;
 
         try {
             let htmlPost = stateToHTML(post.getCurrentContent())
@@ -81,22 +95,31 @@ const NewBlogPost = (props: Props) => {
                     console.log(data.err)
                 } else {
                     console.log(data.msg)
-                    alert(data.msg)
-                    router.reload()
+                    newPostMsg.msg = 'Successfully added post!'
+                    newPostMsg.type = "success"
                 }
 
             } else {
-                console.log('Failed to validate. Please fix errors.')
+                console.log('Failed to validate.')
+                newPostMsg.msg = 'Failed to post article!'
+                newPostMsg.type = "error"
             }
 
         } catch (error) {
             console.log(error)
+            newPostMsg.msg = 'Successfully added post!'
+            newPostMsg.type = "error"
         }
 
+        setPostMessage(newPostMsg)
+        setPostStatus(true)
+        setTimeout(() => router.reload(), 120)
     }
 
     return (
         <div className='popOutContainer'>
+            {newPostStatus && <Alert message={postMsg.msg} type={postMsg.type} closable afterClose={handlePostStatus} />}
+
             <div className='newBlogPost'>
                 <div className='topMenuBlog'>
                     <Button

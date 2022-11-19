@@ -381,13 +381,13 @@ const Home = (props) => {
                     </div>
 
                     <div className={styles.pitchRight}>
-                        <div className={styles.title}>
+                        <div className={styles.title2}>
                             Skills
                         </div>
                         <div className={styles.technologyLogos}>
                             <img src={"/images/go_logo.webp"} alt="golang" />
                             <img src={"/images/python_logo.webp"} alt="python" />
-                            <img src={"/images/node_logo.webp"} alt="node" />
+                            <img src={"/images/ts_logo.webp"} alt="typescript" />
                             <img src={"/images/java_logo.webp"} alt="java" />
                             <img src={"/images/mongo_logo.webp"} alt="mongo" />
                             <img src={"/images/oracle_logo.webp"} alt="oracle" />
@@ -395,22 +395,24 @@ const Home = (props) => {
                             <img src={"/images/redis_logo.webp"} alt="redis" />
                             <img src={"/images/aws_logo.webp"} alt="aws" />
                             <img src={"/images/kubernetes_logo.webp"} alt="kubernetes" />
+                            <img src={"/images/kafka_logo.webp"} alt="kafka" />
                             <img src={"/images/datadog_logo.webp"} alt="datadog" />
                         </div>
                     </div>
                 </div>
                 {/* <div className={styles.techStream}>
-                    <img src={"/images/go_logo.webp"} />
-                    <img src={"/images/python_logo.webp"} />
-                    <img src={"/images/node_logo.webp"} />
-                    <img src={"/images/java_logo.webp"} />
-                    <img src={"/images/mongo_logo.webp"} />
-                    <img src={"/images/oracle_logo.webp"} />
-                    <img src={"/images/rabbitmq_logo.webp"} />
-                    <img src={"/images/redis_logo.webp"} />
-                    <img src={"/images/aws_logo.webp"} />
-                    <img src={"/images/kubernetes_logo.webp"} />
-                    <img src={"/images/datadog_logo.webp"} />
+                    <img src={"/images/go_logo.webp"} alt="golang" />
+                    <img src={"/images/python_logo.webp"} alt="python" />
+                    <img src={"/images/ts_logo.webp"} alt="typescript" />
+                    <img src={"/images/java_logo.webp"} alt="java" />
+                    <img src={"/images/mongo_logo.webp"} alt="mongo" />
+                    <img src={"/images/oracle_logo.webp"} alt="oracle" />
+                    <img src={"/images/rabbitmq_logo.webp"} alt="rabbitmq" />
+                    <img src={"/images/redis_logo.webp"} alt="redis" />
+                    <img src={"/images/aws_logo.webp"} alt="aws" />
+                    <img src={"/images/kubernetes_logo.webp"} alt="kubernetes" />
+                    <img src={"/images/kafka_logo.webp"} alt="kafka" />
+                    <img src={"/images/datadog_logo.webp"} alt="datadog" />
                 </div> */}
             </div>
         </Outline>

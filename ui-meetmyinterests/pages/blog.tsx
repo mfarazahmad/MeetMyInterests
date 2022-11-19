@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
+
+import { LoginContext } from '../context/ctx'
 import { PostDetails } from '../types/blog'
 
 import styles from '../styles/Blog.module.css'
@@ -9,7 +11,7 @@ import BlogPost from '../components/Blog/BlogPost'
 import PostCard from '../components/Blog/PostCard'
 
 // GET /api/v1/post
-const Blog = (props) => {
+const Blog = () => {
 
     const [posts, setPosts] = useState<PostDetails[]>([])
     const [viewNewBlog, setViewNewBlog] = useState<Boolean>(false)
@@ -40,7 +42,6 @@ const Blog = (props) => {
 
     useEffect(() => {
         console.log('Retrieving the latest Posts')
-        console.log(props.isLoggedIn);
         getPosts()
     }, [])
 
@@ -55,11 +56,15 @@ const Blog = (props) => {
         <Outline>
             <div className={styles.main}>
                 <h1 className={styles.header}>BLOG</h1>
-                <button
-                    className={styles.newPostBtn}
-                    onClick={handleNewBlogView}
-                    disabled={!props.isLoggedIn}
-                >+</button>
+
+                <LoginContext.Consumer >
+                    {value => value.isLoggedIn && (
+                        <button
+                            className={styles.newPostBtn}
+                            onClick={handleNewBlogView}
+                        >+</button>
+                    )}
+                </LoginContext.Consumer>
 
                 {viewNewBlog && (
                     <NewBlogPost handleNewBlogView={handleNewBlogView} />

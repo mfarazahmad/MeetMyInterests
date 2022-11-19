@@ -1,5 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
-import React, { MouseEventHandler, useState } from 'react'
+import React, { MouseEventHandler } from 'react'
 import Link from 'next/link'
 
 import { Avatar, Badge, Button } from 'antd'
@@ -11,15 +11,11 @@ type Props = {
     isLoggedIn: boolean,
     handleLogin: MouseEventHandler<HTMLElement>,
     handleLogout: MouseEventHandler<HTMLElement>,
+    showLoginBox: boolean,
+    handleLoginDisplay: MouseEventHandler<HTMLElement>,
 }
 
 const Navbar = (props: Props) => {
-
-    const [showLoginBox, setLoginDisplay] = useState(false)
-
-    const handleLoginDisplay = () => {
-        setLoginDisplay((showLoginBox) => !showLoginBox)
-    }
 
     return (
         <div className="navbar">
@@ -29,21 +25,28 @@ const Navbar = (props: Props) => {
                 </div>
                 <div>
                     <Badge count={1}>
-                        <Link href="/dash" passHref>
-                            <Avatar style={{ backgroundColor: 'red', verticalAlign: 'middle' }} shape="square" size="large" gap={5}>
+                        {props.isLoggedIn ? (
+                            <Link href="/dash" passHref>
+                                <Avatar style={{ backgroundColor: 'red', verticalAlign: 'middle' }} shape="square" size="large" gap={5}>
+                                    Dash
+                                </Avatar>
+                            </Link>
+                        ) : (
+                            <Avatar style={{ backgroundColor: 'gray', verticalAlign: 'middle' }} shape="square" size="large" gap={5}>
                                 Dash
                             </Avatar>
-                        </Link>
+                        )
+                        }
                     </Badge>
                 </div>
             </div>
 
-            {showLoginBox && <Login handleLoginDisplay={handleLoginDisplay} handleLogin={props.handleLogin} />}
+            {props.showLoginBox && <Login handleLoginDisplay={props.handleLoginDisplay} handleLogin={props.handleLogin} />}
 
             {!props.isLoggedIn ?
                 (
                     <div>
-                        <Button className='loginBtn' onClick={handleLoginDisplay}>Login</Button>
+                        <Button className='loginBtn' onClick={props.handleLoginDisplay}>Login</Button>
                     </div>
                 ) :
                 (
