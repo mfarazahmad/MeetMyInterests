@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { useRouter } from 'next/router'
 import axios from 'axios'
 import { EditorState } from 'draft-js'
@@ -7,9 +7,18 @@ import { stateToHTML } from "draft-js-export-html";
 import { Button } from 'antd';
 
 import BlogEditor from './Editor'
+import { PostDetails } from '../../types/blog'
+
+type Props = {
+    setBlogActionStatus: Function,
+    setAlertVisiblity: Function,
+    postDetails: PostDetails,
+    blogId: string,
+    post: string
+}
 
 // PUT /api/v1/post/[postID]
-const EditBlog = (props) => {
+const EditBlog = (props: Props) => {
 
     const router = useRouter()
 
@@ -42,24 +51,28 @@ const EditBlog = (props) => {
 
                 if (data.err) {
                     console.log(data.err)
+                    props.setBlogActionStatus(false)
                 } else {
                     console.log(data.msg)
-                    alert(data.msg)
-                    router.reload()
+                    props.setAlertVisiblity(true)
+                    props.setBlogActionStatus(true)
+                    setTimeout(() => router.reload(), 180)
                 }
 
             } else {
                 console.log('Failed to validate. Please fix errors.')
+                props.setBlogActionStatus(false)
             }
 
         } catch (error) {
             console.log(error)
+            props.setBlogActionStatus(false)
         }
-
     }
 
     return (
         <div className='editBlog'>
+
             <BlogEditor handleEditor={handleEditor} post={post} />
 
             <Button

@@ -58,8 +58,12 @@ func Login(resp http.ResponseWriter, req *http.Request) {
 	session, _ := config.CFG.SESSION.Get(req, "session")
 	session.Values["authenticated"] = status.IsLoggedIn
 	session.Values["token"] = status.Jwt.EncodedJWT
-	session.Save(req, resp)
+	errSession := session.Save(req, resp)
+	if errSession != nil {
+		log.Print("Failed to save session!")
+	}
 
+	log.Print("Saved auth session!")
 	log.Print(status)
 	respData := m.AuthReponseObject{
 		MSG:        "Successfully logged in user!",

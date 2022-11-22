@@ -19,6 +19,7 @@ func VerifyToken(r *http.Request) bool {
 
 	// Check for user session or bearer token
 	session, _ := c.CFG.SESSION.Get(r, "session")
+
 	if auth, ok := session.Values["authenticated"].(bool); !ok || !auth {
 		parsedToken, err := parseTokenFromRequest(r)
 		if err != nil {

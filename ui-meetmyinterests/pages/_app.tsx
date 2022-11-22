@@ -3,9 +3,9 @@ import '../styles/globals.css'
 import { useState } from 'react'
 import { useRouter } from 'next/router'
 import axios from 'axios'
-import { Alert } from 'antd'
 
 import { LoginContext } from '../context/ctx'
+import CustomAlert from '../components/Widgets/Alert'
 
 function MyApp({ Component, pageProps }) {
 
@@ -22,19 +22,25 @@ function MyApp({ Component, pageProps }) {
 
     const handleLogin = async (values: object) => {
 
+        axios.defaults.withCredentials = true
+
         try {
             let payload: Auth = { 'Username': values['username'], 'Password': values['password'] }
             let endpoint: string = `${process.env.NEXT_PUBLIC_HOSTNAME}/api/v1/user/login`
-            let resp = await axios.post(`${endpoint}`, JSON.stringify(payload))
+            let resp = await axios.post(`${endpoint}`,
+                JSON.stringify(payload))
             let data = resp.data;
+            const cookieHeaders = resp.headers['Set-Cookie'];
+            console.log(cookieHeaders);
 
             if (data.err) {
                 console.log(data.err)
-                alert('Failed to login!')
+                setAlertVisiblity(true)
             } else {
                 console.log(data.msg)
                 //router.push('/blog')
                 //router.reload()
+
                 setAlertVisiblity(true)
                 handleLoginDisplay()
                 setLoginStatus(true)
@@ -42,7 +48,7 @@ function MyApp({ Component, pageProps }) {
 
         } catch (error) {
             console.log(error)
-            alert('Failed to login!')
+            setAlertVisiblity(true)
         }
     }
 
@@ -68,32 +74,20 @@ function MyApp({ Component, pageProps }) {
         }
     }
 
-    const handleAlertClose = () => {
-        setAlertVisiblity(alertVisible => !alertVisible);
-    };
-
     const handleLoginDisplay = () => {
         setLoginDisplay((showLoginBox) => !showLoginBox)
     }
 
     return (
         <LoginContext.Provider value={{ isLoggedIn, showLoginBox, handleLogin, handleLogout, handleLoginDisplay }}>
-            {alertVisible && (
-                isLoggedIn ?
-                    <Alert
-                        message="Sucessfully logged in"
-                        type="success"
-                        closable
-                        afterClose={handleAlertClose}
-                    /> :
-                    <Alert
-                        message="Failed to login"
-                        type="error"
-                        closable
-                        afterClose={handleAlertClose}
-                    />
-            )
-            }
+            <CustomAlert
+                alertVisible={alertVisible}
+                successCheck={isLoggedIn}
+                setAlertVisiblity={setAlertVisiblity}
+                successMsg="Sucessfully logged in"
+                failedMsg="Failed to login"
+
+            />
             <Component {...pageProps} />
         </LoginContext.Provider>
     )

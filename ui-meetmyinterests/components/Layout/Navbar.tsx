@@ -43,15 +43,15 @@ const Navbar = (props: Props) => {
 
             {props.showLoginBox && <Login handleLoginDisplay={props.handleLoginDisplay} handleLogin={props.handleLogin} />}
 
-            {!props.isLoggedIn ?
+            {props.isLoggedIn ?
                 (
                     <div>
-                        <Button className='loginBtn' onClick={props.handleLoginDisplay}>Login</Button>
+                        <Logout handleLogout={props.handleLogout} />
                     </div>
                 ) :
                 (
                     <div>
-                        <Logout handleLogout={props.handleLogout} />
+                        <Button className='loginBtn' onClick={props.handleLoginDisplay}>Login</Button>
                     </div>
                 )
             }

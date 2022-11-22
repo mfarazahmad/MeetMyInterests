@@ -10,6 +10,8 @@
     justify-content: flex-start;
     align-items: center;
     background: linear-gradient(#775ada, #28c7fa);
+    background: black;
+    background: linear-gradient(black, #775ada);
     overflow: scroll;
 }
 

@@ -7,6 +7,8 @@ import { Button } from 'antd';
 
 import PostCard from './PostCard'
 import EditBlog from './EditBlog'
+import { LoginContext } from '../../context/ctx';
+import CustomAlert from '../Widgets/Alert';
 
 type Props = {
     blogId: string,
@@ -42,6 +44,8 @@ const BlogPost = (props: Props) => {
 
     const [postDetails, setPostDetails] = useState<PostDetails>({ blogId: "", subTitle: "", post: "", category: "", date: "", title: "", })
     const [isEditMode, setEditMode] = useState(false)
+    const [alertVisible, setAlertVisiblity] = useState<boolean>(false)
+    const [isblogActionComplete, setBlogActionStatus] = useState<boolean>(false)
 
     const router = useRouter()
 
@@ -55,13 +59,17 @@ const BlogPost = (props: Props) => {
 
             if (data.err) {
                 console.log(data.err)
+                setBlogActionStatus(false)
             } else {
                 console.log(data.msg)
-                router.reload()
+                setAlertVisiblity(true)
+                setBlogActionStatus(true)
+                setTimeout(() => router.reload(), 180)
             }
 
         } catch (error) {
             console.log(error)
+            setBlogActionStatus(false)
         }
     }
 
@@ -71,17 +79,48 @@ const BlogPost = (props: Props) => {
 
     return (
         <div className='blogFullPage'>
+
+            <CustomAlert
+                alertVisible={alertVisible}
+                successCheck={isblogActionComplete}
+                setAlertVisiblity={setAlertVisiblity}
+                successMsg='Successfully modified post!'
+                failedMsg="Failed to modify post"
+            />
+
             <PostCard handleFullPage={props.handleFullPage} postDetails={postDetails} blogId={postDetails.blogId} />
             <div className='blogSubTitle'>{postDetails.subTitle}</div>
 
-            {isEditMode && <EditBlog postDetails={postDetails} post={postDetails.post} blogId={postDetails.blogId} />}
+            {isEditMode && <EditBlog
+                postDetails={postDetails}
+                post={postDetails.post}
+                blogId={postDetails.blogId}
+                setAlertVisiblity={setAlertVisiblity}
+                setBlogActionStatus={setBlogActionStatus}
+            />}
 
             {!isEditMode && (
                 <div className='blogEditContainer'>
                     <div className='blogEditContainerTopRow'>
                         <Button onClick={handleBackBtn}>Back</Button>
-                        <Button className='blogEditBtn' onClick={handleEditMode}>Edit</Button>
-                        <Button className='blogEditBtn blogDeleteBtn' onClick={handleDeleteMode}>Delete</Button>
+                        <LoginContext.Consumer >
+                            {value =>
+                                <div>
+                                    {value.isLoggedIn && (
+                                        <div>
+                                            <Button
+                                                className='blogEditBtn'
+                                                onClick={handleEditMode}>Edit
+                                            </Button>
+                                            <Button
+                                                className='blogEditBtn blogDeleteBtn'
+                                                onClick={handleDeleteMode}>Delete
+                                            </Button>
+                                        </div>
+                                    )}
+                                </div>
+                            }
+                        </LoginContext.Consumer>
                     </div>
                     <div className='blogContent' dangerouslySetInnerHTML={{ __html: postDetails.post }} />
                 </div>
