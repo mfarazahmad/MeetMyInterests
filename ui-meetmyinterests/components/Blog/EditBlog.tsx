@@ -72,13 +72,15 @@ const EditBlog = (props: Props) => {
 
     return (
         <div className='editBlog'>
-
-            <BlogEditor handleEditor={handleEditor} post={post} />
-
+            <BlogEditor
+                handleEditor={handleEditor}
+                post={post}
+            />
             <Button
                 onClick={handleSubmit}
             >
-                Submit</Button>
+                Submit
+            </Button>
         </div>
     )
 }

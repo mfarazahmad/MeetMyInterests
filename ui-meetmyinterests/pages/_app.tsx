@@ -16,6 +16,7 @@ function MyApp({ Component, pageProps }) {
     const [isLoggedIn, setLoginStatus] = useLocalStorage<boolean>("isLoggedIn", false)
     const [alertVisible, setAlertVisiblity] = useLocalStorage<boolean>("alertVisible", false);
     const [showLoginBox, setLoginDisplay] = useLocalStorage<boolean>("showLoginBox", false)
+    const [username, setUsername] = useLocalStorage<string>("username", "User")
 
     useEffect(() => {
         axios.defaults.withCredentials = true
@@ -40,6 +41,7 @@ function MyApp({ Component, pageProps }) {
                 //router.push('/blog')
                 //router.reload()
 
+                setUsername(values['username'])
                 setAlertVisiblity(true)
                 handleLoginDisplay()
                 setLoginStatus(true)
@@ -63,8 +65,9 @@ function MyApp({ Component, pageProps }) {
             } else {
                 console.log(data.msg)
                 alert(data.msg)
-                router.push('/')
+                setUsername("User")
                 setLoginStatus(false)
+                router.push('/')
             }
 
         } catch (error) {
@@ -78,7 +81,7 @@ function MyApp({ Component, pageProps }) {
     }
 
     return (
-        <LoginContext.Provider value={{ isLoggedIn, showLoginBox, handleLogin, handleLogout, handleLoginDisplay }}>
+        <LoginContext.Provider value={{ isLoggedIn, showLoginBox, username, handleLogin, handleLogout, handleLoginDisplay }}>
             <CustomAlert
                 alertVisible={alertVisible}
                 successCheck={isLoggedIn}

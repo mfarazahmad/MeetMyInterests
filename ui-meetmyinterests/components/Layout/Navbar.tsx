@@ -9,9 +9,10 @@ import Logout from '../Auth/Logout'
 
 type Props = {
     isLoggedIn: boolean,
+    showLoginBox: boolean,
+    username: string,
     handleLogin: MouseEventHandler<HTMLElement>,
     handleLogout: MouseEventHandler<HTMLElement>,
-    showLoginBox: boolean,
     handleLoginDisplay: MouseEventHandler<HTMLElement>,
 }
 
@@ -21,23 +22,18 @@ const Navbar = (props: Props) => {
         <div className="navbar">
             <div className='welcomeMsg'>
                 <div>
-                    Welcome, Faraz
+                    Welcome, {props.username}
                 </div>
                 <div>
-                    <Badge count={1}>
-                        {props.isLoggedIn ? (
-                            <Link href="/dash" passHref>
+                    {props.isLoggedIn &&
+                        <Badge count={1}>
+                            <Link href="/dashboard" passHref>
                                 <Avatar style={{ backgroundColor: 'red', verticalAlign: 'middle' }} shape="square" size="large" gap={5}>
                                     Dash
                                 </Avatar>
                             </Link>
-                        ) : (
-                            <Avatar style={{ backgroundColor: 'gray', verticalAlign: 'middle' }} shape="square" size="large" gap={5}>
-                                Dash
-                            </Avatar>
-                        )
-                        }
-                    </Badge>
+                        </Badge>
+                    }
                 </div>
             </div>
 
@@ -60,7 +56,10 @@ const Navbar = (props: Props) => {
                 <Link href="/"><a>Home</a></Link>
                 <Link href="/projects"><a>Projects</a></Link>
                 <Link href="/blog"><a>Blog</a></Link>
-                <Link href="/fitness"><a>Fitness</a></Link>
+
+                {props.isLoggedIn &&
+                    <Link href="/fitness"><a>Fitness</a></Link>
+                }
             </div>
             <div className='social'>
                 <a href="https://www.linkedin.com/in/mfarazahmad/">

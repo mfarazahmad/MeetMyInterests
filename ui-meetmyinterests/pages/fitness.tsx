@@ -18,6 +18,7 @@ import { programOptions } from '../utils/constants';
 import Outline from '../components/Layout/Outline'
 
 import styles from '../styles/Fitness.module.css'
+import { LoginContext } from '../context/ctx';
 
 
 const Fitness = (props) => {
@@ -38,7 +39,7 @@ const Fitness = (props) => {
 
         if (formType === 'program') {
             const updatedPrograms = programsInfo;
-            values['id'] = parseInt(programOptions.length) + 1;
+            values['id'] = programOptions.length + 1;
             values['programExcercises'] = newProgramExcercises;
 
             // Update UI to Reflect New Program
@@ -67,24 +68,36 @@ const Fitness = (props) => {
 
     return (
 
-        <Outline>
-
-            <div className={styles.container}>
-
-                <h1>Fitness Tracker</h1>
-
-                <Calendar onPanelChange={onPanelChange} />
-
-                <ProgramForm handleForm={handleForm} isProgramVisible={isProgramVisible} isexcerciseProgramVisible={isexcerciseProgramVisible} toggleProgramForm={toggleProgramForm} toggleExcerciseProgramForm={toggleExcerciseProgramForm} newProgramExcercises={newProgramExcercises} />
-
-                <ProgramDisplay programsInfo={programsInfo} toggleProgramForm={toggleProgramForm} />
-
-                <Tracker />
-
-            </div>
-
-        </Outline>
-
+        <LoginContext.Consumer >
+            {value =>
+                <div>
+                    {value.isLoggedIn ? (
+                        <Outline>
+                            <div className={styles.container}>
+                                <h1>Fitness Tracker</h1>
+                                <Calendar
+                                    onPanelChange={onPanelChange}
+                                />
+                                <ProgramForm handleForm={handleForm}
+                                    isProgramVisible={isProgramVisible}
+                                    isexcerciseProgramVisible={isexcerciseProgramVisible}
+                                    toggleProgramForm={toggleProgramForm}
+                                    toggleExcerciseProgramForm={toggleExcerciseProgramForm}
+                                    newProgramExcercises={newProgramExcercises}
+                                />
+                                <ProgramDisplay
+                                    programsInfo={programsInfo}
+                                    toggleProgramForm={toggleProgramForm}
+                                />
+                                <Tracker />
+                            </div>
+                        </Outline>
+                    ) :
+                        (<div>NOT AUTHORIZED TO VIEW THIS PAGE</div>)
+                    }
+                </div>
+            }
+        </LoginContext.Consumer>
     )
 }
 

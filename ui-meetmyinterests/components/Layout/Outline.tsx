@@ -15,6 +15,7 @@ const Outline = (props: Props) => {
                     <Navbar
                         showLoginBox={value.showLoginBox}
                         handleLoginDisplay={value.handleLoginDisplay}
+                        username={value.username}
                         isLoggedIn={value.isLoggedIn}
                         handleLogin={value.handleLogin}
                         handleLogout={value.handleLogout} />
