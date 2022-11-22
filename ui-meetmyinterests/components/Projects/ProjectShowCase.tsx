@@ -14,10 +14,12 @@ const ProjectShowCase = () => {
                         <p className="projectDesc">A Scalable Web App Built with Micro Services that represent my brand. Showcases Blog Tutorials, Professional Experiences, and Hobbies.</p>
                         <div className='projectTagBox'>
                             <Tag color="red">Golang</Tag>
-                            <Tag color="yellow">Typescript/React</Tag>
+                            <Tag color="black">Typescript</Tag>
+                            <Tag color="yellow">Next.js</Tag>
                             <Tag color="green">RabbitMQ</Tag>
                             <Tag color="purple">GRPC</Tag>
                             <Tag color="blue">Mongo</Tag>
+                            <Tag color="orange">Redis</Tag>
                         </div>
                     </div>
                     <img className="projectImg" src={"/images/meetmyinterests.webp"} alt="meetmyinterests" data-meta="golang, react, mongo, rabbitmq, grpc" />
@@ -31,7 +33,6 @@ const ProjectShowCase = () => {
                         <p className="projectDesc">The marketing portal and demo site for cabbagesoup.co, a Software Engineering firm based out of Atlanta,GA.</p>
                         <div className='projectTagBox'>
                             <Tag color="red">Typescript</Tag>
-                            <Tag color="yellow">React</Tag>
                             <Tag color="yellow">Next.js</Tag>
                             <Tag color="purple">Python</Tag>
                             <Tag color="blue">Mongo</Tag>
