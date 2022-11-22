@@ -1,14 +1,8 @@
-import React, { createContext, MouseEventHandler } from 'react'
+import React, { createContext } from 'react'
 
-type LoginContext = {
-    isLoggedIn: boolean,
-    showLoginBox: boolean,
-    handleLogin: MouseEventHandler<HTMLElement>,
-    handleLogout: MouseEventHandler<HTMLElement>,
-    handleLoginDisplay: MouseEventHandler<HTMLElement>,
-}
+import { LoginCtx } from '../types/auth'
 
-export const LoginContext = createContext<LoginContext>(
+export const LoginContext = createContext<LoginCtx>(
     {
         isLoggedIn: false,
         showLoginBox: false,

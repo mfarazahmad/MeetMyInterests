@@ -6,6 +6,7 @@ import axios from 'axios'
 
 import { LoginContext } from '../context/ctx'
 import CustomAlert from '../components/Widgets/Alert'
+import { Auth } from '../types/auth'
 
 function MyApp({ Component, pageProps }) {
 
@@ -14,11 +15,6 @@ function MyApp({ Component, pageProps }) {
     const [isLoggedIn, setLoginStatus] = useState<boolean>(false)
     const [alertVisible, setAlertVisiblity] = useState<boolean>(false);
     const [showLoginBox, setLoginDisplay] = useState<boolean>(false)
-
-    type Auth = {
-        'Username': string,
-        'Password': string,
-    }
 
     const handleLogin = async (values: object) => {
 
