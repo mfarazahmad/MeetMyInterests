@@ -1,6 +1,6 @@
 import React, { createContext } from 'react'
 
-import { LoginCtx } from '../types/auth'
+import { LoginCtx } from '../../types/auth'
 
 export const LoginContext = createContext<LoginCtx>(
     {

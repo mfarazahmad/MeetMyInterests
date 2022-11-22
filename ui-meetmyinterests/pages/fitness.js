@@ -5,15 +5,15 @@
  * 
 */
 
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 
-import {Calendar} from 'antd';
+import { Calendar } from 'antd';
 
 import ProgramForm from '../components/Fitness/ProgramForm';
 import Tracker from '../components/Fitness/Tracker';
 import ProgramDisplay from '../components/Fitness/ProgramDisplay';
 
-import {programOptions} from '../utils/constants';
+import { programOptions } from '../utils/constants';
 
 import Outline from '../components/Layout/Outline'
 
@@ -40,10 +40,10 @@ const Fitness = (props) => {
             const updatedPrograms = programsInfo;
             values['id'] = parseInt(programOptions.length) + 1;
             values['programExcercises'] = newProgramExcercises;
-            
+
             // Update UI to Reflect New Program
             updatedPrograms.push(values);
-            programOptions.push({ label: values['programName'], value:  values['id']});
+            programOptions.push({ label: values['programName'], value: values['id'] });
 
             setProgramInfo(updatedPrograms);
             toggleProgramForm();
@@ -67,23 +67,23 @@ const Fitness = (props) => {
 
     return (
 
-    <Outline>
-        
-        <div className={styles.container}>
+        <Outline>
 
-            <h1>Fitness Tracker</h1>
+            <div className={styles.container}>
 
-            <Calendar onPanelChange={onPanelChange} />
+                <h1>Fitness Tracker</h1>
 
-            <ProgramForm handleForm={handleForm} isProgramVisible={isProgramVisible} isexcerciseProgramVisible={isexcerciseProgramVisible} toggleProgramForm={toggleProgramForm} toggleExcerciseProgramForm={toggleExcerciseProgramForm} newProgramExcercises={newProgramExcercises} />
+                <Calendar onPanelChange={onPanelChange} />
 
-            <ProgramDisplay programsInfo={programsInfo} toggleProgramForm={toggleProgramForm} />       
+                <ProgramForm handleForm={handleForm} isProgramVisible={isProgramVisible} isexcerciseProgramVisible={isexcerciseProgramVisible} toggleProgramForm={toggleProgramForm} toggleExcerciseProgramForm={toggleExcerciseProgramForm} newProgramExcercises={newProgramExcercises} />
 
-            <Tracker />
+                <ProgramDisplay programsInfo={programsInfo} toggleProgramForm={toggleProgramForm} />
 
-        </div>
+                <Tracker />
 
-    </Outline>
+            </div>
+
+        </Outline>
 
     )
 }

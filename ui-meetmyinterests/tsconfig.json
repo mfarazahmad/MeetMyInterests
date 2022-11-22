@@ -24,7 +24,7 @@
     "**/*.ts",
     "**/*.tsx",
     "src/**/*",
-    "components/Blog/Editor.js"
+    "pages/components/Blog/Editor.js"
   ],
   "exclude": [
     "node_modules"

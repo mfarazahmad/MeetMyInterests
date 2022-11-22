@@ -1,31 +1,34 @@
 import '../styles/globals.css'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import axios from 'axios'
 
 import { LoginContext } from '../context/ctx'
 import CustomAlert from '../components/Widgets/Alert'
 import { Auth } from '../types/auth'
+import { useLocalStorage } from '../utils/customHooks'
 
 function MyApp({ Component, pageProps }) {
 
     const router = useRouter()
 
-    const [isLoggedIn, setLoginStatus] = useState<boolean>(false)
-    const [alertVisible, setAlertVisiblity] = useState<boolean>(false);
-    const [showLoginBox, setLoginDisplay] = useState<boolean>(false)
+    const [isLoggedIn, setLoginStatus] = useLocalStorage<boolean>("isLoggedIn", false)
+    const [alertVisible, setAlertVisiblity] = useLocalStorage<boolean>("alertVisible", false);
+    const [showLoginBox, setLoginDisplay] = useLocalStorage<boolean>("showLoginBox", false)
+
+    useEffect(() => {
+        axios.defaults.withCredentials = true
+    }, [])
 
     const handleLogin = async (values: object) => {
-
-        axios.defaults.withCredentials = true
 
         try {
             let payload: Auth = { 'Username': values['username'], 'Password': values['password'] }
             let endpoint: string = `${process.env.NEXT_PUBLIC_HOSTNAME}/api/v1/user/login`
-            let resp = await axios.post(`${endpoint}`,
-                JSON.stringify(payload))
+            let resp = await axios.post(`${endpoint}`, JSON.stringify(payload))
             let data = resp.data;
+
             const cookieHeaders = resp.headers['Set-Cookie'];
             console.log(cookieHeaders);
 
