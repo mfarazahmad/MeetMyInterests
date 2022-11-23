@@ -12,6 +12,14 @@ dockerlocal:
 	-t ${IMAGEFULLNAME} \
 	.
 
+dockerstage:
+	docker build \
+	-f Dockerfile \
+	-t questmaster991/meetmyinterests:${IMAGEFULLNAME} \
+	.
+
+	docker push questmaster991/meetmyinterests:${IMAGEFULLNAME}
+	
 testcoverage:
 	go vet
 	go test ./... -coverprofile=coverage.out

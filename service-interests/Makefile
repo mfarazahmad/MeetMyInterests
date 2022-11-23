@@ -20,6 +20,18 @@ dockerlocal:
 	--build-arg MSG=$(GIT_MESSAGE) \
 	.
 
+dockerstage:
+	docker build \
+	-f Dockerfile \
+	-t questmaster991/meetmyinterests:${IMAGEFULLNAME} \
+	--build-arg REPO=$(GIT_REPO) \
+	--build-arg BRANCH=$(GIT_BRANCH) \
+	--build-arg COMMIT=$(GIT_COMMIT) \
+	--build-arg MSG=$(GIT_MESSAGE) \
+	.
+
+	docker push questmaster991/meetmyinterests:${IMAGEFULLNAME}
+	
 testcoverage:
 	go vet
 	go test ./... -coverprofile=coverage.out
