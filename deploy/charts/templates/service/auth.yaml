@@ -6,7 +6,7 @@ metadata:
     helm.sh/chart: charts-0.1.0
     helm.sh/release-name: test-rel
     helm.sh/release-namespace: {{ .Values.namespace }}
-    app.kubernetes.io/name: backend-meetmyinterests
+    app.kubernetes.io/name: auth
     app.kubernetes.io/instance: release-name
     app.kubernetes.io/version: "1.16.0"
     app.kubernetes.io/managed-by: Helm
@@ -32,19 +32,6 @@ spec:
               cpu: "500m"
           ports:
             - containerPort: 8002
-              protocol: TCP
-
-        - name: service-blog
-          image: questmaster991/meetmyinterests:service-blog
-          resources:
-            requests:
-              memory: "64Mi"
-              cpu: "250m"
-            limits:
-              memory: "128Mi"
-              cpu: "500m"
-          ports:
-            - containerPort: 8001
               protocol: TCP
 
       imagePullSecrets:

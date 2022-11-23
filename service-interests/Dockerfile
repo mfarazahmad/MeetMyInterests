@@ -5,11 +5,11 @@ FROM golang:1.19 AS BUILD
 
 WORKDIR /app
 
-COPY go.mod ./
-COPY go.sum ./
+COPY go.mod .
+COPY go.sum .
 RUN go mod download
 
-COPY . ./
+COPY . .
 
 ARG REPO
 ARG BRANCH
@@ -23,6 +23,14 @@ ENV GIT_MESSAGE=$MESSAGE
 
 RUN go build -o /service-interests
 
+# Deploy 
+
+FROM debian:latest
+
+WORKDIR /
+
+COPY --from=build /service-interests /usr/local/bin/service-interests
+
 EXPOSE 9100
 
-CMD ["/service-interests"]
+ENTRYPOINT [ "/usr/local/bin/service-interests" ]
