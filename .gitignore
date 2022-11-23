@@ -36,3 +36,6 @@ yarn-error.log*
 
 # keys
 */keys
+
+# Any creds file
+*creds.yml
