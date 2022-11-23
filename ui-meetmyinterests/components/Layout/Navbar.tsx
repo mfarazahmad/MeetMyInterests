@@ -22,7 +22,7 @@ const Navbar = (props: Props) => {
         <div className="navbar">
             <div className='welcomeMsg'>
                 <div>
-                    Welcome, {props.username}
+                    Welcome, <strong>{props.username}</strong>
                 </div>
                 <div>
                     {props.isLoggedIn &&
