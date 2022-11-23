@@ -21,7 +21,7 @@ ENV GIT_BRANCH=$BRANCH
 ENV GIT_COMMIT=$COMMIT
 ENV GIT_MESSAGE=$MESSAGE
 
-RUN go build -o /service-backend
+RUN go build -o /service-interests
 
 EXPOSE 9100
 

@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ui-mmi
+  labels:
+    helm.sh/chart: charts-0.1.0
+    helm.sh/release-name: test-rel
+    helm.sh/release-namespace: {{ .Values.namespace }}
+    app.kubernetes.io/name: ui-mmi
+    app.kubernetes.io/instance: release-name
+    app.kubernetes.io/version: "1.16.0"
+    app.kubernetes.io/managed-by: Helm
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: ui-mmi
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: ui-mmi
+    spec:
+      containers:
+        - name: ui-meetmyinterests
+          image: questmaster991/meetmyinterests:ui-meetmyinterests
+          resources:
+            requests:
+              memory: "64Mi"
+              cpu: "250m"
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
+          ports:
+            - containerPort: 3000
+              protocol: TCP
+              
+      imagePullSecrets:
+        - name: regcredentials
+
+---
+
+apiVersion: v1
+kind: Secret
+type: kubernetes.io/dockerconfigjson
+metadata:
+  name: regcredentials
+data:
+  .dockerconfigjson: {{ .Values.dockerBase64Token }}

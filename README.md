@@ -87,6 +87,13 @@ docker run -p 8001:8001 service-auth
 docker run -p 3000:3000 meetmyinterests
 ```
 
+## Running Locally with Minikube & Helm
+```
+docker login
+minikube start
+. deploy/deploy.sh
+```
+
 ### Swagger
 
 ### Linter

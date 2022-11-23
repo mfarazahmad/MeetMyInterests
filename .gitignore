@@ -38,4 +38,4 @@ yarn-error.log*
 */keys
 
 # Any creds file
-*creds.yml
+*values.yaml
