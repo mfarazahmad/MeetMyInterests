@@ -22,7 +22,7 @@ const ProjectShowCase = () => {
                             <Tag color="orange">Redis</Tag>
                         </div>
                     </div>
-                    <img className="projectImg" src={"/images/meetmyinterests.webp"} alt="meetmyinterests" data-meta="golang, react, mongo, rabbitmq, grpc" />
+                    <img className="projectImg" src={"/images/MeetMyInterests.webp"} alt="meetmyinterests" data-meta="golang, react, mongo, rabbitmq, grpc" />
                 </div>
             </a>
             <a href='https://github.com/mfarazahmad/CabbageSoup.co'>
