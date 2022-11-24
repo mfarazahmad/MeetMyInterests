@@ -3,11 +3,12 @@ kind: Service
 metadata:
   name: ui-mmi-service
 spec:
-  type: NodePort
+  #type: NodePort
+  type: LoadBalancer
+  #externalName: faraz.com
   selector:
     app.kubernetes.io/name: ui-mmi
   ports:
     - protocol: TCP
-      port: 80
+      port: 3000
       targetPort: 3000
-      nodePort: 30001

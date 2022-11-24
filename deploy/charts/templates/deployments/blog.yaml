@@ -23,6 +23,7 @@ spec:
       containers:
         - name: service-blog
           image: questmaster991/meetmyinterests:service-blog
+          imagePullPolicy: Always
           resources:
             requests:
               memory: "64Mi"

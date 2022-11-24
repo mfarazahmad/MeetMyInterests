@@ -23,6 +23,7 @@ spec:
       containers:
         - name: service-auth
           image: questmaster991/meetmyinterests:service-auth
+          imagePullPolicy: Always
           resources:
             requests:
               memory: "64Mi"

@@ -25,11 +25,16 @@ RUN adduser --system --uid 1001 bloguser
 
 COPY --from=builder /app/public ./public
 COPY --from=builder /app/package.json ./package.json
+COPY --from=builder /app/next.config.js ./
+COPY --from=builder /app/.next ./.next
+COPY --from=builder --from=dependencies /app/node_modules ./node_modules
 
 # Automatically leverage output traces to reduce image size
 # https://nextjs.org/docs/advanced-features/output-file-tracing
 COPY --from=builder --chown=bloguser:bloggroup /app/.next/standalone ./
 COPY --from=builder --chown=bloguser:bloggroup /app/.next/static ./.next/static
+RUN mkdir -p /app/.next/cache/images && chown bloguser:bloggroup /app/.next/cache/images
+VOLUME /app/.next/cache/images
 
 USER bloguser
 
@@ -42,9 +47,7 @@ ENV GIT_REPO=$REPO
 ENV GIT_BRANCH=$BRANCH
 ENV GIT_COMMIT=$COMMIT
 ENV GIT_MESSAGE=$MESSAGE
+ENV NEXT_PUBLIC_HOSTNAME=http://localhost:9100
 
 EXPOSE 3000
-
-ENV NEXT_PUBLIC_HOSTNAME=http://localhost:5000
-
-CMD ["node", "server.js"]
+CMD ["node_modules/.bin/next", "start"]

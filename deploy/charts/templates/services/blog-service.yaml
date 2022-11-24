@@ -3,6 +3,7 @@ kind: Service
 metadata:
   name: blog-service
 spec:
+  type: ClusterIP
   selector:
     app.kubernetes.io/name: blog
   ports:

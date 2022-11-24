@@ -23,6 +23,7 @@ spec:
       containers:
         - name: ui-meetmyinterests
           image: questmaster991/meetmyinterests:ui-meetmyinterests
+          imagePullPolicy: Always
           resources:
             requests:
               memory: "64Mi"

@@ -3,6 +3,7 @@ kind: Service
 metadata:
   name: auth-service
 spec:
+  type: ClusterIP
   selector:
     app.kubernetes.io/name: auth
   ports:
