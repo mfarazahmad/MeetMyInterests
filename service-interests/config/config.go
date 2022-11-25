@@ -56,11 +56,19 @@ func getPublicKey() *rsa.PublicKey {
 }
 
 func connectToGRPCBackend() map[string]GRPC_SERVERS {
-	serviceMap := []GRPC_INIT_CONN{
-		{HOST: "localhost", PORT: "8001", NAME: "blog"},
-		{HOST: "localhost", PORT: "8002", NAME: "auth"},
-	}
+	var serviceMap []GRPC_INIT_CONN
 
+	if currentEnv := os.Getenv("ENV"); currentEnv == "staging" {
+		serviceMap = []GRPC_INIT_CONN{
+			{HOST: "blog-service", PORT: "8001", NAME: "blog"},
+			{HOST: "auth-service", PORT: "8002", NAME: "auth"},
+		}
+	} else {
+		serviceMap = []GRPC_INIT_CONN{
+			{HOST: "localhost", PORT: "8001", NAME: "blog"},
+			{HOST: "localhost", PORT: "8002", NAME: "auth"},
+		}
+	}
 	newClient := map[string]GRPC_SERVERS{}
 
 	for _, service := range serviceMap {
