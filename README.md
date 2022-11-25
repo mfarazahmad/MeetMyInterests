@@ -91,8 +91,16 @@ docker run -p 3000:3000 meetmyinterests
 ```
 docker login
 minikube start
-. deploy/deploy.sh
+. deploy/deploy.sh - Start all services
+. deploy/takedown.sh - Takedown all services
 ```
+
+# Encoding & Decoding Secrets
+echo "devopscube" | base64 
+//after encoding it, this becomes ZGV2b3BzY3ViZQo=
+
+echo "ZGV2b3BzY3ViZQo=" | base64 --decode
+//after decoding it, this will give devopscube
 
 ### Swagger
 

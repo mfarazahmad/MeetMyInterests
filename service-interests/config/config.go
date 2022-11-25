@@ -96,6 +96,10 @@ func Bootstrap() {
 
 	GRPC_SERVERS := connectToGRPCBackend()
 
+	if currentEnv := os.Getenv("ENV"); currentEnv == "staging" {
+		NEW_WHITELIST = []string{"http://ui-mmi-service:3000"}
+	}
+
 	CFG = APP{
 		WHITELIST:  NEW_WHITELIST,
 		CLIENTS:    GRPC_SERVERS,

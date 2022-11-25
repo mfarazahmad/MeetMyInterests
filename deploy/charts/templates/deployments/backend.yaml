@@ -40,13 +40,3 @@ spec:
 
       imagePullSecrets:
         - name: regcredentials
-
----
-
-apiVersion: v1
-kind: Secret
-type: kubernetes.io/dockerconfigjson
-metadata:
-  name: regcredentials
-data:
-  .dockerconfigjson: {{ .Values.dockerBase64Token }}

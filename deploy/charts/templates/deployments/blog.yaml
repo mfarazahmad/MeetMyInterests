@@ -34,16 +34,8 @@ spec:
           ports:
             - containerPort: 8001
               protocol: TCP
-
+          env:
+          - name: MONGO_URI
+            value: "mongodb://{{ .Values.mongodb-creds.username }}:{{ .Values.mongodb-creds.password }}@db-blog-service:27017"
       imagePullSecrets:
         - name: regcredentials
-
----
-
-apiVersion: v1
-kind: Secret
-type: kubernetes.io/dockerconfigjson
-metadata:
-  name: regcredentials
-data:
-  .dockerconfigjson: {{ .Values.dockerBase64Token }}
