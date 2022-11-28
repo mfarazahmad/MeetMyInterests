@@ -28,7 +28,7 @@ RUN go build -o /service-interests
 
 FROM debian:latest
 
-WORKDIR /
+WORKDIR /usr/local/bin
 
 COPY --from=build /keys /usr/local/bin/keys
 

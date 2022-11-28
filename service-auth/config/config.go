@@ -3,6 +3,7 @@ package config
 import (
 	"crypto/rsa"
 	"os"
+	"path/filepath"
 
 	"github.com/golang-jwt/jwt/v4"
 	"github.com/joho/godotenv"
@@ -10,8 +11,7 @@ import (
 )
 
 var (
-	CFG              APP
-	PRIVATE_KEY_PATH = "keys/app.rsa" // openssl genrsa -out app.rsa keysize
+	CFG APP
 )
 
 type APP struct {
@@ -27,7 +27,10 @@ type DATABASE struct {
 }
 
 func getPrivateKey() *rsa.PrivateKey {
-	signBytes, err := os.ReadFile(PRIVATE_KEY_PATH)
+	privateKeyPath, _ := filepath.Abs("keys/app.rsa") // openssl genrsa -out app.rsa keysize
+	log.Print(privateKeyPath)
+
+	signBytes, err := os.ReadFile(privateKeyPath)
 	if err != nil {
 		log.Print("No private key found!")
 	}

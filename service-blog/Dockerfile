@@ -1,18 +1,26 @@
 # syntax=docker/dockerfile:1
 
 ## Build
-FROM golang:1.19-alpine AS BUILD
+FROM golang:1.19 AS BUILD
 
 WORKDIR /app
 
-COPY go.mod ./
-COPY go.sum ./
+COPY go.mod .
+COPY go.sum .
 RUN go mod download
 
-COPY . ./
+COPY . .
 
 RUN go build -o /service-blog
 
-EXPOSE 9100
+# Deploy 
 
-CMD ["/service-blog"]
+FROM debian:latest
+
+WORKDIR /usr/local/bin
+
+COPY --from=build /service-blog /usr/local/bin/service-blog
+
+EXPOSE 8001
+
+ENTRYPOINT [ "/usr/local/bin/service-blog" ]

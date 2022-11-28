@@ -4,6 +4,7 @@ import (
 	"crypto/rsa"
 	"fmt"
 	"os"
+	"path/filepath"
 	pb "service-backend/grpc"
 
 	"github.com/golang-jwt/jwt/v4"
@@ -17,10 +18,9 @@ import (
 )
 
 var (
-	CFG             APP
-	NEW_WHITELIST   = []string{"http://localhost:3000"}
-	PUBLIC_KEY_PATH = "keys/app.rsa.pub"
-	STORE           = sessions.NewCookieStore([]byte(createSessionSecret(10)))
+	CFG           APP
+	NEW_WHITELIST = []string{"http://localhost:3000"}
+	STORE         = sessions.NewCookieStore([]byte(createSessionSecret(10)))
 )
 
 type APP struct {
@@ -42,7 +42,10 @@ type GRPC_INIT_CONN struct {
 }
 
 func getPublicKey() *rsa.PublicKey {
-	verifyBytes, err := os.ReadFile(PUBLIC_KEY_PATH)
+	publicKeyPath, _ := filepath.Abs("keys/app.rsa.pub")
+	log.Print(publicKeyPath)
+
+	verifyBytes, err := os.ReadFile(publicKeyPath)
 	if err != nil {
 		log.Print("No public key found!")
 	}

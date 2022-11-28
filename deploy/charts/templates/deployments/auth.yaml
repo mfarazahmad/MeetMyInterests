@@ -36,7 +36,7 @@ spec:
               protocol: TCP
           env:
           - name: MONGO_URI
-            value: "mongodb://{{ .Values.mongodb.username }}:{{ .Values.mongodb.password }}@db-autg-service:27017"
+            value: "mongodb://{{ .Values.mongodb.username }}:{{ .Values.mongodb.password }}@db-auth-service:27017"
 
       imagePullSecrets:
         - name: regcredentials

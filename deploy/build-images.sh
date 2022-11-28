@@ -17,3 +17,5 @@ make dockerstage
 echo 'Creating image service-blog'
 cd $cwd/service-blog
 make dockerstage
+
+cd $cwd

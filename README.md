@@ -83,7 +83,7 @@ choco install minikube
 ```
 docker run -p 9100:9100 service-interests
 docker run -p 8001:8001 service-blog
-docker run -p 8001:8001 service-auth
+docker run -p 8002:8002 service-auth
 docker run -p 3000:3000 meetmyinterests
 ```
 
