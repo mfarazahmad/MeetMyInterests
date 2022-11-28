@@ -10,6 +10,7 @@ COPY go.sum .
 RUN go mod download
 
 COPY . .
+COPY /keys /keys
 
 ARG REPO
 ARG BRANCH
@@ -28,6 +29,8 @@ RUN go build -o /service-interests
 FROM debian:latest
 
 WORKDIR /
+
+COPY --from=build /keys /usr/local/bin/keys
 
 COPY --from=build /service-interests /usr/local/bin/service-interests
 

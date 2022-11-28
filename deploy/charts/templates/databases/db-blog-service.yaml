@@ -5,7 +5,7 @@ metadata:
 spec:
   type: LoadBalancer
   selector:
-    app.kubernetes.io/name: blog-db
+    app.kubernetes.io/name: db-blog
   ports:
     - protocol: TCP
       port: 27017

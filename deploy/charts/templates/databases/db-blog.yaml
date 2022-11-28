@@ -2,12 +2,12 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   creationTimestamp: null
-  name: blog-db
+  name: db-blog
   labels:
     helm.sh/chart: charts-0.1.0
     helm.sh/release-name: test-rel
     helm.sh/release-namespace: {{ .Values.namespace }}
-    app.kubernetes.io/name: blog-db
+    app.kubernetes.io/name: db-blog
     app.kubernetes.io/instance: release-name
     app.kubernetes.io/version: "1.16.0"
     app.kubernetes.io/managed-by: Helm
@@ -15,16 +15,16 @@ spec:
   replicas: {{ .Values.dbReplicaCount.blog }}
   selector:
     matchLabels:
-      app.kubernetes.io/name: blog-db
+      app.kubernetes.io/name: db-blog
   strategy: {}
   template:
     metadata:
       creationTimestamp: null
       labels:
-        app.kubernetes.io/name: blog-db
+        app.kubernetes.io/name: db-blog
     spec:
       containers:
-      - name: blog-db
+      - name: db-blog
         image: mongo
         args: ["--dbpath","/data/db"]
         livenessProbe:
