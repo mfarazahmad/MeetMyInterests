@@ -46,9 +46,11 @@ func getPrivateKey() *rsa.PrivateKey {
 func Bootstrap() {
 	log.Print("Setting up config!")
 
-	err := godotenv.Load()
-	if err != nil {
-		log.Print("No .env file found")
+	if currentEnv := os.Getenv("ENV"); currentEnv != "staging" {
+		err := godotenv.Load()
+		if err != nil {
+			log.Print("No .env file found")
+		}
 	}
 
 	CFG = APP{

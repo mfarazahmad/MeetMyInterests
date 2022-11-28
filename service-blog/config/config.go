@@ -26,9 +26,11 @@ type DB struct {
 func Bootstrap() {
 	log.Print("Creating config!")
 
-	err := godotenv.Load()
-	if err != nil {
-		log.Print("No .env file found")
+	if currentEnv := os.Getenv("ENV"); currentEnv != "staging" {
+		err := godotenv.Load()
+		if err != nil {
+			log.Print("No .env file found")
+		}
 	}
 
 	CFG = APP{
