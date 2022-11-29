@@ -35,6 +35,8 @@ spec:
             - containerPort: 8001
               protocol: TCP
           env:
+          - name: ENV
+            value: {{ .Values.env }}
           - name: MONGO_URI
             valueFrom:
               secretKeyRef:
