@@ -11,39 +11,39 @@ spec:
     authentication:
       modes: ["SCRAM"]
   users:
-    - name: faraz
-      db: blog
+    - name: admin
+      db: admin
       passwordSecretRef: # a reference to the secret that will be used to generate the user's password
         name: mongo-pass
       roles:
         - name: clusterAdmin
-          db: blog
+          db: admin
         - name: userAdminAnyDatabase
-          db: blog
+          db: admin
       scramCredentialsSecretName: my-scram
   statefulSet:
-    spec:
-      template:
-        spec:
-          # resources can be specified by applying an override
-          # per container name.
-          containers:
-            - name: mongod
-              resources:
-                limits:
-                  cpu: "0.2"
-                  memory: 250M
-                requests:
-                  cpu: "0.2"
-                  memory: 200M
-            - name: mongodb-agent
-              resources:
-                limits:
-                  cpu: "0.2"
-                  memory: 250M
-                requests:
-                  cpu: "0.2"
-                  memory: 200M
+      spec:
+        template:
+          spec:
+            # resources can be specified by applying an override
+            # per container name.
+            containers:
+              - name: mongod
+                resources:
+                  limits:
+                    cpu: "0.2"
+                    memory: 250M
+                  requests:
+                    cpu: "0.2"
+                    memory: 200M
+              - name: mongodb-agent
+                resources:
+                  limits:
+                    cpu: "0.2"
+                    memory: 250M
+                  requests:
+                    cpu: "0.2"
+                    memory: 200M
   additionalMongodConfig:
     storage.wiredTiger.engineConfig.journalCompressor: zlib
 
