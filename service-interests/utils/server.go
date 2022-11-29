@@ -17,6 +17,7 @@ func CreateRESTServer() {
 	credentials := handlers.AllowCredentials()
 	methods := handlers.AllowedMethods([]string{"GET", "POST", "PUT", "DELETE"})
 	origins := handlers.AllowedOrigins(c.CFG.WHITELIST)
+	log.Print(origins)
 
 	// Adding GZIP Compression to Responses for Faster Payloads
 	app := http.Server{Addr: ":9100",

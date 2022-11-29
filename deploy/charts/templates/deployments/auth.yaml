@@ -36,7 +36,10 @@ spec:
               protocol: TCP
           env:
           - name: MONGO_URI
-            value: "mongodb://{{ .Values.mongodb.username }}:{{ .Values.mongodb.password }}@db-auth-service:27017"
+            valueFrom:
+              secretKeyRef:
+                name: db-auth-admin-faraz
+                key: connectionString.standardSrv
 
       imagePullSecrets:
         - name: regcredentials
