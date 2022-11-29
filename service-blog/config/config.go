@@ -33,6 +33,8 @@ func Bootstrap() {
 		}
 	}
 
+	log.Print(os.Getenv("MONGO_URI"))
+
 	CFG = APP{
 		APP_PORT: ":8001",
 		DATABASE: DB{

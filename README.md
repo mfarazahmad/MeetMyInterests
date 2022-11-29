@@ -89,6 +89,9 @@ docker run -p 3000:3000 meetmyinterests
 
 ## Running Locally with Minikube & Helm
 ```
+helm repo add mongodb https://mongodb.github.io/helm-charts
+helm install community-operator mongodb/community-operator
+
 docker login
 minikube start
 . deploy/deploy.sh - Start all services
