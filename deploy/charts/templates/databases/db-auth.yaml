@@ -12,14 +12,14 @@ spec:
       modes: ["SCRAM"]
   users:
     - name: faraz
-      db: admin
+      db: auth
       passwordSecretRef: # a reference to the secret that will be used to generate the user's password
         name: mongo-pass
       roles:
         - name: clusterAdmin
-          db: admin
+          db: auth
         - name: userAdminAnyDatabase
-          db: admin
+          db: auth
       scramCredentialsSecretName: my-scram
   statefulSet:
       spec:
