@@ -40,6 +40,7 @@ Service-Blog has a CQRS (Command-Query Responsbility Segregation) Architecture t
 - 100% Code Coverage
 - Linters used: 
 - Passwords are hashed using a Argon2id hash function using Blake2.
+- Canary integrations for gradual rollouts
 
 ## Local Setup
 
