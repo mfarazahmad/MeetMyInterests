@@ -22,3 +22,11 @@
     color: white;
     font-family: 'Arima Madurai', cursive;
 }
+
+@media (max-width: 500px) {
+    .main {
+      padding-left: 0px;
+      justify-content: flex-start;
+    }
+
+}

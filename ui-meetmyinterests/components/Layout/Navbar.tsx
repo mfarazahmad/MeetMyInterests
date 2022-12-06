@@ -20,7 +20,10 @@ const Navbar = (props: Props) => {
 
     return (
         <div className="navbar">
+
             <div className='welcomeMsg'>
+                <img className="brandLogo" src={"/images/Faraz-Brand-Logo.webp"} alt="brand-logo" />
+
                 <div>
                     Welcome, <strong>{props.username}</strong>
                 </div>

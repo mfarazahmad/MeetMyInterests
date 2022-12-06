@@ -17,6 +17,11 @@
   background: lightgray;
 }
 
+.brandLogo {
+  max-width: 100%;
+  margin-bottom: 20px;
+}
+
 .welcomeMsg {
   display: flex;
   flex-direction: column;
@@ -120,4 +125,50 @@
 
 .loginForm .ant-form-item-label>label {
   color: white;
+}
+
+@media (max-width: 500px) {
+  .navbar {
+    position: relative;
+    width: 100%;
+    height: 10%;
+    opacity: .8;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    min-width: inherit;
+    max-width: inherit;
+  }
+
+  .welcomeMsg {
+    flex-direction: row;
+    justify-content: space-between;
+    width: 30%;
+  }
+
+  .linkTags {
+    flex-direction: row;
+    justify-content: space-between;
+    width: 20%;
+  }
+
+  .linkTags a {
+    font-size: 1.1em;
+    font-weight: bold;
+    margin-right: 7px;
+  }
+
+  .social img {
+    display: none;
+    cursor: pointer;
+    height: 30px;
+    width: 30px;
+    margin-right: 10px;
+  }
+
+  .brandLogo {
+    max-width: 50%;
+    margin: 0px;
+  }
 }

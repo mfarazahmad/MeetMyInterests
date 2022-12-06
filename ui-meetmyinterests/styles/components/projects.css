@@ -116,3 +116,30 @@
     }
 
 }
+
+@media (max-width: 850px) {
+    .aboutMe {
+         flex-direction: column;
+         width: 80%;
+         height: inherit;
+    }
+
+    .project {
+        height: inherit;
+    }
+ 
+    .profileImg {
+     width: 100%;
+    }
+ 
+    .aboutMeText {
+     width: 100%;
+    }
+ }
+ 
+ @media (max-width: 750px) {
+     .projectImg {
+         width: 30%;
+         height: 50%;
+     }
+ }

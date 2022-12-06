@@ -154,3 +154,72 @@
   width: 50px;
   margin-right: 5px;
 }
+
+
+@media (max-width: 890px) {
+  
+  .pitch {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .companyLogos {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .pitchLeft {
+    width: 30%;
+  }
+
+  .pitchRight {
+    height: 300px;
+    color: #ff304f;
+    background: white;
+    width: 70%;
+    min-width: inherit;
+    max-width: inherit;
+  }
+}
+
+@media (max-width: 650px) {
+
+  .header {
+    font-size: 2em;
+    font-weight: 400;
+  }
+  
+  .header3 {
+    font-size: 1.2em;
+    font-weight: 400;
+  }
+}
+
+
+@media (max-width: 600px) {
+
+  .pitchRight {
+    color: #ff304f;
+    background: white;
+  }
+}
+
+
+@media (max-width: 500px) {
+  .main {
+    padding-left: 0px;
+    justify-content: flex-start;
+  }
+
+  .pitch {
+    margin-top: 60px;
+    margin-bottom: 0px;
+    height: 50%;
+  }
+
+  .pitchLeft {
+    width: 40%;
+  }
+}

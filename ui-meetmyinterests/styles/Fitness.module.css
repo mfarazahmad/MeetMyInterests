@@ -7,3 +7,9 @@
     align-items: center;
     margin-left: 200px;
   }
+
+  @media (max-width: 500px) {
+    .main {
+      padding-left: 0px;
+    }
+}
