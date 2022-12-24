@@ -31,7 +31,7 @@ COPY --from=builder /app/node_modules ./node_modules
 
 # Automatically leverage output traces to reduce image size
 # https://nextjs.org/docs/advanced-features/output-file-tracing
-COPY --from=builder --chown=bloguser:bloggroup /app/.next/standalone ./
+# COPY --from=builder --chown=bloguser:bloggroup /app/.next/standalone ./
 COPY --from=builder --chown=bloguser:bloggroup /app/.next/static ./.next/static
 RUN mkdir -p /app/.next/cache/images && chown bloguser:bloggroup /app/.next/cache/images
 VOLUME /app/.next/cache/images

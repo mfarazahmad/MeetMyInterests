@@ -4,14 +4,15 @@
 
 ![](MeetMyInterests.png)
 
+## Coming Soon v1.0
+- Oauth2 Integration w/ Google
+- Terraform Scripts for EKS
+- Datadog Dashboard Link
+
+## Coming One Day v2.0
+- Streaming & Transcoding for service-media-stream
+
 ## Services
-- Responsive, Interactive UI to Showcase Professional Experience (ui-meetmyinterests)
-    - React/ Next.js (SSR)
-    - HTML5 Canvas
-    - Media Queries
-    - Grid/Flexbox
-    - Antd Design
-    - Webp Image Formats
 - Services Broken into a Domain Driven Microservices Architecture 
     - **golang**
         - service-interests 
@@ -26,6 +27,14 @@
         - service-media-stream
 
 Service-Blog has a CQRS (Command-Query Responsbility Segregation) Architecture to Seperate Read & Writes operations for better scalability. An event bus via RabbitMQ is used for sync across the write to read database.
+
+- Responsive, Interactive UI to Showcase Professional Experience (ui-meetmyinterests)
+    - React/ Next.js (SSR)
+    - HTML5 Canvas
+    - Media Queries
+    - Grid/Flexbox
+    - Antd Design
+    - Webp Image Formats
 
 ## Technologies
 - Containerization via Docker & Managed by Kubernetes & Helm Charts
@@ -117,9 +126,3 @@ Linting is utilized to maintain a safe, readable, and consistent coding standard
 ```
 make testcoverage && make lint
 ```
-## Coming Soon!
-- Full Blog with Technical Tutorial Posts & Journey | Gifs, Images, Charts
-- Fitness Tracker (For Weightlifting, Full Body | Upper-Lower | PPL)
-- Photography Gallery
-- Singing Videos
-- Guitar Tracker
