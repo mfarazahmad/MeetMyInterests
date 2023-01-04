@@ -9,6 +9,7 @@ import Outline from '../components/Layout/Outline'
 import NewBlogPost from '../components/Blog/NewBlogPost'
 import BlogPost from '../components/Blog/BlogPost'
 import PostCard from '../components/Blog/PostCard'
+import { getBlogs } from '../service/blog'
 
 // GET /api/v1/post
 const Blog = () => {
@@ -20,9 +21,7 @@ const Blog = () => {
 
     const getPosts = async () => {
         try {
-            let endpoint = `${process.env.NEXT_PUBLIC_HOSTNAME}/api/v1/post?limit=5`
-            let resp = await axios.get(`${endpoint}`)
-            let data = resp.data;
+            let data = await getBlogs()
             console.log(data)
 
             if (data.err) {

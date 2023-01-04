@@ -2,12 +2,16 @@ syntax = "proto3";
 
 package auth;
 
+import "google/protobuf/empty.proto";
+
 option go_package = "./pb";
 
 service AuthService {
     rpc Login (Credentials) returns (AuthStatus) {}
     rpc Logout (Token) returns (AuthStatus) {}
     rpc CreateUser (Credentials) returns (AuthStatus) {}
+    rpc Oauth (google.protobuf.Empty) returns (AuthURI) {}
+    rpc OauthCallback (AuthCode) returns (AuthStatus) {}
 }
 
 message Credentials {
@@ -18,6 +22,14 @@ message Credentials {
 
 message Token {
     string encodedJWT = 1;
+}
+
+message AuthURI {
+    string authURI = 1;
+}
+
+message AuthCode {
+    string authCode = 1;
 }
 
 message AuthStatus {

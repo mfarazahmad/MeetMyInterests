@@ -9,6 +9,7 @@ import (
 	"github.com/rs/zerolog/log"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
+	"google.golang.org/protobuf/types/known/emptypb"
 )
 
 type AuthServiceServer struct {
@@ -41,6 +42,33 @@ func (s *AuthServiceServer) Login(ctx context.Context, creds *pb.Credentials) (*
 	} else {
 		return currentStatus, status.Errorf(codes.NotFound, "unable to login")
 	}
+}
+
+func (s *AuthServiceServer) Oauth(ctx context.Context, _ *emptypb.Empty) (*pb.AuthURI, error) {
+	authURI := &pb.AuthURI{}
+	authURI.AuthURI = service.GetAuthURL()
+	if authURI.AuthURI != "" {
+		return authURI, status.Errorf(codes.Unauthenticated, "Error Getting Auth URL")
+	}
+	return authURI, nil
+}
+
+func (s *AuthServiceServer) OauthCallback(ctx context.Context, code *pb.AuthCode) (*pb.AuthStatus, error) {
+	token := &pb.Token{EncodedJWT: ""}
+	currentStatus := &pb.AuthStatus{
+		IsLoggedIn:   false,
+		TimeToExpire: "",
+		Jwt:          token,
+	}
+	strToken, err := service.GetAccessToken(code.AuthCode)
+	if err != nil {
+		return currentStatus, status.Errorf(codes.Unauthenticated, err.Error())
+	}
+	token = &pb.Token{EncodedJWT: strToken}
+	currentStatus.IsLoggedIn = true
+	currentStatus.Jwt = token
+
+	return currentStatus, nil
 }
 
 func (s *AuthServiceServer) Logout(v context.Context, token *pb.Token) (*pb.AuthStatus, error) {

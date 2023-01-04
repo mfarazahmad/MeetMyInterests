@@ -9,6 +9,7 @@ import PostCard from './PostCard'
 import EditBlog from './EditBlog'
 import { LoginContext } from '../../context/ctx';
 import CustomAlert from '../Widgets/Alert';
+import { deleteBlogByID, getBlogByID } from '../../service/blog';
 
 type Props = {
     blogId: string,
@@ -17,12 +18,9 @@ type Props = {
 // GET /api/v1/post/[postID]
 const BlogPost = (props: Props) => {
 
-    const getPostDetails = async (postID) => {
+    const getPostDetails = async (postID: string) => {
         try {
-            let endpoint = `${process.env.NEXT_PUBLIC_HOSTNAME}/api/v1/post`
-            let resp = await axios.get(`${endpoint}/${postID}`)
-            let data = resp.data
-
+            let data = await getBlogByID(postID)
             if (data.err) {
                 console.log(data.err)
             } else {
@@ -53,10 +51,7 @@ const BlogPost = (props: Props) => {
 
     const handleDeleteMode = async () => {
         try {
-            let endpoint = `${process.env.NEXT_PUBLIC_HOSTNAME}/api/v1/post`
-            let resp = await axios.delete(`${endpoint}/${postDetails.blogId}`)
-            let data = resp.data;
-
+            let data = await deleteBlogByID(postDetails.blogId);
             if (data.err) {
                 console.log(data.err)
                 setBlogActionStatus(false)

@@ -8,6 +8,7 @@ import { LoginContext } from '../context/ctx'
 import CustomAlert from '../components/Widgets/Alert'
 import { Auth } from '../types/auth'
 import { useLocalStorage } from '../utils/customHooks'
+import { login, logout, oauthCallBack } from '../service/auth'
 
 function MyApp({ Component, pageProps }) {
 
@@ -20,19 +21,40 @@ function MyApp({ Component, pageProps }) {
 
     useEffect(() => {
         axios.defaults.withCredentials = true
+        authFlow()
     }, [])
+
+    const authFlow = async() => {
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.get('code')) {
+            let authPayload = {
+                'code': urlParams.get('code'),
+                'state': urlParams.get('state'),
+                'scope': urlParams.get('scope')
+            }
+
+            let data:any = await oauthCallBack(authPayload);
+
+            if (data.err) {
+                setAlertVisiblity(true)
+            } else {
+                console.log("User is logged in!");
+
+                setUsername("Faraz")
+                setAlertVisiblity(true)
+                handleLoginDisplay()
+                setLoginStatus(true)
+
+				router.push('/blog')
+            }
+        }
+    }
 
     const handleLogin = async (values: object) => {
 
         try {
             let payload: Auth = { 'Username': values['username'], 'Password': values['password'] }
-            let endpoint: string = `${process.env.NEXT_PUBLIC_HOSTNAME}/api/v1/user/login`
-            let resp = await axios.post(`${endpoint}`, JSON.stringify(payload))
-            let data = resp.data;
-
-            const cookieHeaders = resp.headers['Set-Cookie'];
-            console.log(cookieHeaders);
-
+            let data = await login(payload);
             if (data.err) {
                 console.log(data.err)
                 setAlertVisiblity(true)
@@ -55,10 +77,7 @@ function MyApp({ Component, pageProps }) {
 
     const handleLogout = async () => {
         try {
-            let endpoint: string = `${process.env.NEXT_PUBLIC_HOSTNAME}/api/v1/user/logout`
-            let resp = await axios.post(`${endpoint}`, JSON.stringify({}))
-            let data = resp.data;
-
+            let data = await logout();
             if (data.err) {
                 console.log(data.err)
                 alert('Failed to logout!')

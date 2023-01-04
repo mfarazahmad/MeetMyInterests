@@ -8,6 +8,7 @@ import { Alert, Input, Button, Select, AlertProps } from 'antd';
 
 import BlogEditor from './Editor'
 import CustomAlert from '../Widgets/Alert';
+import { newPost } from '../../service/blog';
 
 const { Option } = Select;
 
@@ -83,10 +84,7 @@ const NewBlogPost = (props: Props) => {
             let isValid = validateBlog(payload)
 
             if (isValid) {
-                let endpoint = `${process.env.NEXT_PUBLIC_HOSTNAME}/api/v1/post/new`
-                let resp = await axios.post(`${endpoint}`, JSON.stringify(payload))
-                let data = resp.data;
-
+                let data = await newPost(payload);
                 if (data.err) {
                     console.log(data.err)
                     setPostStatus(false)

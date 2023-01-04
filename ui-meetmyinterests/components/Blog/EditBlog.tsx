@@ -8,6 +8,7 @@ import { Button } from 'antd';
 
 import BlogEditor from './Editor'
 import { PostDetails } from '../../types/blog'
+import { editBlogByID } from '../../service/blog'
 
 type Props = {
     setBlogActionStatus: Function,
@@ -45,10 +46,7 @@ const EditBlog = (props: Props) => {
             let isValid = validateBlog(payload)
 
             if (isValid) {
-                let endpoint = `${process.env.NEXT_PUBLIC_HOSTNAME}/api/v1/post`
-                let resp = await axios.put(`${endpoint}/${props.blogId}`, JSON.stringify(payload))
-                let data = resp.data;
-
+                let data = await editBlogByID(props.blogId, payload)
                 if (data.err) {
                     console.log(data.err)
                     props.setBlogActionStatus(false)

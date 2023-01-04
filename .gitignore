@@ -39,3 +39,5 @@ yarn-error.log*
 
 # Any creds file
 *values.yaml
+
+*client_secret.json

@@ -42,7 +42,7 @@ type GRPC_INIT_CONN struct {
 }
 
 func getPublicKey() *rsa.PublicKey {
-	publicKeyPath, _ := filepath.Abs("keys/app.rsa.pub")
+	publicKeyPath, _ := filepath.Abs("keys/app.rsa.pub") //openssl rsa -in app.rsa -out app.rsa.pub -pubout -outform PEM
 	log.Print(publicKeyPath)
 
 	verifyBytes, err := os.ReadFile(publicKeyPath)
