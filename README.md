@@ -5,7 +5,6 @@
 ![](MeetMyInterests.png)
 
 ## Coming Soon v1.0
-- Oauth2 Integration w/ Google
 - Terraform Scripts for EKS
 - Datadog Dashboard Link
 
@@ -49,6 +48,7 @@ Service-Blog has a CQRS (Command-Query Responsbility Segregation) Architecture t
 - 100% Code Coverage
 - Linters used: 
 - Passwords are hashed using a Argon2id hash function using Blake2.
+- Oauth2 Integration w/ Google
 - Canary integrations for gradual rollouts
 
 ## Local Setup
