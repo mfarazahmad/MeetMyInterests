@@ -45,15 +45,20 @@ func (s *AuthServiceServer) Login(ctx context.Context, creds *pb.Credentials) (*
 }
 
 func (s *AuthServiceServer) Oauth(ctx context.Context, _ *emptypb.Empty) (*pb.AuthURI, error) {
+	log.Printf("Triggering Oauth RPC")
+
 	authURI := &pb.AuthURI{}
 	authURI.AuthURI = service.GetAuthURL()
-	if authURI.AuthURI != "" {
+
+	if authURI.AuthURI == "" {
 		return authURI, status.Errorf(codes.Unauthenticated, "Error Getting Auth URL")
 	}
 	return authURI, nil
 }
 
 func (s *AuthServiceServer) OauthCallback(ctx context.Context, code *pb.AuthCode) (*pb.AuthStatus, error) {
+	log.Printf("Triggering Oauth Callback RPC")
+
 	token := &pb.Token{EncodedJWT: ""}
 	currentStatus := &pb.AuthStatus{
 		IsLoggedIn:   false,

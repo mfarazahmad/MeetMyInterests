@@ -14,6 +14,7 @@ export const login = async (payload: Auth) => {
 
 export const oauthUserLogin = async () => {
     const endpoint: string | Location = `${process.env.NEXT_PUBLIC_HOSTNAME}/api/v1/user/oauth`;
+    console.log(endpoint);
     (<any> window).location = endpoint;
 }
 

@@ -13,19 +13,20 @@ import (
 	"github.com/rs/zerolog/log"
 
 	"golang.org/x/oauth2"
-    "golang.org/x/oauth2/google"
+	"golang.org/x/oauth2/google"
 )
 
 func GetAuthURL() string {
 	googleOauthConfig := &oauth2.Config{
-		RedirectURL:  c.CFG.AUTH.CREDS.REDIRECT_URIS[0],
+		RedirectURL:  c.CFG.AUTH.REDIRECT_URI,
 		ClientID:     c.CFG.AUTH.CREDS.CLIENT_ID,
 		ClientSecret: c.CFG.AUTH.CREDS.CLIENT_SECRET,
 		Scopes:       c.CFG.AUTH.SCOPES,
 		Endpoint:     google.Endpoint,
 	}
+	log.Print(googleOauthConfig)
 
-    return googleOauthConfig.AuthCodeURL("")
+	return googleOauthConfig.AuthCodeURL("")
 }
 
 func GetAccessToken(code string) (string, error) {
@@ -34,7 +35,7 @@ func GetAccessToken(code string) (string, error) {
 	data := m.OauthTokenRequest{
 		CODE:          code,
 		GRANT_TYPE:    "authorization_code",
-		REDIRECT_URI:  c.CFG.AUTH.CREDS.REDIRECT_URIS[0],
+		REDIRECT_URI:  c.CFG.AUTH.REDIRECT_URI,
 		CLIENT_SECRET: c.CFG.AUTH.CREDS.CLIENT_SECRET,
 		CLIENT_ID:     c.CFG.AUTH.CREDS.CLIENT_ID,
 	}

@@ -55,23 +55,23 @@ func getPrivateKey() *rsa.PrivateKey {
 }
 
 func getOauthCreds() m.OauthCredentials {
-	authCreds, _ := filepath.Abs("keys/client_secret.json")
-	log.Print(authCreds)
+	path, _ := filepath.Abs("keys/client_secret.json")
+	log.Print(path)
 
-	fileBytes, err := os.ReadFile(authCreds)
+	fileBytes, err := os.ReadFile(path)
 	if err != nil {
 		log.Print("No oauth creds found!")
 		return m.OauthCredentials{}
 	}
 
-	var creds m.OauthCredentials
+	var creds map[string]m.OauthCredentials
 	err = json.Unmarshal(fileBytes, &creds)
 	if err != nil {
 		log.Print("Error during Unmarshal(): ", err)
 		return m.OauthCredentials{}
 	}
 
-	return creds
+	return creds["web"]
 }
 
 func Bootstrap() {
