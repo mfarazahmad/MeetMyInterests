@@ -22,7 +22,7 @@ spec:
     spec:
       containers:
         - name: ui-meetmyinterests
-          image: questmaster991/meetmyinterests:ui-meetmyinterests
+          image: cabbagesoup/meetmyinterests:ui-meetmyinterests
           imagePullPolicy: Always
           resources:
             requests:

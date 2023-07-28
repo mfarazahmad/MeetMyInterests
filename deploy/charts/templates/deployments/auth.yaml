@@ -22,7 +22,7 @@ spec:
     spec:
       containers:
         - name: service-auth
-          image: questmaster991/meetmyinterests:service-auth
+          image: cabbagesoup/meetmyinterests:service-auth
           imagePullPolicy: Always
           resources:
             requests:

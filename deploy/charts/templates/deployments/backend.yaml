@@ -22,7 +22,7 @@ spec:
     spec:
       containers:
         - name: service-interests
-          image: questmaster991/meetmyinterests:service-interests
+          image: cabbagesoup/meetmyinterests:service-interests
           imagePullPolicy: Always
           resources:
             requests:

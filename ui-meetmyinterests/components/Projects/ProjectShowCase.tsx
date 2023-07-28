@@ -16,7 +16,7 @@ const ProjectShowCase = () => {
                             <Tag color="red">Golang</Tag>
                             <Tag color="black">Typescript</Tag>
                             <Tag color="yellow">Next.js</Tag>
-                            <Tag color="green">RabbitMQ</Tag>
+                            <Tag color="green">Kafka</Tag>
                             <Tag color="purple">GRPC</Tag>
                             <Tag color="blue">Mongo</Tag>
                             <Tag color="orange">Redis</Tag>

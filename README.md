@@ -25,7 +25,7 @@
         - service-email
         - service-media-stream
 
-Service-Blog has a CQRS (Command-Query Responsbility Segregation) Architecture to Seperate Read & Writes operations for better scalability. An event bus via RabbitMQ is used for sync across the write to read database.
+Service-Blog has a CQRS (Command-Query Responsbility Segregation) Architecture to Seperate Read & Writes operations for better scalability. An event bus via Kafka is used for sync across the write to read database.
 
 - Responsive, Interactive UI to Showcase Professional Experience (ui-meetmyinterests)
     - React/ Next.js (SSR)

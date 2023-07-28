@@ -22,7 +22,7 @@ spec:
     spec:
       containers:
         - name: service-blog
-          image: questmaster991/meetmyinterests:service-blog
+          image: cabbagesoup/meetmyinterests:service-blog
           imagePullPolicy: Always
           resources:
             requests:
