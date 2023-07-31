@@ -4,7 +4,7 @@ metadata:
   name: backend-mmi
   labels:
     helm.sh/chart: charts-0.1.0
-    helm.sh/release-name: testlocal
+    helm.sh/release-name: {{ .Values.releasename }}
     helm.sh/release-namespace: {{ .Values.namespace }}
     app.kubernetes.io/name: backend-mmi
     app.kubernetes.io/instance: release-name
