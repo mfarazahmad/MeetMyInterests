@@ -4,7 +4,7 @@ metadata:
   name: blog
   labels:
     helm.sh/chart: charts-0.1.0
-    helm.sh/release-name: test-rel
+    helm.sh/release-name: testlocal
     helm.sh/release-namespace: {{ .Values.namespace }}
     app.kubernetes.io/name: blog
     app.kubernetes.io/instance: release-name

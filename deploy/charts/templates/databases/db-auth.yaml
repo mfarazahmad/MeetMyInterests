@@ -3,6 +3,14 @@ apiVersion: mongodbcommunity.mongodb.com/v1
 kind: MongoDBCommunity
 metadata:
   name: db-auth
+  labels:
+    helm.sh/chart: charts-0.1.0
+    helm.sh/release-name: {{ .Values.releasename }}
+    helm.sh/release-namespace: {{ .Values.namespace }}
+    app.kubernetes.io/name: db-auth
+    app.kubernetes.io/instance: release-name
+    app.kubernetes.io/version: "1.16.0"
+    app.kubernetes.io/managed-by: Helm
 spec:
   members: 3
   type: ReplicaSet
