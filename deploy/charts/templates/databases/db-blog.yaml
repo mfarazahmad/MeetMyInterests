@@ -2,12 +2,12 @@
 apiVersion: mongodbcommunity.mongodb.com/v1
 kind: MongoDBCommunity
 metadata:
-  name: db-blog
+  name: blogdb
   labels:
     helm.sh/chart: charts-0.1.0
     helm.sh/release-name: {{ .Values.releasename }}
     helm.sh/release-namespace: {{ .Values.namespace }}
-    app.kubernetes.io/name: db-blog
+    app.kubernetes.io/name: blogdb
     app.kubernetes.io/instance: release-name
     app.kubernetes.io/version: "1.16.0"
     app.kubernetes.io/managed-by: Helm
@@ -19,16 +19,16 @@ spec:
     authentication:
       modes: ["SCRAM"]
   users:
-    - name: admin
+    - name: faraz
       db: admin
       passwordSecretRef: # a reference to the secret that will be used to generate the user's password
-        name: mongo-pass
+        name: mongo-pass-blog
       roles:
         - name: clusterAdmin
           db: admin
         - name: userAdminAnyDatabase
           db: admin
-      scramCredentialsSecretName: my-scram
+      scramCredentialsSecretName: my-scram-blog
   statefulSet:
       spec:
         template:

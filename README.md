@@ -150,6 +150,11 @@ echo "devopscube" | base64
 echo "ZGV2b3BzY3ViZQo=" | base64 --decode
 //after decoding it, this will give devopscube
 
+To get Docker Private Repository Key
+1. ```docker login```
+2. ```cat ~/.docker/config.json | base64```  
+3. Copy above to dockerBase64Token in values.yaml
+
 ### Swagger
 
 ### Linter
