@@ -12,9 +12,9 @@ metadata:
     app.kubernetes.io/version: "1.16.0"
     app.kubernetes.io/managed-by: Helm
 spec:
-  members: 3
+  members: 2
   type: ReplicaSet
-  version: "4.4.0"
+  version: "6.0.5"
   security:
     authentication:
       modes: ["SCRAM"]
@@ -28,15 +28,17 @@ spec:
           db: admin
         - name: userAdminAnyDatabase
           db: admin
-      scramCredentialsSecretName: my-scram-blog
+      scramCredentialsSecretName: writeforever
   statefulSet:
       spec:
         template:
           spec:
-            # resources can be specified by applying an override
-            # per container name.
             containers:
               - name: mongod
+                readinessProbe:
+                  failureThreshold: 40
+                  initialDelaySeconds: 5
+                  timeout: 30
                 resources:
                   limits:
                     cpu: "0.2"
@@ -45,6 +47,10 @@ spec:
                     cpu: "0.2"
                     memory: 200M
               - name: mongodb-agent
+                readinessProbe:
+                  failureThreshold: 40
+                  initialDelaySeconds: 5
+                  timeout: 30
                 resources:
                   limits:
                     cpu: "0.2"
