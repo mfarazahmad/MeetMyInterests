@@ -4,8 +4,9 @@
 
 ![](MeetMyInterests.png)
 
-## Coming Soon v1.0
+## Coming Soon v1.1
 - Terraform Scripts for EKS
+- Istio Implementation
 - Datadog Dashboard Link
 
 ## Coming One Day v2.0
@@ -142,6 +143,13 @@ minikube tunnel
 
 . deploy/deploy.sh - Start all services
 . deploy/takedown.sh - Takedown all services
+```
+
+#### Some Handy Kubernetes Commands
+```
+kubectl top nodes - View Resources
+kubectl get events - View Bad Events in Pods
+kubectl get services - View Services & Internal/External Ips
 ```
 
 # Encoding & Decoding Secrets
