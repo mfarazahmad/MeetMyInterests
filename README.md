@@ -139,7 +139,7 @@ helm install community-operator mongodb/community-operator
 
 docker login
 minikube start
-minikube tunnel # Exposes Internal Kubernetes pods locally
+minikube tunnel
 
 . deploy/deploy.sh - Start all services
 . deploy/takedown.sh - Takedown all services
