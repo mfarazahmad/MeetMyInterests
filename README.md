@@ -7,6 +7,7 @@
 ## Coming Soon v1.1
 - Terraform Scripts for EKS
 - Istio Implementation
+- Service Discovery Via Istio
 - Datadog Dashboard Link
 
 ## Coming One Day v2.0
@@ -60,7 +61,6 @@ choco install golang
 choco install nodejs
 choco install python
 choco install protoc
-
 ```
 
 ### How to use the .proto files to generate code for your application
@@ -133,10 +133,15 @@ docker run -p 3000:3000 meetmyinterests
 ```
 
 ## Running Locally with Minikube & Helm
+
+1. Install Mongo & Metrics API CRDS
 ```
 helm repo add mongodb https://mongodb.github.io/helm-charts
 helm install community-operator mongodb/community-operator
-
+kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml
+```
+2. Start the cluster and deploy configuration to it
+```
 docker login
 minikube start
 minikube tunnel
@@ -144,10 +149,9 @@ minikube tunnel
 . deploy/deploy.sh - Start all services
 . deploy/takedown.sh - Takedown all services
 ```
-
-#### Some Handy Kubernetes Commands
+3. Handy Kubernetes Commands
 ```
-kubectl top nodes - View Resources
+kubectl top nodes - View Resources via Metrics API
 kubectl get events - View Bad Events in Pods
 kubectl get services - View Services & Internal/External Ips
 ```
