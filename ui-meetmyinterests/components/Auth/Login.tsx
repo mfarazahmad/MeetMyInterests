@@ -2,6 +2,7 @@
 import React, { MouseEventHandler, useState } from 'react'
 
 import { Form, Input, Button } from 'antd';
+import { oauthUserLogin } from '../../service/auth';
 
 type Props = {
     handleLogin: MouseEventHandler<HTMLElement>,
@@ -26,7 +27,12 @@ const Login = (props: Props) => {
                     </Form.Item>
 
                     <Button className='loginBtn' htmlType="submit">Login</Button>
-                    <Button style={{"marginTop":"10px"}} icon={ <img style={{"height": "20px", "marginRight": "10px"}} src={"/images/google-auth.svg"} alt="Google Logo" />} >
+                    <Button 
+                        style={{"marginTop":"10px"}} 
+                        icon={ <img style={{"height": "20px", "marginRight": "10px"}} 
+                            src={"/images/google-auth.svg"} alt="Google Logo" />}
+                        onClick={() => oauthUserLogin() }
+                    >
                         Login with Google
                     </Button>
                 </ Form>

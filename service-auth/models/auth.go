@@ -14,14 +14,14 @@ type UserClaims struct {
 }
 
 type OauthCredentials struct {
-	PROJECT_ID    string   `json:"web.project_id"`
-	AUTH_URI      string   `json:"web.auth_uri"`
-	TOKEN_URI     string   `json:"web.token_uri"`
-	AUTH_PROVIDER string   `json:"web.auth_provider_x509_cert_url"`
-	CLIENT_ID     string   `json:"web.client_id"`
-	CLIENT_SECRET string   `json:"web.client_secret"`
-	REDIRECT_URIS []string `json:"web.redirect_uris"`
-	JS_ORIGINS    []string `json:"web.javascript_origins"`
+	PROJECT_ID    string   `json:"project_id"`
+	AUTH_URI      string   `json:"auth_uri"`
+	TOKEN_URI     string   `json:"token_uri"`
+	AUTH_PROVIDER string   `json:"auth_provider_x509_cert_url"`
+	CLIENT_ID     string   `json:"client_id"`
+	CLIENT_SECRET string   `json:"client_secret"`
+	REDIRECT_URIS []string `json:"redirect_uris"`
+	JS_ORIGINS    []string `json:"javascript_origins"`
 }
 
 type UserOauthInfo struct {

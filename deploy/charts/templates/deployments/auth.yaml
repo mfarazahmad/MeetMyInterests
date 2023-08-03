@@ -4,7 +4,7 @@ metadata:
   name: auth
   labels:
     helm.sh/chart: charts-0.1.0
-    helm.sh/release-name: test-rel
+    helm.sh/release-name: {{ .Values.releasename }}
     helm.sh/release-namespace: {{ .Values.namespace }}
     app.kubernetes.io/name: auth
     app.kubernetes.io/instance: release-name
@@ -22,7 +22,7 @@ spec:
     spec:
       containers:
         - name: service-auth
-          image: questmaster991/meetmyinterests:service-auth
+          image: cabbagesoup/meetmyinterests:service-auth
           imagePullPolicy: Always
           resources:
             requests:
@@ -40,8 +40,10 @@ spec:
           - name: MONGO_URI
             valueFrom:
               secretKeyRef:
-                name: db-auth-auth-faraz
-                key: connectionString.standardSrv
+                name: mongo-auth-uri
+                key: mongouri
+                # name: authdb-auth-faraz
+                # key: connectionString.standardSrv
 
       imagePullSecrets:
         - name: regcredentials

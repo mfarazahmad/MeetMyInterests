@@ -2,8 +2,18 @@ apiVersion: v1
 kind: Service
 metadata:
   name: ui-mmi-service
+{{- if .Values.cloud.enabled }}
+{{- if eq .Values.cloud.provider "aws" }}
+  annotations:
+{{- range $key, $value := .Values.cloud.annotations.aws }}
+    {{ $key }}: {{ $value | quote }}
+{{- end }}
+
+{{- end }}
+{{- end }}
 spec:
   type: LoadBalancer
+  externalTrafficPolicy: Cluster
   selector:
     app.kubernetes.io/name: ui-mmi
   ports:

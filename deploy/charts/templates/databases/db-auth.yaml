@@ -2,33 +2,49 @@
 apiVersion: mongodbcommunity.mongodb.com/v1
 kind: MongoDBCommunity
 metadata:
-  name: db-auth
+  name: authdb
+  labels:
+    helm.sh/chart: charts-0.1.0
+    helm.sh/release-name: {{ .Values.releasename }}
+    helm.sh/release-namespace: {{ .Values.namespace }}
+    app.kubernetes.io/name: authdb
+    app.kubernetes.io/instance: release-name
+    app.kubernetes.io/version: "1.16.0"
+    app.kubernetes.io/managed-by: Helm
 spec:
-  members: 3
+  members: 2
   type: ReplicaSet
-  version: "4.4.0"
+  version: "6.0.5"
   security:
     authentication:
       modes: ["SCRAM"]
   users:
     - name: faraz
-      db: auth
+      db: admin
       passwordSecretRef: # a reference to the secret that will be used to generate the user's password
-        name: mongo-pass
+        name: mongo-pass-auth
       roles:
         - name: clusterAdmin
-          db: auth
+          db: admin
         - name: userAdminAnyDatabase
-          db: auth
-      scramCredentialsSecretName: my-scram
+          db: admin
+      scramCredentialsSecretName: authneverlies
   statefulSet:
       spec:
         template:
           spec:
-            # resources can be specified by applying an override
-            # per container name.
             containers:
               - name: mongod
+                readinessProbe:
+                  tcpSocket:
+                    port: 27017
+                  initialDelaySeconds: 5
+                  periodSeconds: 10
+                livenessProbe:
+                  tcpSocket:
+                    port: 27017
+                  initialDelaySeconds: 15
+                  periodSeconds: 20
                 resources:
                   limits:
                     cpu: "0.2"
@@ -37,6 +53,16 @@ spec:
                     cpu: "0.2"
                     memory: 200M
               - name: mongodb-agent
+                readinessProbe:
+                  tcpSocket:
+                    port: 27017
+                  initialDelaySeconds: 5
+                  periodSeconds: 10
+                livenessProbe:
+                  tcpSocket:
+                    port: 27017
+                  initialDelaySeconds: 15
+                  periodSeconds: 20
                 resources:
                   limits:
                     cpu: "0.2"

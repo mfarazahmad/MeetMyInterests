@@ -15,10 +15,10 @@ dockerlocal:
 dockerstage:
 	docker build \
 	-f Dockerfile \
-	-t questmaster991/meetmyinterests:${IMAGEFULLNAME} \
+	-t cabbagesoup/meetmyinterests:${IMAGEFULLNAME} \
 	.
 
-	docker push questmaster991/meetmyinterests:${IMAGEFULLNAME}
+	docker push cabbagesoup/meetmyinterests:${IMAGEFULLNAME}
 
 testcoverage:
 	go vet
