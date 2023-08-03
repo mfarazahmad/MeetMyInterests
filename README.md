@@ -152,6 +152,7 @@ minikube tunnel
 ```
 3. Handy Kubernetes Commands
 ```
+kubectl logs -f -l  app.kubernetes.io/name=auth - View live logs for a application
 kubectl top nodes - View Resources via Metrics API
 kubectl logs <podname> - View Pod Logskube
 kubectl get events - View Bad Events in Pods
