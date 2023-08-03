@@ -4,11 +4,11 @@
 
 ![](MeetMyInterests.png)
 
-## Coming Soon v1.1
+## Coming Soon v1.0
 - Terraform Scripts for EKS
-- Istio Implementation
-- Service Discovery Via Istio
-- Datadog Dashboard Link
+- Istio Implementation w/ Service Discovery
+- Datadog Logging with Metrics,Tracing,Context & Dashboard
+- Vault Secrets Management Implementation
 
 ## Coming One Day v2.0
 - Streaming & Transcoding for service-media-stream
@@ -152,6 +152,7 @@ minikube tunnel
 3. Handy Kubernetes Commands
 ```
 kubectl top nodes - View Resources via Metrics API
+kubectl logs <podname> - View Pod Logskube
 kubectl get events - View Bad Events in Pods
 kubectl get services - View Services & Internal/External Ips
 ```
