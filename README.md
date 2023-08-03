@@ -25,7 +25,7 @@
         - service-email
         - service-media-stream
 
-Service-Blog has a CQRS (Command-Query Responsbility Segregation) Architecture to Seperate Read & Writes operations for better scalability. An event bus via RabbitMQ is used for sync across the write to read database.
+Service-Blog has a CQRS (Command-Query Responsbility Segregation) Architecture to Seperate Read & Writes operations for better scalability. An event bus via Kafka is used for sync across the write to read database.
 
 - Responsive, Interactive UI to Showcase Professional Experience (ui-meetmyinterests)
     - React/ Next.js (SSR)
@@ -76,7 +76,6 @@ vi ~./zshrc
 ```
 
 ```
-
 brew install protobuf
 go install google.golang.org/protobuf/cmd/protoc-gen-go@latest
 
@@ -139,6 +138,8 @@ helm install community-operator mongodb/community-operator
 
 docker login
 minikube start
+minikube tunnel
+
 . deploy/deploy.sh - Start all services
 . deploy/takedown.sh - Takedown all services
 ```
@@ -149,6 +150,11 @@ echo "devopscube" | base64
 
 echo "ZGV2b3BzY3ViZQo=" | base64 --decode
 //after decoding it, this will give devopscube
+
+To get Docker Private Repository Key
+1. ```docker login```
+2. ```cat ~/.docker/config.json | base64```  
+3. Copy above to dockerBase64Token in values.yaml
 
 ### Swagger
 

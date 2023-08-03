@@ -4,7 +4,7 @@ metadata:
   name: blog
   labels:
     helm.sh/chart: charts-0.1.0
-    helm.sh/release-name: test-rel
+    helm.sh/release-name: {{ .Values.releasename }}
     helm.sh/release-namespace: {{ .Values.namespace }}
     app.kubernetes.io/name: blog
     app.kubernetes.io/instance: release-name
@@ -22,7 +22,7 @@ spec:
     spec:
       containers:
         - name: service-blog
-          image: questmaster991/meetmyinterests:service-blog
+          image: cabbagesoup/meetmyinterests:service-blog
           imagePullPolicy: Always
           resources:
             requests:
@@ -40,8 +40,10 @@ spec:
           - name: MONGO_URI
             valueFrom:
               secretKeyRef:
-                name: db-blog-admin-admin
-                key: connectionString.standardSrv
+                name: mongo-blog-uri
+                key: mongouri
+                # name: blogdb-blog-faraz
+                # key: connectionString.standardSrv
             
       imagePullSecrets:
         - name: regcredentials
