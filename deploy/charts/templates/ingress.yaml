@@ -58,4 +58,13 @@ spec:
               {{- end }}
           {{- end }}
     {{- end }}
+    - http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: ui-mmi-service
+            port:
+              number: 3000
 {{- end }}

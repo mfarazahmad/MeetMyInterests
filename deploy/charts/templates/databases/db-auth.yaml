@@ -36,9 +36,15 @@ spec:
             containers:
               - name: mongod
                 readinessProbe:
-                  failureThreshold: 40
+                  tcpSocket:
+                    port: 27017
                   initialDelaySeconds: 5
-                  timeout: 30
+                  periodSeconds: 10
+                livenessProbe:
+                  tcpSocket:
+                    port: 27017
+                  initialDelaySeconds: 15
+                  periodSeconds: 20
                 resources:
                   limits:
                     cpu: "0.2"
@@ -48,9 +54,15 @@ spec:
                     memory: 200M
               - name: mongodb-agent
                 readinessProbe:
-                  failureThreshold: 40
+                  tcpSocket:
+                    port: 27017
                   initialDelaySeconds: 5
-                  timeout: 30
+                  periodSeconds: 10
+                livenessProbe:
+                  tcpSocket:
+                    port: 27017
+                  initialDelaySeconds: 15
+                  periodSeconds: 20
                 resources:
                   limits:
                     cpu: "0.2"
