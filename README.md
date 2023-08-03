@@ -4,11 +4,12 @@
 
 ![](MeetMyInterests.png)
 
-## Coming Soon v1.0
+## Coming Soon v1.1
 - Terraform Scripts for EKS
 - Istio Implementation w/ Service Discovery
-- Datadog Logging with Metrics,Tracing,Context & Dashboard
+- Datadog Logging Dashboard
 - Vault Secrets Management Implementation
+- Certifates and DNS via Cloudflare
 
 ## Coming One Day v2.0
 - Streaming & Transcoding for service-media-stream

@@ -41,3 +41,5 @@ yarn-error.log*
 *values.yaml
 
 *client_secret.json
+
+thirdpartycrds
