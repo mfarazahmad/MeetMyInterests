@@ -10,10 +10,10 @@ const Projects = () => {
     return (
         <Outline>
             <div className={styles.main}>
-                <h1 className={styles.header} id="aboutMeBanner"> About Me </h1>
+                <h1 className={styles.header} id="aboutMeBanner"> BACKGROUND </h1>
                 <AboutMe />
 
-                <h1 className={styles.header}> Projects </h1>
+                <h1 className={styles.header}> PROJECTS </h1>
                 <ProjectShowCase />
             </div>
         </Outline>

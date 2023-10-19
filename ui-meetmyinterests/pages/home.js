@@ -360,14 +360,14 @@ const Home = (props) => {
         <Outline>
             <div className={styles.main}>
                 <canvas ref={canvasRef} className={styles.pingpong} {...props} />
-                <div className={styles.intro}>
+                {/* <div className={styles.intro}>
                     <h1 className={styles.header}>Hello, my name is Faraz!</h1>
                     <h3 className={styles.header3}>Pleased to meet you.</h3>
 
                     <Link href="/projects" passHref>
                         <button className={styles.button}>Click Here to Learn More!</button>
                     </Link>
-                </div>
+                </div> */}
                 <div className={styles.pitch}>
                     <div className={styles.pitchLeft}>
                         <div className={styles.title}>
