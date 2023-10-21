@@ -16,7 +16,8 @@ function MyApp({ Component, pageProps }) {
 
     const [isLoggedIn, setLoginStatus] = useLocalStorage<boolean>("isLoggedIn", false)
     const [alertVisible, setAlertVisiblity] = useLocalStorage<boolean>("alertVisible", false);
-    const [showLoginBox, setLoginDisplay] = useLocalStorage<boolean>("showLoginBox", false)
+    // const [showLoginBox, setLoginDisplay] = useLocalStorage<boolean>("showLoginBox", false)
+    const [showLoginBox, setLoginDisplay] = useState<boolean>(false)
     const [username, setUsername] = useLocalStorage<string>("username", "User")
 
     useEffect(() => {

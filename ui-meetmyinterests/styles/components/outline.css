@@ -114,6 +114,11 @@
   color: white;
 }
 
+#loginBtn {
+  background: green;
+  color: white;
+}
+
 .loginForm {
   width: 100%;
   display: flex;
@@ -145,16 +150,17 @@
     flex-direction: row;
     justify-content: space-between;
     width: 30%;
+    margin: 0px;
+    font-size: .8em;
   }
 
   .linkTags {
     flex-direction: row;
     justify-content: space-between;
-    width: 20%;
   }
 
   .linkTags a {
-    font-size: 1.1em;
+    font-size: .8em;
     font-weight: bold;
     margin-right: 7px;
   }

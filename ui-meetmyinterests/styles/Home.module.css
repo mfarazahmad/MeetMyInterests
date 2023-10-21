@@ -211,6 +211,7 @@
   .main {
     padding-left: 0px;
     justify-content: flex-start;
+    height: auto;
   }
 
   .pitch {

@@ -64,6 +64,7 @@ const Navbar = (props: Props) => {
                     <Link href="/fitness"><a>Fitness</a></Link>
                 }
             </div>
+            
             <div className='social'>
                 <a href="https://www.linkedin.com/in/mfarazahmad/">
                     <img src={"/images/linkedin_logo.webp"} alt="linkedin" />
