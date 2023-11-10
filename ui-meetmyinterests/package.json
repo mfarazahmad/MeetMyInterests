@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "antd": "^4.17.4",
-    "axios": "^0.24.0",
+    "axios": "^1.6.0",
     "draft-js": "^0.11.7",
     "draft-js-export-html": "^1.4.1",
     "draft-js-import-html": "^1.4.1",
