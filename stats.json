@@ -1,0 +1,272 @@
+{
+  "CHATTAHOOCHEE RIVER NEAR BUFORD, GA": {
+    "latitude": 34.12621057,
+    "longitude": -84.0935233,
+    "variables": {
+      "waterTemp": {
+        "value": 52.34,
+        "date": "2024-07-22T09:45:00.000-04:00",
+        "passed": false,
+        "recommended": "above 60\u00b0F"
+      },
+      "gageHeight": {
+        "value": "5.72",
+        "date": "2024-07-22T09:45:00.000-04:00",
+        "passed": true,
+        "recommended": "varies"
+      },
+      "clarity": {
+        "value": "1.3",
+        "date": "2024-07-22T09:45:00.000-04:00",
+        "passed": true,
+        "recommended": "low turbidity"
+      }
+    }
+  },
+  "CHATTAHOOCHEE R 0.96 MI US MCGINNIS FY SUWANEE GA": {
+    "latitude": 34.0588333,
+    "longitude": -84.1106944,
+    "variables": {
+      "waterTemp": {
+        "value": "55.4",
+        "date": "2024-07-22T10:00:00.000-04:00",
+        "passed": false,
+        "recommended": "above 60\u00b0F"
+      }
+    }
+  },
+  "CHATTAHOOCHEE R 0.76 MI US MCGINNIS FY SUWANEE GA": {
+    "latitude": 34.0567222,
+    "longitude": -84.1083333,
+    "variables": {
+      "waterTemp": {
+        "value": "55.2",
+        "date": "2024-07-22T09:30:00.000-04:00",
+        "passed": false,
+        "recommended": "above 60\u00b0F"
+      },
+      "precipitation": {
+        "value": "0.00",
+        "date": "2017-10-02T08:30:00.000-04:00",
+        "passed": true,
+        "recommended": "minimal recent rainfall"
+      },
+      "discharge": {
+        "value": "741",
+        "date": "2024-07-22T09:30:00.000-04:00",
+        "passed": true,
+        "recommended": "below 5000 cfs"
+      },
+      "gageHeight": {
+        "value": "1.84",
+        "date": "2024-07-22T09:30:00.000-04:00",
+        "passed": true,
+        "recommended": "varies"
+      }
+    }
+  },
+  "CHATTAHOOCHEE R 0.5 MI US MCGINNIS FY SUWANEE, GA": {
+    "latitude": 34.05388889,
+    "longitude": -84.1052778,
+    "variables": {
+      "waterTemp": {
+        "value": 55.4,
+        "date": "2024-07-22T10:00:00.000-04:00",
+        "passed": false,
+        "recommended": "above 60\u00b0F"
+      }
+    }
+  },
+  "CHATTAHOOCHEE RIVER NEAR NORCROSS, GA": {
+    "latitude": 33.9972222,
+    "longitude": -84.2019444,
+    "variables": {
+      "waterTemp": {
+        "value": 56.120000000000005,
+        "date": "2024-07-22T10:15:00.000-04:00",
+        "passed": false,
+        "recommended": "above 60\u00b0F"
+      },
+      "precipitation": {
+        "value": "0.00",
+        "date": "2024-07-22T10:15:00.000-04:00",
+        "passed": true,
+        "recommended": "minimal recent rainfall"
+      },
+      "discharge": {
+        "value": "1430",
+        "date": "2024-07-22T10:15:00.000-04:00",
+        "passed": true,
+        "recommended": "below 5000 cfs"
+      },
+      "gageHeight": {
+        "value": "2.81",
+        "date": "2024-07-22T10:15:00.000-04:00",
+        "passed": true,
+        "recommended": "varies"
+      },
+      "clarity": {
+        "value": "5.4",
+        "date": "2024-07-22T10:15:00.000-04:00",
+        "passed": false,
+        "recommended": "low turbidity"
+      },
+      "eColi": {
+        "value": "240",
+        "date": "2024-07-22T10:15:00.000-04:00",
+        "passed": false,
+        "recommended": "below 235 colonies/100mL"
+      }
+    }
+  },
+  "CHATTAHOOCHEE R 0.09 MI DS GA140, ALPHARETTA, GA": {
+    "latitude": 33.9732222,
+    "longitude": -84.26425,
+    "variables": {
+      "waterTemp": {
+        "value": 61.7,
+        "date": "2024-07-22T10:15:00.000-04:00",
+        "passed": true,
+        "recommended": "above 60\u00b0F"
+      }
+    }
+  },
+  "CHATTAHOOCHEE R 0.39 MI DS GA140, ALPHARETTA, GA": {
+    "latitude": 33.97305556,
+    "longitude": -84.26888889,
+    "variables": {
+      "waterTemp": {
+        "value": 61.88,
+        "date": "2024-07-22T10:00:00.000-04:00",
+        "passed": true,
+        "recommended": "above 60\u00b0F"
+      }
+    }
+  },
+  "CHATTAHOOCHEE R 0.47 MI DS GA140, ALPHARETTA, GA": {
+    "latitude": 33.9733333,
+    "longitude": -84.27,
+    "variables": {
+      "waterTemp": {
+        "value": 62.6,
+        "date": "2024-07-22T09:30:00.000-04:00",
+        "passed": true,
+        "recommended": "above 60\u00b0F"
+      }
+    }
+  },
+  "CHATTAHOOCHEE RIVER ABOVE ROSWELL, GA": {
+    "latitude": 33.98580556,
+    "longitude": -84.3156944,
+    "variables": {
+      "waterTemp": {
+        "value": 61.519999999999996,
+        "date": "2024-07-22T10:00:00.000-04:00",
+        "passed": true,
+        "recommended": "above 60\u00b0F"
+      },
+      "discharge": {
+        "value": "1590",
+        "date": "2024-07-22T10:00:00.000-04:00",
+        "passed": true,
+        "recommended": "below 5000 cfs"
+      },
+      "gageHeight": {
+        "value": "3.79",
+        "date": "2024-07-22T10:00:00.000-04:00",
+        "passed": true,
+        "recommended": "varies"
+      }
+    }
+  },
+  "CHATTAHOOCHEE R 0.27 MI US WILLEO CR, ROSWELL, GA": {
+    "latitude": 33.99666667,
+    "longitude": -84.3844444,
+    "variables": {
+      "waterTemp": {
+        "value": 65.12,
+        "date": "2024-07-22T10:00:00.000-04:00",
+        "passed": true,
+        "recommended": "above 60\u00b0F"
+      }
+    }
+  },
+  "CHATTAHOOCHEE R 0.25 MI US WILLEO CR, ROSWELL, GA": {
+    "latitude": 33.99638889,
+    "longitude": -84.3844444,
+    "variables": {
+      "waterTemp": {
+        "value": 64.75999999999999,
+        "date": "2024-07-22T10:00:00.000-04:00",
+        "passed": true,
+        "recommended": "above 60\u00b0F"
+      }
+    }
+  },
+  "CHATTAHOOCHEE R .18 MI US WILLEO CR, ROSWELL, GA": {
+    "latitude": 33.99527778,
+    "longitude": -84.3844444,
+    "variables": {
+      "waterTemp": {
+        "value": 64.75999999999999,
+        "date": "2024-07-22T10:00:00.000-04:00",
+        "passed": true,
+        "recommended": "above 60\u00b0F"
+      }
+    }
+  },
+  "CHATTAHOOCHEE RIVER AT MORGAN FALLS DAM, GA": {
+    "latitude": 33.9683333,
+    "longitude": -84.3827778,
+    "variables": {
+      "airTempC": {
+        "value": "25.1",
+        "date": "2024-07-22T10:00:00.000-04:00",
+        "passed": true,
+        "recommended": "varies"
+      },
+      "windSpeed": {
+        "value": "4.8",
+        "date": "2024-07-22T10:00:00.000-04:00",
+        "passed": true,
+        "recommended": "below 15 mph"
+      },
+      "precipitation": {
+        "value": "0.00",
+        "date": "2017-10-05T08:15:00.000-04:00",
+        "passed": true,
+        "recommended": "minimal recent rainfall"
+      },
+      "humidity": {
+        "value": "72.1",
+        "date": "2024-07-22T10:00:00.000-04:00",
+        "passed": true,
+        "recommended": "varies"
+      }
+    }
+  },
+  "CHATTAHOOCHEE RIVER BELOW MORGAN FALLS DAM, GA": {
+    "latitude": 33.96775,
+    "longitude": -84.3836667,
+    "variables": {
+      "waterTemp": {
+        "value": 63.32,
+        "date": "2022-06-06T10:15:00.000-04:00",
+        "passed": true,
+        "recommended": "above 60\u00b0F"
+      },
+      "discharge": {
+        "value": "1100",
+        "date": "2024-07-22T10:15:00.000-04:00",
+        "passed": true,
+        "recommended": "below 5000 cfs"
+      },
+      "gageHeight": {
+        "value": "811.32",
+        "date": "2024-07-22T10:15:00.000-04:00",
+        "passed": true,
+        "recommended": "varies"
+      }
+    }
+  }
+}
