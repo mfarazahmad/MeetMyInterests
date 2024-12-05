@@ -1,6 +1,7 @@
 module.exports = {
   experimental: {
-    outputStandalone: true,
+    esmExternals: 'loose',
   },
   reactStrictMode: false,
-}
+  output: 'standalone',
+};

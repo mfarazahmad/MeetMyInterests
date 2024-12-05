@@ -71,7 +71,7 @@ const Fitness = (props) => {
         <LoginContext.Consumer >
             {value =>
                 <div>
-                    {value.isLoggedIn ? (
+                    {!value.isLoggedIn ? (
                         <Outline>
                             <div className={styles.container}>
                                 <h1>Fitness Tracker</h1>

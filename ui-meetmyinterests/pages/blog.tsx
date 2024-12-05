@@ -57,7 +57,7 @@ const Blog = () => {
                 <h1 className={styles.header}>BLOG</h1>
 
                 <LoginContext.Consumer >
-                    {value => value.isLoggedIn && (
+                    {value => !value.isLoggedIn && (
                         <button
                             className={styles.newPostBtn}
                             onClick={handleNewBlogView}

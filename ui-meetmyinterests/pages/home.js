@@ -364,7 +364,7 @@ const Home = (props) => {
                     <h1 className={styles.header}>Hello, my name is Faraz!</h1>
                     <h3 className={styles.header3}>Pleased to meet you.</h3>
 
-                    <Link href="/projects" passHref>
+                    <Link href="/projects">
                         <button className={styles.button}>Click Here to Learn More!</button>
                     </Link>
                 </div> */}

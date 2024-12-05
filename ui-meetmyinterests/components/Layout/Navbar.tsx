@@ -28,9 +28,9 @@ const Navbar = (props: Props) => {
                     Welcome, <strong>{props.username}</strong>
                 </div>
                 <div>
-                    {props.isLoggedIn &&
+                    {!props.isLoggedIn &&
                         <Badge count={1}>
-                            <Link href="/dashboard" passHref>
+                            <Link href="/dashboard">
                                 <Avatar style={{ backgroundColor: 'red', verticalAlign: 'middle' }} shape="square" size="large" gap={5}>
                                     Dash
                                 </Avatar>
@@ -56,12 +56,13 @@ const Navbar = (props: Props) => {
             }
 
             <div className='linkTags'>
-                <Link href="/"><a>Home</a></Link>
-                <Link href="/projects"><a>Projects</a></Link>
-                <Link href="/blog"><a>Blog</a></Link>
+                <Link href="/">Home</Link>
+                <Link href="/projects">Projects</Link>
+                <Link href="/blog">Blog</Link>
+                <Link href="/history">History</Link>
 
-                {props.isLoggedIn &&
-                    <Link href="/fitness"><a>Fitness</a></Link>
+                {!props.isLoggedIn &&
+                    <Link href="/fitness">Fitness</Link>
                 }
             </div>
             

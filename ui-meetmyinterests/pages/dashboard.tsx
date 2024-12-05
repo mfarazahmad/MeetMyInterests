@@ -11,7 +11,7 @@ const Dashboard = (props) => {
         <LoginContext.Consumer >
             {value =>
                 <div>
-                    {value.isLoggedIn ? (
+                    {!value.isLoggedIn ? (
                         <Outline>
                             <div className={styles.main}>
                                 TEST
