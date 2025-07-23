@@ -31,7 +31,41 @@ class Database():
         log.info("Database connection closed")
     
     def createTables(self):
-        pass
+        """Create all tables defined in the table modules"""
+        log.info("Creating database tables...")
+        
+        # Analytics tables
+        self.executeQuery(CREATE_USER_TABLE, "create")
+        self.executeQuery(CREATE_USER_SESSIONS_TABLE, "create")
+        self.executeQuery(CREATE_USER_ACTIVITY_TABLE, "create")
+        self.executeQuery(CREATE_ANALYTICS_EVENTS_TABLE, "create")
+        
+        # Blog tables
+        self.executeQuery(CREATE_BLOG_POSTS_TABLE, "create")
+        self.executeQuery(CREATE_BLOG_ANALYTICS_TABLE, "create")
+        self.executeQuery(CREATE_BLOG_ENGAGEMENT_TABLE, "create")
+        self.executeQuery(CREATE_BLOG_CATEGORIES_TABLE, "create")
+        
+        # Fitness tables
+        self.executeQuery(CREATE_FITNESS_PROGRAMS_TABLE, "create")
+        self.executeQuery(CREATE_FITNESS_EXERCISES_TABLE, "create")
+        self.executeQuery(CREATE_FITNESS_PROGRAM_EXERCISES_TABLE, "create")
+        self.executeQuery(CREATE_FITNESS_WORKOUTS_TABLE, "create")
+        self.executeQuery(CREATE_FITNESS_EXERCISE_LOGS_TABLE, "create")
+        self.executeQuery(CREATE_FITNESS_MEASUREMENTS_TABLE, "create")
+        self.executeQuery(CREATE_FITNESS_EQUIPMENT_TABLE, "create")
+        self.executeQuery(CREATE_FITNESS_BANDS_TABLE, "create")
+        self.executeQuery(CREATE_FITNESS_GOALS_TABLE, "create")
+        self.executeQuery(CREATE_FITNESS_NUTRITION_TABLE, "create")
+        
+        # Media tables
+        self.executeQuery(CREATE_MEDIA_MOVIES_TABLE, "create")
+        self.executeQuery(CREATE_MEDIA_GAMES_TABLE, "create")
+        self.executeQuery(CREATE_MEDIA_CONSUMPTION_TABLE, "create")
+        self.executeQuery(CREATE_MEDIA_PLATFORMS_TABLE, "create")
+        self.executeQuery(CREATE_MEDIA_ANALYTICS_TABLE, "create")
+        
+        log.info("All tables created successfully")
 
     def validateTables(self):
         for _, tables in TABLES_MANIFEST.items():

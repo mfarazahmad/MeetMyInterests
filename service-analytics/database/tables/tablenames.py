@@ -8,15 +8,33 @@ SELECT EXISTS (
 TABLES_MANIFEST = {
     "analytics": [
         "users", 
+        "user_sessions",
+        "user_activity",
+        "analytics_events"
     ],
     "blog": [
-        "users", 
+        "blog_posts",
+        "blog_analytics", 
+        "blog_engagement",
+        "blog_categories"
     ],
     "fitness": [
-        "workouts", 
-        "programs",
+        "fitness_programs",
+        "fitness_exercises",
+        "fitness_program_exercises", 
+        "fitness_workouts",
+        "fitness_exercise_logs",
+        "fitness_measurements",
+        "fitness_equipment",
+        "fitness_bands",
+        "fitness_goals",
+        "fitness_nutrition"
     ],
     "media": [
-        "movies"
+        "media_movies",
+        "media_games",
+        "media_consumption",
+        "media_platforms",
+        "media_analytics"
     ],
 }
